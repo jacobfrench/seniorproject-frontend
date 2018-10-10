@@ -1,14 +1,8 @@
 import React from 'react';
-import {
-	StyleSheet,
-	View,
-	ScrollView,
-	TextInput
-} from 'react-native';
+import { StyleSheet, View, ScrollView, TextInput } from 'react-native';
 import { store } from 'app/src/redux/store';
 import { Button } from 'app/src/components/common/Button';
 import api from "app/src/api";
-
 
 class BusinessEditScreen extends React.Component {
 	constructor(props) {
@@ -27,8 +21,7 @@ class BusinessEditScreen extends React.Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
-
+			<SafeAreaView style={styles.container}>
 				<ScrollView style={styles.body}>
 					<View style={styles.textInputContainer}>
 						<TextInput
@@ -59,7 +52,6 @@ class BusinessEditScreen extends React.Component {
 						/>
 					</View>
 				</ScrollView>
-
 				<View style={styles.footer}>
 					<Button
 						text='Save'
@@ -67,8 +59,7 @@ class BusinessEditScreen extends React.Component {
 						style={styles.saveButton}
 					/>
 				</View>
-
-			</View>
+			</SafeAreaView>
 		);
 	}
 }
@@ -104,14 +95,11 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center'
-
 	},
 	footer: {
-		flex: 1,
 		flexDirection: 'row',
 		flex: 0.1
 	}
-
 });
 
 const mapStateToProps = state => {
@@ -122,4 +110,3 @@ const mapStateToProps = state => {
 };
 
 export default BusinessEditScreen;
-
