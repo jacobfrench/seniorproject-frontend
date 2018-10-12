@@ -40,12 +40,12 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   body: {
-    backgroundColor: theme.text,
+    backgroundColor: theme.onPrimary,
     width: '100%',
   },
   name:{
     fontSize: 18,
-    color: theme.text,
+    color: theme.onPrimary,
     paddingTop: 10
   }
 });

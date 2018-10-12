@@ -51,7 +51,7 @@ export default class SignUpScreen extends React.Component {
     return (
       <LinearGradient
         style={styles.linearGradient}
-        colors={[theme.primary, theme.primary_dark]}
+        colors={[theme.primary, theme.primaryVariant]}
       >
         <KeyboardAvoidingView
           style={styles.inputContainer}
@@ -66,35 +66,35 @@ export default class SignUpScreen extends React.Component {
             style={styles.inputUsername}
             onChangeText={text => this.setState({ email: text })}
             keyboardType="email-address"
-            selectionColor={theme.text}
+            selectionColor={theme.onPrimary}
           />
           <IconTextInput
             placeholder="First Name"
             style={styles.inputUsername}
             onChangeText={text => this.setState({ firstName: text })}
             keyboardType="email-address"
-            selectionColor={theme.text}
+            selectionColor={theme.onPrimary}
           />
           <IconTextInput
             placeholder="Last Name"
             style={styles.inputUsername}
             onChangeText={text => this.setState({ lastName: text })}
             keyboardType="email-address"
-            selectionColor={theme.text}
+            selectionColor={theme.onPrimary}
           />
           <IconTextInput
             placeholder="Password"
             secureTextEntry
             style={styles.inputPassword}
             onChangeText={text => this.setState({ password: text })}
-            selectionColor={theme.text}
+            selectionColor={theme.onPrimary}
           />
           <IconTextInput
             placeholder="Confirm Password"
             secureTextEntry
             style={styles.inputPassword}
             onChangeText={text => this.setState({ confirmPassword: text })}
-            selectionColor={theme.text}
+            selectionColor={theme.onPrimary}
           />
         </KeyboardAvoidingView>
 
@@ -143,24 +143,24 @@ const styles = StyleSheet.create({
   },
   inputUsername: {
     marginBottom: 20,
-    borderColor: theme.text
+    borderColor: theme.onPrimary
   },
   inputPassword: {
-    borderColor: theme.text,
+    borderColor: theme.onPrimary,
     marginBottom: 20
   },
   signInButton: {
     padding: 15,
     backgroundColor: "transparent",
     borderRadius: 100,
-    borderColor: theme.accent,
+    borderColor: theme.secondary,
     borderWidth: 1,
     width: "45%",
     marginRight: 5,
     elevation: 1
   },
   signUpButton: {
-    backgroundColor: theme.selected,
+    backgroundColor: theme.onSecondary,
     borderRadius: 100,
     width: "85%",
     marginLeft: 5,
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 32,
-    color: theme.text,
+    color: theme.onPrimary,
     marginTop: 25,
     marginBottom: 35
   },
@@ -205,14 +205,14 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent"
   },
   facebookButton: {
-    backgroundColor: theme.social.facebook,
+    backgroundColor: 'blue',
     marginRight: 10,
     elevation: 1,
     padding: 10,
     borderRadius: 10
   },
   googleButton: {
-    backgroundColor: theme.social.googleplus,
+    backgroundColor: 'blue',
     marginLeft: 10,
     elevation: 1,
     padding: 10,

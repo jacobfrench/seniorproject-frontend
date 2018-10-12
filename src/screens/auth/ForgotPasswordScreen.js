@@ -15,7 +15,7 @@ export default class ForgotPasswordScreen extends React.Component {
     return (
       <LinearGradient
         style={styles.linearGradient}
-        colors={[theme.primary, theme.primary_dark]}
+        colors={[theme.primary, theme.primaryVariant]}
       >
         <Text>Forgot password screen </Text>
 

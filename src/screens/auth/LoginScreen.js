@@ -39,7 +39,7 @@ class LoginScreen extends React.Component {
     return (
       <LinearGradient
         style={styles.linearGradient}
-        colors={[theme.primary, theme.primary_dark]}
+        colors={[theme.primary, theme.primaryVariant]}
       >
         <View style={styles.header}>
           <Image source={logo2} resizeMode='contain' />
@@ -104,16 +104,16 @@ const styles = StyleSheet.create({
   },
   inputUsername: {
     marginBottom: 20,
-    borderColor: theme.text
+    borderColor: theme.onPrimary
   },
   inputPassword: {
-    borderColor: theme.text,
+    borderColor: theme.onPrimary,
     marginBottom: 20
   },
   signInButton: {
     backgroundColor: 'transparent',
     borderRadius: 100,
-    borderColor: theme.text,
+    borderColor: theme.onPrimary,
     borderWidth: 2,
     width: '45%',
     marginRight: 5,

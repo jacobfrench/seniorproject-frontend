@@ -18,8 +18,8 @@ export default class IconTextInput extends React.Component {
                     {...this.props}
                     underlineColorAndroid='transparent'
                     style={[styles.input, styles.inputFont]}
-                    placeholderTextColor={theme.text}
-                    selectionColor={theme.text}
+                    placeholderTextColor={theme.onPrimary}
+                    selectionColor={theme.onPrimary}
                 />
             </View>
         );
@@ -34,7 +34,7 @@ IconTextInput.propTypes = {
 const theme = store.getState().settings.theme;
 const styles = StyleSheet.create({
     inputFont: {
-      color: theme.text,
+      color: theme.onPrimary,
     },
     input: {
       fontSize: 18,

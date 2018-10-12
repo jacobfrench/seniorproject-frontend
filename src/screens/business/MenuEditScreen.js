@@ -6,6 +6,7 @@ import { Button } from 'app/src/components/common/Button';
 import { Input } from 'react-native-elements'
 
 
+
 class MenuEditScreen extends React.Component {
 	constructor(props) {
 		super(props);
@@ -39,8 +40,8 @@ class MenuEditScreen extends React.Component {
 				</Modal>
 
 				<FAB
-					buttonColor={theme.primary}
-					iconTextColor="#FFFFFF"
+					buttonColor={theme.secondary}
+					iconTextColor={theme.onSecondary}
 					onClickAction={() => this.setState({ modalVisible: true })}
 					visible={true}
 				/>

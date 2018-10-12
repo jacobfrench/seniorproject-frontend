@@ -42,7 +42,7 @@ const theme = store.getState().settings.theme;
 const styles = StyleSheet.create({
   textStyle: {
     fontSize: 18,
-    color: theme.text,
+    color: theme.onPrimary,
     textAlign: "center",
     padding: 10
   },

@@ -98,18 +98,18 @@ module.exports = {
   },
 
 
-  theme:{
-    primary: '',
-    primaryVariant: '',
-    secondary: '',
-    secondaryVariant: '',
-    background: '',
-    surface: '',
-    error: '',
-    onPrimary: '',
-    onSecondary: '',
-    onBackground: '',
-    onSurface: '',
-    onError: ''
+  material:{
+    primary: '#2980b9',
+    primaryVariant: '#3498db',
+    secondary: '#e74c3c',
+    secondaryVariant: '#D84315',
+    background: '#ecf0f1',
+    surface: '#FAFAFA',
+    error: '#C51162',
+    onPrimary: '#FAFAFA',
+    onSecondary: '#FAFAFA',
+    onBackground: '#263238',
+    onSurface: '#263238',
+    onError: '#FAFAFA'
   }
 };

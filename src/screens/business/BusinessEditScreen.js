@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	scrollview: {
-		backgroundColor: theme.text,
+		backgroundColor: theme.onPrimary,
 		flex: 1
 	},
 	input: {
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
 		padding: 5
 	},
 	saveButton: {
-		backgroundColor: theme.primary_dark,
+		backgroundColor: theme.primaryVariant,
 		margin: 5,
 		alignItems: 'center',
 		justifyContent: 'center',

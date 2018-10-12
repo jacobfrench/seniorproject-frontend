@@ -24,10 +24,10 @@ const theme = store.getState().settings.theme;
 
 const styles = {
   mainHeader: {
-    backgroundColor: theme.primary_dark
+    backgroundColor: theme.primaryVariant
   },
   mainHeaderTitle: {
-    color: theme.text
+    color: theme.onPrimary
   }    
 };
 
@@ -61,7 +61,7 @@ const NearbyStack = createStackNavigator({
       headerStyle: styles.mainHeader,
       headerTitleStyle: styles.mainHeaderTitle,
       headerLeft: (
-        <HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.text}>
+        <HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.onPrimary}>
             <HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
         </HeaderButtons>
 
@@ -78,7 +78,7 @@ const FavoritesStack = createStackNavigator({
       headerStyle: styles.mainHeader,
       headerTitleStyle: styles.mainHeaderTitle,
       headerLeft: (
-        <HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.text}>
+        <HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.onPrimary}>
             <HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
         </HeaderButtons>
       ),
@@ -94,7 +94,7 @@ const MapStack = createStackNavigator({
       headerStyle: styles.mainHeader,
       headerTitleStyle: styles.mainHeaderTitle,
       headerLeft: (
-        <HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.text}>
+        <HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.onPrimary}>
             <HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
         </HeaderButtons>
 
@@ -125,7 +125,7 @@ const TabNav = createBottomTabNavigator({
   }
 }, {
   tabBarOptions: {
-    activeTintColor: theme.primary_dark
+    activeTintColor: theme.primaryVariant
   },
   initialRouteName: 'Nearby'
 });
@@ -152,7 +152,7 @@ const BusinessEditTabs = createBottomTabNavigator({
   },
 }, {
   tabBarOptions: {
-    activeTintColor: theme.primary_dark
+    activeTintColor: theme.primaryVariant
   },
   initialRouteName: 'About'
 });
@@ -165,7 +165,7 @@ const BusinessStack = createStackNavigator({
     headerStyle: styles.mainHeader,
     headerTitleStyle: styles.mainHeaderTitle,
     headerLeft: (
-      <HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.text}>
+      <HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.onPrimary}>
           <HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
       </HeaderButtons>
     ),
@@ -181,7 +181,7 @@ const SettingsStack = createStackNavigator({
       headerStyle: styles.mainHeader,
       headerTitleStyle: styles.mainHeaderTitle,
       headerLeft: (
-        <HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.text}>
+        <HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.onPrimary}>
           <HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
         </HeaderButtons>
       ),
@@ -195,22 +195,22 @@ const MainNav = createDrawerNavigator({
     Home: { 
       screen: Home, 
       navigationOptions: {
-        drawerIcon: (<Ionicons name='md-home' size={24} color={theme.text}/>),
-        tintColor: theme.text 
+        drawerIcon: (<Ionicons name='md-home' size={24} color={theme.onBackground}/>),
+        tintColor: theme.onBackground 
       }
     },
     Business: {
        screen: BusinessStack,
        navigationOptions: {
-        drawerIcon: (<Ionicons name='md-briefcase' size={24} color={theme.text}/>),
-        tintColor: theme.text 
+        drawerIcon: (<Ionicons name='md-briefcase' size={24} color={theme.onBackground}/>),
+        tintColor: theme.onBackground 
       }
     },
     Settings: { 
       screen: SettingsStack, 
       navigationOptions: {
-        drawerIcon: (<Ionicons name='md-settings' size={24} color={theme.text}/>),
-        activeTintColor: theme.text,
+        drawerIcon: (<Ionicons name='md-settings' size={24} color={theme.onBackground}/>),
+        activeTintColor: theme.onBackground,
       }
     },
   },

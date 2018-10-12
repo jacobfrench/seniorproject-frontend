@@ -1,11 +1,19 @@
 import React from "react";
-import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Image,
+  TouchableOpacity
+} from "react-native";
 import { DrawerItems, SafeAreaView } from "react-navigation";
-import { store } from 'app/src/redux/store';
+import { store } from "app/src/redux/store";
 import { logoutUser, revokeAuthToken } from "app/src/redux/actions";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import {connect} from 'react-redux';
-import {LinearGradient} from 'expo';
+import { connect } from "react-redux";
+import { Avatar } from "react-native-elements";
+import { LinearGradient } from "expo";
 
 class CustomDrawerContentComponent extends React.Component {
   constructor(props) {
@@ -24,64 +32,63 @@ class CustomDrawerContentComponent extends React.Component {
       <SafeAreaView
         style={styles.container}
         forceInset={{ top: "always", horizontal: "never" }}
-
       >
-
-      <LinearGradient
+        <View
           style={styles.container}
-          colors={[theme.primary, theme.primary_dark]}
         >
-        <View style={styles.header}>
-          <Image
-            style={styles.image}
-            source={require("app/assets/icons/person.png")}
-          />
-          <View style={styles.headerTextContainer}>
-            <Text style={styles.name}>
-              {userInfo.firstName} {userInfo.lastName}
-            </Text>
-            <Text style={styles.email}>{userInfo.username}</Text>
+          <View style={styles.header}>
+            <Avatar
+              style={styles.avatar}
+              medium
+              source={{
+                uri:
+                  "https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg"
+              }}
+              onPress={() => console.log("Works!")}
+              activeOpacity={0.7}
+            />
+            <View style={styles.headerTextContainer}>
+              <Text style={styles.name}>
+                {userInfo.firstName} {userInfo.lastName}
+              </Text>
+              <Text style={styles.email}>{userInfo.username}</Text>
+            </View>
+          </View>
+
+          <ScrollView style={styles.body}>
+            <DrawerItems
+              style={styles.drawerItems}
+              activeTintColor={theme.onPrimary}
+              inactiveTintColor={theme.onBackground}
+              activeBackgroundColor={theme.primary}
+              {...this.props}
+            />
+          </ScrollView>
+          <View style={styles.footer}>
+            <TouchableOpacity
+              style={styles.logoutButton}
+              onPress={this.signOut.bind(this)}
+            >
+              <Ionicons name="md-log-out" size={24} color={theme.error} />
+              <Text style={styles.logoutButtonText}>Logout</Text>
+            </TouchableOpacity>
           </View>
         </View>
-
-        <ScrollView style={styles.body}>
-          <DrawerItems 
-            style={styles.drawerItems}
-            activeTintColor={theme.text}
-            inactiveTintColor={theme.selected}
-            activeBackgroundColor={theme.selected}
-            
-            {...this.props} 
-            />
-        </ScrollView>
-        <View style={styles.footer}>
-          <TouchableOpacity 
-          style={styles.logoutButton}
-          onPress={this.signOut.bind(this)}
-          >
-            <Ionicons name="md-log-out" size={24} color={theme.danger}/>          
-            <Text style={styles.logoutButtonText}>Logout</Text>
-          </TouchableOpacity>
-        </View>
-        </LinearGradient>
       </SafeAreaView>
     );
   }
 
-  
   signOut() {
     this.props.revokeAuthToken();
     this.props.logoutUser();
   }
-
-
 }
 
 const theme = store.getState().settings.theme;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.primary
+    backgroundColor: theme.background
   },
   header: {
     height: "25%",
@@ -89,28 +96,29 @@ const styles = StyleSheet.create({
     elevation: 10,
     alignItems: "flex-start",
     justifyContent: "flex-start",
-    flexDirection: "column"
+    flexDirection: "column",
+    elevation: 10
   },
   body: {
-    backgroundColor: 'transparent'
+    backgroundColor: "transparent"
   },
   footer: {
     height: "15%",
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     alignItems: "flex-start",
     justifyContent: "flex-end",
-    flexDirection: 'column'
+    flexDirection: "column"
   },
-  image: {
+  avatar: {
     margin: 10,
     width: 80,
-    height: 80
+    height: 80,
   },
   logoutButton: {
     backgroundColor: "transparent",
-    flexDirection: 'row',
+    flexDirection: "row",
     margin: 10,
-    justifyContent: 'center'
+    justifyContent: "center"
   },
   logoutButtonText: {
     color: theme.danger,
@@ -118,15 +126,15 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   drawerItems: {
-    backgroundColor: theme.primary_dark,
+    backgroundColor: theme.primaryVariant
   },
   name: {
     fontSize: 16,
-    color: theme.selected,
+    color: theme.selected
   },
   email: {
     fontSize: 14,
-    color: theme.selected,
+    color: theme.selected
   },
   headerTextContainer: {
     marginLeft: 10
