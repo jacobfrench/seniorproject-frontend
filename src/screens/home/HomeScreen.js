@@ -20,7 +20,6 @@ class HomeScreen extends React.Component {
       <ScrollView style={styles.body}>
         <Text>Content goes here.</Text>
       </ScrollView>
-
     </View>
     );
   }

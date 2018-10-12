@@ -10,7 +10,8 @@ import {
   HomeScreen,
   ForgotPasswordScreen,
   SettingsScreen,
-  BusinessEditScreen          
+  BusinessEditScreen,
+  MenuEditScreen
 } from 'app/src/screens';
 
 import {
@@ -102,7 +103,7 @@ const MapStack = createStackNavigator({
   }
 });
 
-//BottomTabNavigator
+//Home page navigator ======================================================================================================
 const TabNav = createBottomTabNavigator({
   Nearby: {
     screen: NearbyStack,
@@ -135,6 +136,43 @@ const Home = createStackNavigator({
   headerMode: 'none'
 });
 
+//Business page navigator ====================================================================================================
+const BusinessEditTabs = createBottomTabNavigator({
+  About: {
+    screen: BusinessEditScreen,
+    navigationOptions: {
+      tabBarIcon: ({focused, tintColor}) => <Ionicons name='md-information-circle' size={24} color={tintColor}/>
+    }
+  },
+  Menu: {
+    screen: MenuEditScreen,
+    navigationOptions: {
+      tabBarIcon: ({focused, tintColor}) => <Ionicons name='md-book' size={24} color={tintColor}/>
+    }
+  },
+}, {
+  tabBarOptions: {
+    activeTintColor: theme.primary_dark
+  },
+  initialRouteName: 'About'
+});
+
+const BusinessStack = createStackNavigator({
+  Tabs: BusinessEditTabs
+}, {
+  navigationOptions: ({ navigation }) => ({
+    title: 'Info',
+    headerStyle: styles.mainHeader,
+    headerTitleStyle: styles.mainHeaderTitle,
+    headerLeft: (
+      <HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.text}>
+          <HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
+      </HeaderButtons>
+    ),
+  })
+});
+
+//Settings Nav======================================================================================================
 const SettingsStack = createStackNavigator({
   Settings: { 
     screen: SettingsScreen,
@@ -151,21 +189,7 @@ const SettingsStack = createStackNavigator({
   }
 });
 
-const BusinessStack = createStackNavigator({
-  BusinessEdit: {
-    screen: BusinessEditScreen,
-    navigationOptions: ({ navigation }) => ({
-      title: 'My Business',
-      headerStyle: styles.mainHeader,
-      headerTitleStyle: styles.mainHeaderTitle,
-      headerLeft: (
-        <HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.text}>
-          <HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
-        </HeaderButtons>
-      ),
-  })
-  }
-});
+
 
 const MainNav = createDrawerNavigator({
     Home: { 
@@ -175,7 +199,7 @@ const MainNav = createDrawerNavigator({
         tintColor: theme.text 
       }
     },
-    BusinessPage:{
+    Business: {
        screen: BusinessStack,
        navigationOptions: {
         drawerIcon: (<Ionicons name='md-briefcase' size={24} color={theme.text}/>),
