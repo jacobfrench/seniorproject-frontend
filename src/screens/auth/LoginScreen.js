@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 }
   },
   signUpButton: {
-    backgroundColor: theme.selected,
+    backgroundColor: theme.secondary,
     borderRadius: 100,
     width: '45%',
     marginLeft: 5,
