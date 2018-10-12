@@ -2,7 +2,11 @@ import { CHANGE_THEME } from "app/src/redux/actions/types";
 import { blues, flare, mojito, dtf, blueraspberry, ohhappiness, test } from 'app/src/constants/Colors';
 
 const INITIAL_STATE = {
+<<<<<<< HEAD
   theme: dtf
+=======
+  theme: blues
+>>>>>>> feature/feature_amber
 };
 
 export default (state = INITIAL_STATE, action) => {
