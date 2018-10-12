@@ -4,4 +4,4 @@ export SignUpScreen from './auth/SignUpScreen';
 export HomeScreen from './home/HomeScreen';
 export BusinessEditScreen from './business/BusinessEditScreen';
 export SettingsScreen from './settings/SettingsScreen';
-
+export MenuEditScreen from './business/MenuEditScreen';

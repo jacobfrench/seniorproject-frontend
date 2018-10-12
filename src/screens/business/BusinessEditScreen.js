@@ -1,22 +1,22 @@
 import React from 'react';
-import {
-	StyleSheet,
-	View,
-	ScrollView,
-	TextInput
-} from 'react-native';
+import { StyleSheet, View, ScrollView, SafeAreaView, KeyboardAvoidingView } from 'react-native';
 import { store } from 'app/src/redux/store';
 import { Button } from 'app/src/components/common/Button';
-import api from "app/src/api";
-
+import { Input } from 'react-native-elements'
+import api from 'app/src/api';
 
 class BusinessEditScreen extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			name: '',
-			address: '',
-			phoneNum: '',
+			about: '',
+			street: '',
+			city: '',
+			state: '',
+			zip: '',
+			primaryPhone: '',
+			altPhone: '',
 			email: '',
 		}
 	}
@@ -27,48 +27,79 @@ class BusinessEditScreen extends React.Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
+			<SafeAreaView style={styles.container}>
+				<KeyboardAvoidingView style={styles.textInputContainer} behavior={'padding'} enabled>
+					<ScrollView style={styles.scrollview}>
+						<View style={styles.textInputContainer}>
 
-				<ScrollView style={styles.body}>
-					<View style={styles.textInputContainer}>
-						<TextInput
-							style={styles.textinput}
-							placeholder={'Name'}
-							underlineColorAndroid={'transparent'}
-							onChangeText={(name) => this.setState({ name })}
-						/>
-						<TextInput
-							style={styles.textinput}
-							placeholder={'Address'}
-							underlineColorAndroid={'transparent'}
-							onChangeText={(text) => this.setState({ address: text })}
-						/>
-						<TextInput
-							style={styles.textinput}
-							keyboardType='numeric'
-							placeholder={'Phone Number'}
-							underlineColorAndroid={'transparent'}
-							onChangeText={(text) => this.setState({ phoneNum: text })}
-						/>
-						<TextInput
-							style={styles.textinput}
-							placeholder={'Email'}
-							keyboardType='email-address'
-							underlineColorAndroid={'transparent'}
-							onChangeText={(text) => this.setState({ email: text })}
-						/>
-					</View>
-				</ScrollView>
+							<Input
+								label={'Name'}
+								containerStyle={styles.input}
+								placeholder={'Name'}
+								onChangeText={(name) => this.setState({ name: name })}
+							/>
 
-				<View style={styles.footer}>
-					<Button
-						text='Save'
-						onPress={this.onSavePress}
-						style={styles.saveButton}
-					/>
-				</View>
+							<Input
+								label={'Email'}
+								containerStyle={styles.input}
+								placeholder={'Email'}
+								onChangeText={(email) => this.setState({ email: email })}
+							/>
 
-			</View>
+							<Input
+								label={'Primary Phone'}
+								containerStyle={styles.input}
+								placeholder={'Primary Phone'}
+								onChangeText={(primaryPhone) => this.setState({ primaryPhone: primaryPhone })}
+							/>
+
+							<Input
+								label={'Alt. Phone'}
+								containerStyle={styles.input}
+								placeholder={'Alt. Phone'}
+								onChangeText={(altPhone) => this.setState({ altPhone: altPhone })}
+							/>
+
+							<Input
+								label={'Street'}
+								containerStyle={styles.input}
+								placeholder={'Street'}
+								onChangeText={(street) => this.setState({ street: street })}
+							/>
+
+							<Input
+								label={'City'}
+								containerStyle={styles.input}
+								placeholder={'City'}
+								onChangeText={(city) => this.setState({ city: city })}
+							/>
+
+							<Input
+								label={'State'}
+								containerStyle={styles.input}
+								placeholder={'State'}
+								onChangeText={(_state) => this.setState({ state: _state })}
+							/>
+
+							<Input
+								label={'Zip Code'}
+								containerStyle={styles.input}
+								placeholder={'Zip Code'}
+								onChangeText={(zip) => this.setState({ zip: zip })}
+							/>
+
+							<Button
+								text='Save'
+								onPress={this.onSavePress}
+								style={styles.saveButton}
+							/>
+						</View>
+
+					</ScrollView>
+				</KeyboardAvoidingView>
+
+
+			</SafeAreaView>
 		);
 	}
 }
@@ -80,38 +111,32 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
-	body: {
+	scrollview: {
 		backgroundColor: theme.text,
-		width: '100%',
-		flex: 0.9
+		flex: 1
 	},
-	textinput: {
-		width: '90%',
-		margin: 10,
-		padding: 10,
-		borderWidth: StyleSheet.hairlineWidth,
-		borderRadius: 5
+	input: {
+		paddingBottom: 10,
 	},
 	textInputContainer: {
 		flex: 1,
-		alignItems: 'center',
 		justifyContent: 'center',
+		alignSelf: 'center',
+		width: '100%',
 		margin: 10,
+		padding: 5
 	},
 	saveButton: {
 		backgroundColor: theme.primary_dark,
 		margin: 5,
-		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'center'
-
+		justifyContent: 'center',
+		padding: 10
 	},
 	footer: {
-		flex: 1,
 		flexDirection: 'row',
 		flex: 0.1
 	}
-
 });
 
 const mapStateToProps = state => {
@@ -122,4 +147,3 @@ const mapStateToProps = state => {
 };
 
 export default BusinessEditScreen;
-
