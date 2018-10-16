@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     elevation: 1
   },
   signUpButton: {
-    backgroundColor: theme.onSecondary,
+    backgroundColor: theme.primary,
     borderRadius: 100,
     width: "85%",
     marginLeft: 5,
