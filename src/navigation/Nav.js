@@ -153,7 +153,13 @@ const BusinessEditTabs = createBottomTabNavigator({
 		navigationOptions: {
 			tabBarIcon: ({focused, tintColor}) => <Ionicons name='md-book' size={24} color={tintColor}/>
 		}
-	}
+	},
+	View: {
+		screen: BusinessBioScreen,
+		navigationOptions: {
+			tabBarIcon: ({focused, tintColor}) => <Ionicons name='md-eye' size={24} color={tintColor}/>
+		}
+	},
 }, {
 	tabBarOptions: {
 		activeTintColor: theme.primaryVariant
@@ -239,14 +245,6 @@ const MainNav = createDrawerNavigator({
 		Business: {
 			 screen: BusinessStack,
 			 navigationOptions: {
-				drawerIcon: (<Ionicons name='md-briefcase' size={24} color={theme.onBackground}/>),
-				tintColor: theme.onBackground 
-			}
-		},
-		BusinessPage: {
-			screen: BusinessPageStack,
-			navigationOptions: {
-				title: 'Business Page',
 				drawerIcon: (<Ionicons name='md-briefcase' size={24} color={theme.onBackground}/>),
 				tintColor: theme.onBackground 
 			}
