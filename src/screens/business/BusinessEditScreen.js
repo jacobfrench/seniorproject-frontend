@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, ScrollView, SafeAreaView, KeyboardAvoidingView } from 'react-native';
 import { store } from 'app/src/redux/store';
 import { Button } from 'app/src/components/common/Button';
-import { Input } from 'react-native-elements'
+import { Input } from 'react-native-elements';
 import api from 'app/src/api';
 
 class BusinessEditScreen extends React.Component {
@@ -17,7 +17,7 @@ class BusinessEditScreen extends React.Component {
 			zip: '',
 			primaryPhone: '',
 			altPhone: '',
-			email: '',
+			email: ''
 		}
 	}
 
@@ -28,15 +28,16 @@ class BusinessEditScreen extends React.Component {
 	render() {
 		return (
 			<SafeAreaView style={styles.container}>
-				<KeyboardAvoidingView style={styles.textInputContainer} behavior={'padding'} enabled>
-					<ScrollView style={styles.scrollview}>
-						<View style={styles.textInputContainer}>
+				<KeyboardAvoidingView>
+					<ScrollView style={styles.scrollView}>
+						<View style={styles.inputContainer}>
 
 							<Input
 								label={'Name'}
 								containerStyle={styles.input}
 								placeholder={'Name'}
 								onChangeText={(name) => this.setState({ name: name })}
+								style={styles.inputStyle}
 							/>
 
 							<Input
@@ -88,17 +89,16 @@ class BusinessEditScreen extends React.Component {
 								onChangeText={(zip) => this.setState({ zip: zip })}
 							/>
 
-							<Button
-								text='Save'
-								onPress={this.onSavePress}
-								style={styles.saveButton}
-							/>
 						</View>
+
+						<Button
+							text='Save'
+							onPress={this.onSavePress}
+							style={styles.saveButton}
+						/>
 
 					</ScrollView>
 				</KeyboardAvoidingView>
-
-
 			</SafeAreaView>
 		);
 	}
@@ -107,35 +107,27 @@ class BusinessEditScreen extends React.Component {
 const theme = store.getState().settings.theme;
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	scrollview: {
-		backgroundColor: theme.onPrimary,
 		flex: 1
 	},
-	input: {
-		paddingBottom: 10,
-	},
-	textInputContainer: {
-		flex: 1,
-		justifyContent: 'center',
-		alignSelf: 'center',
-		width: '100%',
+	scrollView: {
+		backgroundColor: theme.onPrimary,
 		margin: 10,
-		padding: 5
+		padding: 10
+	},
+	inputContainer: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	input: {
+		marginBottom: 10
 	},
 	saveButton: {
 		backgroundColor: theme.primaryVariant,
-		margin: 5,
 		alignItems: 'center',
 		justifyContent: 'center',
+		marginBottom: 20,
 		padding: 10
-	},
-	footer: {
-		flexDirection: 'row',
-		flex: 0.1
 	}
 });
 
