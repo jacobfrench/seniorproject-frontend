@@ -21,19 +21,19 @@ class BusinessBioScreen extends React.Component {
 		}
 	}
 
-
-	componentWillMount(){
-
+	componentWillMount() {
 	}
 
 	render() {
-		const buttons = [<Ionicons name='md-heart' size={28} color={theme.onBackground} />,
-		<Ionicons name='md-paper-plane' size={28} color={theme.onBackground} />,
-		<Ionicons name='md-create' size={28} color={theme.onBackground} />
+		const buttons = [
+			<Ionicons name='md-heart' size={28} color={theme.onBackground} />,
+			<Ionicons name='md-paper-plane' size={28} color={theme.onBackground} />,
+			<Ionicons name='md-create' size={28} color={theme.onBackground} />
 		];
 		const { selectedIndex } = this.state;
 		return (
 			<SafeAreaView stysty={styles.container}>
+
 				<ImageBackground
 					style={styles.header}
 					source={{ uri: ('http://www.camranhbaync.com/wp-content/uploads/2014/01/main-header.jpg') }}
@@ -42,10 +42,7 @@ class BusinessBioScreen extends React.Component {
 						<Avatar
 							style={styles.avatar}
 							medium
-							source={{
-								uri:
-									"https://cdn2.unrealengine.com/Epic+Games+Node%2Fxlarge_whitetext_blackback_epiclogo_504x512_1529964470588-503x512-ac795e81c54b27aaa2e196456dd307bfe4ca3ca4.jpg"
-							}}
+							source={{ uri: "https://cdn2.unrealengine.com/Epic+Games+Node%2Fxlarge_whitetext_blackback_epiclogo_504x512_1529964470588-503x512-ac795e81c54b27aaa2e196456dd307bfe4ca3ca4.jpg" }}
 							onPress={() => console.log("Works!")}
 							activeOpacity={0.7}
 						/>
@@ -53,7 +50,6 @@ class BusinessBioScreen extends React.Component {
 							<Text h3 style={styles.nameText}>Business Name</Text>
 							<Text h4 style={styles.subText}>Subtext</Text>
 						</View>
-
 					</View>
 				</ImageBackground>
 
@@ -64,57 +60,31 @@ class BusinessBioScreen extends React.Component {
 					containerStyle={{ height: 50 }}
 				/>
 
-
-
 				<ScrollView style={styles.scrollView}>
 					<View style={styles.infoCard}>
-						<Text style={{
-							fontSize: 20, fontWeight: 'bold', color: theme.onBackground,
-						}}>Contact Info</Text>
-
+						<Text style={{ fontSize: 20, fontWeight: 'bold', color: theme.onBackground }}>
+							Contact Info
+						</Text>
 						<Divider style={{ backgroundColor: theme.onBackground, marginBottom: 10 }} />
 						<Text style={styles.aboutText}>Phone: {this.state.primaryPhone}</Text>
 						<Text style={styles.aboutText}>Alt Phone: {this.state.altPhone}</Text>
 						<Text style={styles.aboutText}>Email: {this.state.email}</Text>
 						<Text style={styles.aboutText}>{this.state.street}</Text>
-						<Text style={styles.aboutText}>{this.state.city}, {this.state.state} {this.state.zip}</Text>						
+						<Text style={styles.aboutText}>{this.state.city}, {this.state.state} {this.state.zip}</Text>
 					</View>
 					<View style={styles.infoCard}>
-						<Text style={{
-							fontSize: 20, fontWeight: 'bold', color: theme.onBackground,
-						}}>About</Text>
-
+						<Text style={{ fontSize: 20, fontWeight: 'bold', color: theme.onBackground }}>
+							About
+						</Text>
 						<Divider style={{ backgroundColor: theme.onBackground, marginBottom: 10 }} />
-						<Text style={styles.aboutText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-						text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-						five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-						sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-						text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-						five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-						sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-						text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-						five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-						sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-						text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-						five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-						sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-						text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-						five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-						sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-						text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-						five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-						sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-						text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-						five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-						sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</Text>
+						<Text style={styles.aboutText}>{this.state.about}</Text>
 					</View>
-
 				</ScrollView>
+
 			</SafeAreaView>
 		);
 	}
 }
-
 
 const theme = store.getState().settings.theme;
 const styles = StyleSheet.create({
@@ -167,6 +137,9 @@ const styles = StyleSheet.create({
 		padding: 10,
 		margin: 10,
 		elevation: 5,
+		shadowColor: 'rgba(0, 0, 0, 1)',
+		shadowOffset: { width: 0, height: 0 },
+		shadowRadius: 5,
 		borderRadius: 10
 	},
 	aboutText: {
