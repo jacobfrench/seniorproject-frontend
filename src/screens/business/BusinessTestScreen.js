@@ -174,7 +174,6 @@ const styles = StyleSheet.create({
     width: 80,
     elevation: 15,
     marginRight: 5,
-
   },
   buttonContainer: {
     backgroundColor: theme.background,

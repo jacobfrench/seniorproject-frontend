@@ -12,8 +12,7 @@ import { store } from "app/src/redux/store";
 import { logoutUser, revokeAuthToken } from "app/src/redux/actions";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { connect } from "react-redux";
-import { Avatar } from "react-native-elements";
-import { LinearGradient } from "expo";
+import { Avatar, Divider } from "react-native-elements";
 
 class CustomDrawerContentComponent extends React.Component {
   constructor(props) {
@@ -54,6 +53,8 @@ class CustomDrawerContentComponent extends React.Component {
               <Text style={styles.email}>{userInfo.username}</Text>
             </View>
           </View>
+          <Divider style={styles.divider} />
+
 
           <ScrollView style={styles.body}>
             <DrawerItems
@@ -138,7 +139,13 @@ const styles = StyleSheet.create({
   },
   headerTextContainer: {
     marginLeft: 10
-  }
+  },
+  divider: {
+    backgroundColor: '#bdc6cf',
+    height: 1,
+    marginTop: 5,
+    marginBottom: 10
+  },
 });
 
 const mapStateToProps = state => {
