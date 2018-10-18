@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
   },
   input: {
     padding: 10,
+    paddingTop:'2.25%',
     borderRadius: 20,
     flex: 4,
     backgroundColor: 'lightgrey',
