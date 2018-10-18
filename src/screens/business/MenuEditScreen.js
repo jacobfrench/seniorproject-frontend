@@ -79,7 +79,7 @@ class MenuEditScreen extends React.Component {
 							/>
 
 							<Button
-								text='Save'
+								title='Save'
 								onPress={this.onSavePress}
 								style={styles.saveButton}
 							/>
