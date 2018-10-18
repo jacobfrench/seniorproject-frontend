@@ -29,7 +29,7 @@ class BusinessBioScreen extends React.Component {
       <Ionicons name='md-heart' size={28} color={theme.onBackground} />,
       <Ionicons name='md-paper-plane' size={28} color={theme.onBackground} />,
       <Ionicons name='md-create' size={28} color={theme.onBackground} />
-		];
+    ];
     const { selectedIndex } = this.state;
     return (
       <SafeAreaView style={styles.container}>
@@ -44,7 +44,7 @@ class BusinessBioScreen extends React.Component {
               <Avatar
                 medium
                 source={{ uri: 'https://cdn2.unrealengine.com/Epic+Games+Node%2Fxlarge_whitetext_blackback_epiclogo_504x512_1529964470588-503x512-ac795e81c54b27aaa2e196456dd307bfe4ca3ca4.jpg' }}
-                containerStyle={{ height: 80, width: 80 }}
+                containerStyle={styles.avatar}
                 onPress={() => console.log("Works!")}
               />
             </View>
@@ -56,12 +56,12 @@ class BusinessBioScreen extends React.Component {
         </ImageBackground>
 
         <ButtonGroup
-					onPress={() => console.log("pressed")}
-					selectedIndex={selectedIndex}
-					buttons={buttons}
+          onPress={() => console.log("pressed")}
+          selectedIndex={selectedIndex}
+          buttons={buttons}
           containerStyle={styles.buttonContainer}
         />
-        
+
         <ScrollView style={{ marginLeft: 10, marginRight: 10 }}>
 
           <View style={styles.card}>
@@ -77,7 +77,7 @@ class BusinessBioScreen extends React.Component {
             </View>
             <View style={styles.contactField}>
               <View style={styles.iconLabel}>
-                <Ionicons name='md-mail' size={20} color={theme.onBackground}/>
+                <Ionicons name='md-mail' size={20} color={theme.onBackground} />
               </View>
               <View style={styles.textLabel}>
                 <Text>{this.state.email}</Text>
@@ -85,7 +85,7 @@ class BusinessBioScreen extends React.Component {
             </View>
             <View style={styles.contactField}>
               <View style={styles.iconLabel}>
-                <Ionicons name='md-home' size={20} color={theme.onBackground}/>
+                <Ionicons name='md-home' size={20} color={theme.onBackground} />
               </View>
               <View style={styles.longTextLabel}>
                 <Text>{this.state.street}</Text>
@@ -172,10 +172,9 @@ const styles = StyleSheet.create({
   avatarContainer: {
     height: 80,
     width: 80,
-    elevation: 5,
-    marginRight: 5
-    //borderWidth: 5,
-    //borderColor: 'green'
+    elevation: 15,
+    marginRight: 5,
+
   },
   buttonContainer: {
     backgroundColor: theme.background,
@@ -183,6 +182,11 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     borderRadius: 3,
     elevation: 1
+  },
+  avatar: {
+    height: 80,
+    width: 80,
+    elevation: 15
   }
 });
 

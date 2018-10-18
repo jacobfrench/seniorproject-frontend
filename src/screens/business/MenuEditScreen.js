@@ -78,7 +78,8 @@ class MenuEditScreen extends React.Component {
 
 							<Button
 								title='Save'
-								buttonStyle={{ backgroundColor: theme.primaryVariant, elevation: 0, padding: 5, marginLeft: 10, marginRight: 10 }}
+								buttonStyle={styles.saveButton}
+								onPress={this.onSavePress}
 							/>
 						</View>
 					</View>
@@ -146,7 +147,13 @@ const styles = StyleSheet.create({
 	},
 	formContainer: {
 		alignItems: 'center'
-	}
+	},
+	saveButton: { 
+		backgroundColor: theme.primaryVariant, 
+		elevation: 0, 
+		padding: 5, 
+		marginLeft: 10, 
+		marginRight: 10 }
 });
 
 const mapStateToProps = state => {
