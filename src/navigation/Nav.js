@@ -14,7 +14,8 @@ import {
 	MenuEditScreen,
 	BusinessBioScreen,
 	BusinessMenuScreen,
-	BusinessReviewScreen
+	BusinessReviewScreen,
+	BusinessTestScreen
 } from 'app/src/screens';
 
 import {
@@ -155,7 +156,8 @@ const BusinessEditTabs = createBottomTabNavigator({
 		}
 	},
 	View: {
-		screen: BusinessBioScreen,
+		//screen: BusinessBioScreen,
+		screen: BusinessTestScreen,
 		navigationOptions: {
 			tabBarIcon: ({focused, tintColor}) => <Ionicons name='md-eye' size={24} color={tintColor}/>
 		}
