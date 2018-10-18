@@ -10,7 +10,8 @@ import {
   HomeScreen,
   ForgotPasswordScreen,
   SettingsScreen,
-  BusinessEditScreen          
+  BusinessEditScreen,
+  MessagesListScreen          
 } from 'app/src/screens';
 
 import {
@@ -167,6 +168,35 @@ const BusinessStack = createStackNavigator({
   }
 });
 
+const MessagesStack = createStackNavigator({
+  MessagesList: {
+    screen: MessagesListScreen,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Messages',
+      headerStyle: styles.mainHeader,
+      headerTitleStyle: styles.mainHeaderTitle,
+      headerLeft: (
+        <HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.text}>
+          <HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
+        </HeaderButtons>
+      ),
+    })
+  },
+  Messages: {
+    screen: MessagesListScreen,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Messages',
+      headerStyle: styles.mainHeader,
+      headerTitleStyle: styles.mainHeaderTitle,
+      headerLeft: (
+        <HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.text}>
+          <HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
+        </HeaderButtons>
+      ),
+    })
+  }
+});
+
 const MainNav = createDrawerNavigator({
     Home: { 
       screen: Home, 
@@ -180,6 +210,13 @@ const MainNav = createDrawerNavigator({
        navigationOptions: {
         drawerIcon: (<Ionicons name='md-briefcase' size={24} color={theme.text}/>),
         tintColor: theme.text 
+      }
+    },
+    Messages:{
+      screen: MessagesStack,
+      navigationOptions: {
+        drawerIcon: (<Ionicons name='md-chatboxes' size={24} color={theme.text}/>),
+        tintColor: theme.text
       }
     },
     Settings: { 
