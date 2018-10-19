@@ -5,7 +5,7 @@ import { Avatar, Text, Divider, ButtonGroup } from 'react-native-elements';
 import api from 'app/src/api';
 import { Ionicons } from '@expo/vector-icons';
 
-class BusinessBioScreen extends React.Component {
+class BusinessTestScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -189,4 +189,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default BusinessBioScreen;
+export default BusinessTestScreen;
