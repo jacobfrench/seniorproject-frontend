@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     shadowOffset: {width: 0, height: 2},
     shadowRadius: 5,
-    shadowOpacity: 0.2
+    shadowOpacity: 0.2,
+    maxWidth: '66%'
   },
   senderContainer: {
     alignSelf: 'flex-end', 
