@@ -117,7 +117,8 @@ const styles = StyleSheet.create({
 	inputContainer: {
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
+		elevation: 1
 	},
 	input: {
 		marginBottom: 10
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		marginBottom: 20,
-		padding: 10
+		padding: 5
 	}
 });
 

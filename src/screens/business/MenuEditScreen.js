@@ -1,9 +1,8 @@
 import FAB from 'react-native-fab';
 import React from 'react';
-import { Modal, StyleSheet, View, ScrollView, SafeAreaView, Text, Alert } from 'react-native';
+import { Modal, StyleSheet, View, ScrollView, SafeAreaView } from 'react-native';
 import { store } from 'app/src/redux/store';
-// import { Button } from 'app/src/components/common/Button';
-import { Input, Card, Button, Icon } from 'react-native-elements'
+import { Input, Card, Button, Text } from 'react-native-elements'
 
 class MenuEditScreen extends React.Component {
 	constructor(props) {
@@ -11,14 +10,14 @@ class MenuEditScreen extends React.Component {
 		this.state = {
 			modalVisible: false,
 			menuItems: [{
-				title: 'some pizza',
-				desc: 'nummy pizza stuff',
-				price: '15.90'
+				title: 'Combination Pizza',
+				desc: 'Cheese, pepperoni, olives...',
+				price: '15.00'
 			}],
 
-			title:'',
-			desc:'',
-			price:''
+			title: '',
+			desc: '',
+			price: ''
 		}
 	}
 
@@ -54,39 +53,36 @@ class MenuEditScreen extends React.Component {
 
 					<View style={styles.modalOuter}>
 						<View style={styles.modalInner}>
-							<Input
-								label={'Title'}
-								containerStyle={styles.input}
-								placeholder={'Title'}
-								onChangeText={(title) => this.setState({ title: title })}
-								style={styles.inputStyle}
-							/>
+							<View style={styles.formContainer}>
+								<Input
+									label={'Title'}
+									containerStyle={styles.input}
+									placeholder={'Title'}
+									onChangeText={(title) => this.setState({ title: title })}
+								/>
 
-							<Input
-								label={'Description'}
-								containerStyle={styles.input}
-								placeholder={'Description'}
-								onChangeText={(desc) => this.setState({ desc: desc })}
-								style={styles.inputStyle}
-							/>
+								<Input
+									label={'Description'}
+									containerStyle={styles.input}
+									placeholder={'Description'}
+									onChangeText={(desc) => this.setState({ desc: desc })}
+								/>
 
-							<Input
-								label={'Price'}
-								containerStyle={styles.input}
-								placeholder={'Price'}
-								onChangeText={(price) => this.setState({ price: price })}
-								style={styles.inputStyle}
-							/>
+								<Input
+									label={'Price'}
+									containerStyle={styles.input}
+									placeholder={'Price'}
+									onChangeText={(price) => this.setState({ price: price })}
+								/>
+							</View>
 
 							<Button
 								title='Save'
+								buttonStyle={styles.saveButton}
 								onPress={this.onSavePress}
-								style={styles.saveButton}
 							/>
 						</View>
 					</View>
-
-
 
 				</Modal>
 
@@ -98,14 +94,7 @@ class MenuEditScreen extends React.Component {
 								title={item.title}
 								image={{ uri: ('https://qph.fs.quoracdn.net/main-qimg-c83dbd658e39bdb824bc720ea2cd54a2') }}>
 								<Text>{item.desc}</Text>
-								<Text style={{ marginBottom: 10 }}>
-									{item.price}
-  						</Text>
-								<Button
-									icon={<Icon name='code' color='#ffffff' />}
-									backgroundColor='#03A9F4'
-									buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0 }}
-									title='VIEW NOW' />
+								<Text>${item.price}</Text>
 							</Card>
 						))
 					}
@@ -135,14 +124,13 @@ const styles = StyleSheet.create({
 	modal: {
 		justifyContent: 'center',
 		alignItems: 'center',
-		padding: 150
 	},
 	modalInner: {
 		justifyContent: 'center',
 		backgroundColor: 'white',
 		height: '95%',
 		width: '95%',
-		borderRadius: 5,
+		borderRadius: 5
 	},
 	modalOuter: {
 		flex: 1,
@@ -151,20 +139,21 @@ const styles = StyleSheet.create({
 		alignItems: 'center'
 	},
 	input: {
-		marginBottom: 10,
-		padding: 10
-	},
-	saveButton: {
-		backgroundColor: theme.primaryVariant,
-		alignItems: 'center',
-		justifyContent: 'center',
-		margin: 10,
-		padding: 10
+		marginBottom: 15
 	},
 	scrollView: {
 		flex: 1,
 		width:'100%'
-	}
+	},
+	formContainer: {
+		alignItems: 'center'
+	},
+	saveButton: { 
+		backgroundColor: theme.primaryVariant, 
+		elevation: 0, 
+		padding: 5, 
+		marginLeft: 10, 
+		marginRight: 10 }
 });
 
 const mapStateToProps = state => {
