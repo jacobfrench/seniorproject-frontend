@@ -8,4 +8,5 @@ export MenuEditScreen from './business/MenuEditScreen';
 export BusinessBioScreen from './business/BusinessBioScreen';
 export BusinessMenuScreen from './business/BusinessMenuScreen';
 export BusinessReviewScreen from './business/BusinessReviewScreen';
+export BusinessTestScreen from './business/BusinessTestScreen';
 export ChatScreen from './messaging/ChatScreen';
