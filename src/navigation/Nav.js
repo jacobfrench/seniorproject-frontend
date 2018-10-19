@@ -15,6 +15,7 @@ import {
 	BusinessBioScreen,
 	BusinessMenuScreen,
 	BusinessReviewScreen,
+	BusinessTestScreen,
 	ChatScreen
 } from 'app/src/screens';
 
