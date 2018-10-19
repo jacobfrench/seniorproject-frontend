@@ -15,7 +15,7 @@ import {
 	BusinessBioScreen,
 	BusinessMenuScreen,
 	BusinessReviewScreen,
-	BusinessTestScreen
+	ChatScreen
 } from 'app/src/screens';
 
 import {
@@ -217,6 +217,25 @@ const BusinessPageStack = createStackNavigator({
 	})
 });
 
+//Messaging Nav
+const MessagingStack = createStackNavigator({
+	ChatScreen: {
+		screen: ChatScreen,
+		navigationOptions: ({ navigation }) => ({
+			title: 'Jacob French',
+			headerStyle: styles.mainHeader,
+			headerTitleStyle: styles.mainHeaderTitle,
+			headerLeft: (
+				<HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.onPrimary}>
+					<HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
+				</HeaderButtons>
+			),
+		})
+	}
+}, {
+	
+})
+
 //Settings Nav======================================================================================================
 const SettingsStack = createStackNavigator({
 	Settings: { 
@@ -248,6 +267,13 @@ const MainNav = createDrawerNavigator({
 			 screen: BusinessStack,
 			 navigationOptions: {
 				drawerIcon: (<Ionicons name='md-briefcase' size={24} color={theme.onBackground}/>),
+				tintColor: theme.onBackground 
+			}
+		},
+		Messaging: {
+			screen: MessagingStack,
+			navigationOptions: {
+				drawerIcon: (<Ionicons name='md-chatboxes' size={24} color={theme.onBackground}/>),
 				tintColor: theme.onBackground 
 			}
 		},
