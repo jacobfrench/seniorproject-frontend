@@ -58,7 +58,6 @@ const api = {
       })
         .then(response => response.json())
         .then(responseJson => {
-          //request data is in json form here
           resolve(responseJson);
         })
     ).catch(err => {
@@ -66,8 +65,8 @@ const api = {
     });
   },
 
-  postNewBusiness(info){
-    fetch(url + 'business/post', {
+  postNewBusiness(info, userId){
+    fetch(url + 'business/post/'+ userId, {
       method: 'POST',
       headers: {
         "Accept": "application/json",
@@ -76,8 +75,13 @@ const api = {
       },
       body: JSON.stringify({
         name: info.name,
-        address: info.address,
-        phoneNum: info.phoneNum,
+        street: info.street,
+        state: info.city,
+        city: info.city,
+        zip: info.zip,
+        primaryPhone: info.primaryPhone,
+        altPhone: info.altPhone,
+        about: info.about,
         email: info.email
       })
     })
