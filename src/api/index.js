@@ -77,7 +77,7 @@ const api = {
       body: JSON.stringify({
         name: info.name,
         street: info.street,
-        state: info.city,
+        state: info.state,
         city: info.city,
         zip: info.zip,
         primaryPhone: info.primaryPhone,
