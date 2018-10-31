@@ -54,7 +54,7 @@ class BusinessBioScreen extends React.Component {
 				</ImageBackground>
 
 				<ButtonGroup
-					onPress={() => console.log("pressed")}
+					onPress={() => console.log(selectedIndex)}
 					selectedIndex={selectedIndex}
 					buttons={buttons}
 					containerStyle={{ height: 50 }}

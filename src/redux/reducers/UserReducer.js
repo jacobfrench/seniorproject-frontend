@@ -23,7 +23,6 @@ export default (state = INITIAL_STATE, action) => {
         case FETCH_USER_INFO_SUCCESS:
             return {...state, info: action.payload, isLoading: false}
         case FETCH_USER_INFO_FAILURE:
-            alert(action.payload);
             return {...state, isLoading: false}
         default:
             return state;

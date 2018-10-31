@@ -7,7 +7,7 @@ import reducers from 'app/src/redux/reducers';
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['authToken', 'user', 'settings']
+    whitelist: ['authToken', 'user', 'settings', 'business']
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers);

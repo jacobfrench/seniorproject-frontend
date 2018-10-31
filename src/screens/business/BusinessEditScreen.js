@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, ScrollView, SafeAreaView, KeyboardAvoidingView } from 'react-native';
+import { Platform, StyleSheet, View, ScrollView, SafeAreaView, KeyboardAvoidingView, ToastAndroid } from 'react-native';
 import { store } from 'app/src/redux/store';
 import { Button } from 'app/src/components/common/Button';
 import { Input } from 'react-native-elements';
@@ -9,6 +9,7 @@ class BusinessEditScreen extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			id: '',
 			name: '',
 			about: '',
 			street: '',
@@ -21,11 +22,21 @@ class BusinessEditScreen extends React.Component {
 		}
 	}
 
+	componentWillMount(){
+		let userId = store.getState().user.info.id;
+		api.getBusinessByUserId(userId)
+		.then((data) => {
+			this.setState(data);
+		})
+	}
+
 	onSavePress = () => {
-		api.postNewBusiness(this.state);
+		let email = store.getState().user.info.username;
+		api.postNewBusiness(this.state, email);
 	}
 
 	render() {
+		// const { userInfo } = this.props;
 		return (
 			<SafeAreaView style={styles.container}>
 				<KeyboardAvoidingView>
@@ -38,6 +49,7 @@ class BusinessEditScreen extends React.Component {
 								placeholder={'Name'}
 								onChangeText={(name) => this.setState({ name: name })}
 								style={styles.inputStyle}
+								value={this.state.name}
 							/>
 
 							<Input
@@ -45,6 +57,7 @@ class BusinessEditScreen extends React.Component {
 								containerStyle={styles.input}
 								placeholder={'Email'}
 								onChangeText={(email) => this.setState({ email: email })}
+								value={this.state.email}
 							/>
 
 							<Input
@@ -52,6 +65,7 @@ class BusinessEditScreen extends React.Component {
 								containerStyle={styles.input}
 								placeholder={'Primary Phone'}
 								onChangeText={(primaryPhone) => this.setState({ primaryPhone: primaryPhone })}
+								value={this.state.primaryPhone}
 							/>
 
 							<Input
@@ -59,6 +73,7 @@ class BusinessEditScreen extends React.Component {
 								containerStyle={styles.input}
 								placeholder={'Alt. Phone'}
 								onChangeText={(altPhone) => this.setState({ altPhone: altPhone })}
+								value={this.state.altPhone}								
 							/>
 
 							<Input
@@ -66,6 +81,7 @@ class BusinessEditScreen extends React.Component {
 								containerStyle={styles.input}
 								placeholder={'Street'}
 								onChangeText={(street) => this.setState({ street: street })}
+								value={this.state.street}																		
 							/>
 
 							<Input
@@ -73,13 +89,15 @@ class BusinessEditScreen extends React.Component {
 								containerStyle={styles.input}
 								placeholder={'City'}
 								onChangeText={(city) => this.setState({ city: city })}
+								value={this.state.city}								
 							/>
 
 							<Input
 								label={'State'}
 								containerStyle={styles.input}
 								placeholder={'State'}
-								onChangeText={(_state) => this.setState({ state: _state })}
+								onChangeText={(state) => this.setState({ state: state })}
+								value={this.state.state}
 							/>
 
 							<Input
@@ -87,6 +105,7 @@ class BusinessEditScreen extends React.Component {
 								containerStyle={styles.input}
 								placeholder={'Zip Code'}
 								onChangeText={(zip) => this.setState({ zip: zip })}
+								value={this.state.zip}								
 							/>
 
 						</View>

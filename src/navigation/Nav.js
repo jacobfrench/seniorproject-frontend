@@ -178,8 +178,16 @@ const BusinessStack = createStackNavigator({
 		headerStyle: styles.mainHeader,
 		headerTitleStyle: styles.mainHeaderTitle,
 		headerLeft: (
-			<HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.onPrimary}>
-					<HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
+			<HeaderButtons
+				IconComponent={Ionicons} 
+				iconSize={32} 
+				color={theme.onPrimary}
+			>
+					<HeaderButtons.Item 
+						title='drawer' 
+						iconName='md-menu' 
+						onPress={() => navigation.toggleDrawer()} 
+					/>
 			</HeaderButtons>
 		),
 	})
@@ -211,8 +219,16 @@ const BusinessPageStack = createStackNavigator({
 		headerStyle: styles.mainHeader,
 		headerTitleStyle: styles.mainHeaderTitle,
 		headerLeft: (
-			<HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.onPrimary}>
-					<HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
+			<HeaderButtons 
+				IconComponent={Ionicons} 
+				iconSize={32} 
+				color={theme.onPrimary}
+			>
+					<HeaderButtons.Item 
+						title='drawer' 
+						iconName='md-menu' 
+						onPress={() => navigation.toggleDrawer()} 
+						/>
 			</HeaderButtons>
 		),
 	})
@@ -227,8 +243,16 @@ const MessagingStack = createStackNavigator({
 			headerStyle: styles.mainHeader,
 			headerTitleStyle: styles.mainHeaderTitle,
 			headerLeft: (
-				<HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.onPrimary}>
-					<HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
+				<HeaderButtons 
+					IconComponent={Ionicons} 
+					iconSize={32} 
+					color={theme.onPrimary}
+				>
+					<HeaderButtons.Item 
+						title='drawer' 
+						iconName='md-menu' 
+						onPress={() => navigation.toggleDrawer()} 
+					/>
 				</HeaderButtons>
 			),
 		})
@@ -246,8 +270,16 @@ const SettingsStack = createStackNavigator({
 			headerStyle: styles.mainHeader,
 			headerTitleStyle: styles.mainHeaderTitle,
 			headerLeft: (
-				<HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.onPrimary}>
-					<HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
+				<HeaderButtons 
+					IconComponent={Ionicons} 
+					iconSize={32} 
+					color={theme.onPrimary}
+				>
+					<HeaderButtons.Item 
+						title='drawer' 
+						iconName='md-menu' 
+						onPress={() => navigation.toggleDrawer()} 
+					/>
 				</HeaderButtons>
 			),
 	})

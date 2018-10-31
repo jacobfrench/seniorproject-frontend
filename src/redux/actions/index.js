@@ -9,9 +9,14 @@ import {
     REVOKE_AUTH_TOKEN,
     //UserReducer types
     SET_USER_EMAIL,
-	FETCH_USER_INFO_START,
-	FETCH_USER_INFO_SUCCESS,
+    FETCH_USER_INFO_START,
+    FETCH_USER_INFO_SUCCESS,
     FETCH_USER_INFO_FAILURE,
+    //BusinessReducer types
+    SET_BUSINESS_EMAIL,
+    FETCH_BUSINESS_INFO_START,
+    FETCH_BUSINESS_INFO_SUCCESS,
+    FETCH_BUSINESS_INFO_FAILURE,
     //UserReducer types
     CHANGE_THEME
 } from './types';
@@ -57,19 +62,19 @@ export const setUserEmail = (email) => {
 
 export const fetchUserInfoByEmail = (email) => {
     return (dispatch) => {
-        dispatch({type: FETCH_USER_INFO_START});
+        dispatch({ type: FETCH_USER_INFO_START });
         api.fetchUserInfoByEmail(email)
-					.then((data) => {
-						console.log('From fetchUserInffoByEmail: ');
-                        console.log(data);
-                        if(!data.error) {
-						    dispatch({type: FETCH_USER_INFO_SUCCESS, payload: data});
-                        } else {
-                            dispatch({type: FETCH_USER_INFO_FAILURE, payload: data})
-                        }
-					})
-					.catch((err) => dispatch({type: FETCH_USER_INFO_FAILURE, payload: err}));
-    }        
+            .then((data) => {
+                console.log('From fetchUserInffoByEmail: ');
+                console.log(data);
+                if (!data.error) {
+                    dispatch({ type: FETCH_USER_INFO_SUCCESS, payload: data });
+                } else {
+                    dispatch({ type: FETCH_USER_INFO_FAILURE, payload: data })
+                }
+            })
+            .catch((err) => dispatch({ type: FETCH_USER_INFO_FAILURE, payload: err }));
+    }
 }
 
 //SettingsReducer actions

@@ -1,4 +1,5 @@
 import { store } from "app/src/redux/store"; // use store.getState().authToken;
+import { Platform, ToastAndroid } from 'react-native';
 import { setAuthToken } from "app/src/redux/actions";
 
 const url = "http://45.33.39.105:8080";
@@ -65,8 +66,8 @@ const api = {
     });
   },
 
-  postNewBusiness(info, userId){
-    fetch(url + 'business/post/'+ userId, {
+  postNewBusiness(info, userId) {
+    fetch(url + '/business/post/' + userId, {
       method: 'POST',
       headers: {
         "Accept": "application/json",
@@ -88,7 +89,70 @@ const api = {
       .then(res => alert(res))
       .catch(err => alert(err));
 
-  }
+  },
+
+  postNewMenu(newItem, userId){
+    fetch(url + '/business/post/menu/' + userId, {
+      method: 'POST',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": store.getState().authToken
+      },
+      body: JSON.stringify({
+        title: newItem.title,
+        description: newItem.description,
+        imageUrl: newItem.imageUrl
+      })
+    })
+    .then(res => alert(res))
+    .catch(err => alert(err));
+  },
+
+  getBusinessByUserId(ownerId) {
+    return new Promise((resolve, reject) =>
+      fetch(url + '/business/get/owner/' + ownerId, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': store.getState().authToken
+        }
+      })
+        .then(response => response.json())
+        .then(responsJson => {
+          resolve(responsJson);
+        })
+    ).catch(err => {
+      
+      reject(err);
+    });
+  },
+
+  getMenusByUserId(ownerId){
+    return new Promise((resolve, reject) =>
+    fetch(url + '/business/get/menus/' + ownerId, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': store.getState().authToken
+      }
+    })
+      .then(response => response.json())
+      .then(responsJson => {
+        resolve(responsJson);
+      })
+  ).catch(err => {
+    
+    reject(err);
+  });
+},
+
 };
+
+
+
+
 
 export default api;
