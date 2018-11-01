@@ -27,7 +27,7 @@ class BusinessEditScreen extends React.Component {
 		api.getBusinessByUserId(userId)
 		.then((data) => {
 			this.setState(data);
-		})
+		});
 	}
 
 	onSavePress = () => {

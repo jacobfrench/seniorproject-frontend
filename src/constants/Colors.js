@@ -9,8 +9,11 @@ module.exports = {
     error: '#C51162',
     onPrimary: '#FAFAFA',
     onSecondary: '#FAFAFA',
-    onBackground: '#37474F',
+    onBackground: '#34495e',
     onSurface: '#263238',
-    onError: '#FAFAFA'
+    onError: '#FAFAFA',
+    selected: 'rgba(0, 0, 0, 0.03)'
   }
+
+
 };

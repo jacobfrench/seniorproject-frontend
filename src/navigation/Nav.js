@@ -292,28 +292,28 @@ const MainNav = createDrawerNavigator({
 		Home: { 
 			screen: Home, 
 			navigationOptions: {
-				drawerIcon: (<Ionicons name='md-home' size={24} color={theme.onBackground}/>),
-				tintColor: theme.onBackground 
+				drawerIcon: (<Ionicons name='md-home' size={24} color={theme.primary}/>),
+        tintColor: theme.onBackground,
 			}
 		},
 		Business: {
 			 screen: BusinessStack,
 			 navigationOptions: {
-				drawerIcon: (<Ionicons name='md-briefcase' size={24} color={theme.onBackground}/>),
+				drawerIcon: (<Ionicons name='md-briefcase' size={24} color={theme.primary}/>),
 				tintColor: theme.onBackground 
 			}
 		},
 		Messaging: {
 			screen: MessagingStack,
 			navigationOptions: {
-				drawerIcon: (<Ionicons name='md-chatboxes' size={24} color={theme.onBackground}/>),
+				drawerIcon: (<Ionicons name='md-chatboxes' size={24} color={theme.primary}/>),
 				tintColor: theme.onBackground 
 			}
 		},
 		Settings: { 
 			screen: SettingsStack, 
 			navigationOptions: {
-				drawerIcon: (<Ionicons name='md-settings' size={24} color={theme.onBackground}/>),
+				drawerIcon: (<Ionicons name='md-settings' size={24} color={theme.primary}/>),
 				activeTintColor: theme.onBackground,
 			}
 		},
