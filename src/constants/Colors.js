@@ -14,6 +14,4 @@ module.exports = {
     onError: '#FAFAFA',
     selected: 'rgba(0, 0, 0, 0.03)'
   }
-
-
 };

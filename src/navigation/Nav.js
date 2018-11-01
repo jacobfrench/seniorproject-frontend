@@ -286,8 +286,6 @@ const SettingsStack = createStackNavigator({
 	}
 });
 
-
-
 const MainNav = createDrawerNavigator({
 		Home: { 
 			screen: Home, 
@@ -303,7 +301,7 @@ const MainNav = createDrawerNavigator({
 				tintColor: theme.onBackground 
 			}
 		},
-		Messaging: {
+		Inbox: {
 			screen: MessagingStack,
 			navigationOptions: {
 				drawerIcon: (<Ionicons name='md-chatboxes' size={24} color={theme.primary}/>),

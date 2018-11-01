@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet, View, ScrollView, SafeAreaView, KeyboardAvoidingView, ToastAndroid } from 'react-native';
+import { StyleSheet, View, ScrollView, SafeAreaView, KeyboardAvoidingView } from 'react-native';
 import { store } from 'app/src/redux/store';
 import { Button } from 'app/src/components/common/Button';
 import { Input } from 'react-native-elements';

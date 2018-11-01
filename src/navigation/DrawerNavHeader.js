@@ -5,25 +5,31 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
+  Switch
 } from "react-native";
 import { DrawerItems, SafeAreaView } from "react-navigation";
 import { store } from "app/src/redux/store";
 import { logoutUser, revokeAuthToken } from "app/src/redux/actions";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { connect } from "react-redux";
-import { Avatar, Divider } from "react-native-elements";
+import { Avatar } from "react-native-elements";
 
 class CustomDrawerContentComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       firstName: "",
-      lastName: ""
+      lastName: "",
+      online: false
     };
   }
 
   componentWillMount() {}
+
+  switchChange() {
+		this.setState({online: (this.state.online) ? false : true});
+  }
 
   render() {
     const { userInfo } = this.props;
@@ -33,16 +39,33 @@ class CustomDrawerContentComponent extends React.Component {
         forceInset={{ top: "always", horizontal: "never" }}
       >
         <View style={styles.container}>
-        <ImageBackground source={require('app/assets/header.jpg')} style={{width: '100%'}}>
-            <Avatar
-              style={styles.avatar}
-              medium
-              source={{
-                uri: 'https://steamusercontent-a.akamaihd.net/ugc/868492508833370108/A8A148EB7AE11DA574D3F5537E32B3DA83D9A098/'
-              }}
-              onPress={() => console.log("Works!")}
-              activeOpacity={0.7}
-            />
+          <ImageBackground
+            source={require("app/assets/header.jpg")}
+            style={{ width: "100%" }}
+          >
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Avatar
+                style={styles.avatar}
+                medium
+                source={{
+                  uri:
+                    "https://steamusercontent-a.akamaihd.net/ugc/868492508833370108/A8A148EB7AE11DA574D3F5537E32B3DA83D9A098/"
+                }}
+                onPress={() => console.log("Works!")}
+                activeOpacity={0.7}
+              />
+              <Switch
+                style={{
+                  transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],
+                  marginRight: 15
+                }}
+                thumbTintColor={theme.onPrimary}
+                value={this.state.online}
+                onValueChange={this.switchChange.bind(this)}
+              />
+            </View>
             <View style={styles.headerTextContainer}>
               <Text style={styles.name}>
                 {userInfo.firstName} {userInfo.lastName}
@@ -128,15 +151,15 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 16,
     color: theme.onBackground,
-    textShadowColor: 'rgba(50, 50, 50, 0.4)',
-		textShadowOffset: { width: -1, height: 1 },
-		textShadowRadius: 10,
+    textShadowColor: "rgba(50, 50, 50, 0.4)",
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10
   },
   email: {
     fontSize: 14,
     color: theme.onBackground,
-    textShadowColor: 'rgba(50, 50, 50, 0.4)',
-		textShadowOffset: { width: -1, height: 1 },
+    textShadowColor: "rgba(50, 50, 50, 0.4)",
+    textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,
     paddingBottom: 10
   },
@@ -144,11 +167,11 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   divider: {
-    color: 'red',
+    color: "red",
     height: 1,
     marginTop: 5,
     marginBottom: 10
-  },
+  }
 });
 
 const mapStateToProps = state => {
