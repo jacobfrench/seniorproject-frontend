@@ -10,7 +10,7 @@ export default (state = INITIAL_STATE, action) => {
     case CHANGE_THEME:
       return {
         ...state,
-        theme: dtf
+        theme: material
         
       };
 

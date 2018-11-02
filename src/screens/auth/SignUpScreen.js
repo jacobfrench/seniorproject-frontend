@@ -51,7 +51,7 @@ export default class SignUpScreen extends React.Component {
     return (
       <LinearGradient
         style={styles.linearGradient}
-        colors={[theme.primary, theme.primaryVariant]}
+        colors={[theme.primary, '#2980b9']}
       >
         <KeyboardAvoidingView
           style={styles.inputContainer}
@@ -143,10 +143,10 @@ const styles = StyleSheet.create({
   },
   inputUsername: {
     marginBottom: 20,
-    borderColor: theme.onPrimary
+    borderColor: theme.background
   },
   inputPassword: {
-    borderColor: theme.onPrimary,
+    borderColor: theme.background,
     marginBottom: 20
   },
   signInButton: {
@@ -157,10 +157,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: "45%",
     marginRight: 5,
-    elevation: 1
   },
   signUpButton: {
-    backgroundColor: theme.primary,
+    backgroundColor: theme.secondary,
     borderRadius: 100,
     width: "85%",
     marginLeft: 5,
@@ -175,7 +174,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 32,
-    color: theme.onPrimary,
+    color: theme.background,
     marginTop: 25,
     marginBottom: 35
   },

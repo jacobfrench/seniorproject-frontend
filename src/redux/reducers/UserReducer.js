@@ -10,6 +10,7 @@ const INITIAL_STATE = {
         username: '',
         firstName: '',
         lastName: '',
+        avatarLink: ''
     },
     isLoading: false
 };

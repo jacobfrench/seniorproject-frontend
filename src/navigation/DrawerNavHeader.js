@@ -25,10 +25,10 @@ class CustomDrawerContentComponent extends React.Component {
     };
   }
 
-  componentWillMount() {}
+  componentWillMount() { }
 
   switchChange() {
-		this.setState({online: (this.state.online) ? false : true});
+    this.setState({ online: (this.state.online) ? false : true });
   }
 
   render() {
@@ -50,8 +50,7 @@ class CustomDrawerContentComponent extends React.Component {
                 style={styles.avatar}
                 medium
                 source={{
-                  uri:
-                    "https://steamusercontent-a.akamaihd.net/ugc/868492508833370108/A8A148EB7AE11DA574D3F5537E32B3DA83D9A098/"
+                  uri:userInfo.avatarLink
                 }}
                 onPress={() => console.log("Works!")}
                 activeOpacity={0.7}
@@ -61,7 +60,7 @@ class CustomDrawerContentComponent extends React.Component {
                   transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],
                   marginRight: 15
                 }}
-                thumbTintColor={theme.onPrimary}
+                thumbTintColor={theme.background}
                 value={this.state.online}
                 onValueChange={this.switchChange.bind(this)}
               />
@@ -77,7 +76,7 @@ class CustomDrawerContentComponent extends React.Component {
           <ScrollView style={styles.body}>
             <DrawerItems
               style={styles.drawerItems}
-              activeTintColor={theme.primaryVariant}
+              activeTintColor={theme.onBackground}
               inactiveTintColor={theme.onBackground}
               activeBackgroundColor={theme.selected}
               {...this.props}
@@ -150,27 +149,21 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 16,
-    color: theme.onBackground,
-    textShadowColor: "rgba(50, 50, 50, 0.4)",
+    color: theme.background,
+    textShadowColor: "rgba(0, 0, 0, 0.8)",
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10
   },
   email: {
     fontSize: 14,
-    color: theme.onBackground,
-    textShadowColor: "rgba(50, 50, 50, 0.4)",
+    color: theme.background,
+    textShadowColor: "rgba(0, 0, 0, 0.8)",
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,
     paddingBottom: 10
   },
   headerTextContainer: {
     marginLeft: 10
-  },
-  divider: {
-    color: "red",
-    height: 1,
-    marginTop: 5,
-    marginBottom: 10
   }
 });
 

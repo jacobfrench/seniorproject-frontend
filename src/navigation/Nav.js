@@ -33,7 +33,7 @@ const styles = {
 		backgroundColor: theme.primaryVariant
 	},
 	mainHeaderTitle: {
-		color: theme.onPrimary
+		color: theme.primary
 	}    
 };
 
@@ -67,7 +67,7 @@ const NearbyStack = createStackNavigator({
 			headerStyle: styles.mainHeader,
 			headerTitleStyle: styles.mainHeaderTitle,
 			headerLeft: (
-				<HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.onPrimary}>
+				<HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.primary}>
 						<HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
 				</HeaderButtons>
 
@@ -84,7 +84,7 @@ const FavoritesStack = createStackNavigator({
 			headerStyle: styles.mainHeader,
 			headerTitleStyle: styles.mainHeaderTitle,
 			headerLeft: (
-				<HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.onPrimary}>
+				<HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.primary}>
 						<HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
 				</HeaderButtons>
 			),
@@ -100,7 +100,7 @@ const MapStack = createStackNavigator({
 			headerStyle: styles.mainHeader,
 			headerTitleStyle: styles.mainHeaderTitle,
 			headerLeft: (
-				<HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.onPrimary}>
+				<HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.primary}>
 						<HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
 				</HeaderButtons>
 
@@ -131,7 +131,7 @@ const TabNav = createBottomTabNavigator({
 	}
 }, {
 	tabBarOptions: {
-		activeTintColor: theme.primaryVariant
+		activeTintColor: theme.primary
 	},
 	initialRouteName: 'Nearby'
 });
@@ -165,7 +165,7 @@ const BusinessEditTabs = createBottomTabNavigator({
 	},
 }, {
 	tabBarOptions: {
-		activeTintColor: theme.primaryVariant
+		activeTintColor: theme.primary
 	},
 	initialRouteName: 'About'
 });
@@ -181,7 +181,7 @@ const BusinessStack = createStackNavigator({
 			<HeaderButtons
 				IconComponent={Ionicons} 
 				iconSize={32} 
-				color={theme.onPrimary}
+				color={theme.primary}
 			>
 					<HeaderButtons.Item 
 						title='drawer' 
@@ -222,7 +222,7 @@ const BusinessPageStack = createStackNavigator({
 			<HeaderButtons 
 				IconComponent={Ionicons} 
 				iconSize={32} 
-				color={theme.onPrimary}
+				color={theme.primary}
 			>
 					<HeaderButtons.Item 
 						title='drawer' 
@@ -246,7 +246,7 @@ const MessagingStack = createStackNavigator({
 				<HeaderButtons 
 					IconComponent={Ionicons} 
 					iconSize={32} 
-					color={theme.onPrimary}
+					color={theme.primary}
 				>
 					<HeaderButtons.Item 
 						title='drawer' 
@@ -273,7 +273,7 @@ const SettingsStack = createStackNavigator({
 				<HeaderButtons 
 					IconComponent={Ionicons} 
 					iconSize={32} 
-					color={theme.onPrimary}
+					color={theme.primary}
 				>
 					<HeaderButtons.Item 
 						title='drawer' 
@@ -290,28 +290,28 @@ const MainNav = createDrawerNavigator({
 		Home: { 
 			screen: Home, 
 			navigationOptions: {
-				drawerIcon: (<Ionicons name='md-home' size={24} color={theme.primary}/>),
+				drawerIcon: (<Ionicons name='md-home' size={24} color={theme.onBackground}/>),
         tintColor: theme.onBackground,
 			}
 		},
 		Business: {
 			 screen: BusinessStack,
 			 navigationOptions: {
-				drawerIcon: (<Ionicons name='md-briefcase' size={24} color={theme.primary}/>),
+				drawerIcon: (<Ionicons name='md-briefcase' size={24} color={theme.onBackground}/>),
 				tintColor: theme.onBackground 
 			}
 		},
 		Inbox: {
 			screen: MessagingStack,
 			navigationOptions: {
-				drawerIcon: (<Ionicons name='md-chatboxes' size={24} color={theme.primary}/>),
+				drawerIcon: (<Ionicons name='md-chatboxes' size={24} color={theme.onBackground}/>),
 				tintColor: theme.onBackground 
 			}
 		},
 		Settings: { 
 			screen: SettingsStack, 
 			navigationOptions: {
-				drawerIcon: (<Ionicons name='md-settings' size={24} color={theme.primary}/>),
+				drawerIcon: (<Ionicons name='md-settings' size={24} color={theme.onBackground}/>),
 				activeTintColor: theme.onBackground,
 			}
 		},

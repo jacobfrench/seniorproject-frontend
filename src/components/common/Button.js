@@ -42,7 +42,7 @@ const theme = store.getState().settings.theme;
 const styles = StyleSheet.create({
   textStyle: {
     fontSize: 18,
-    color: theme.onPrimary,
+    color: theme.background,
     textAlign: "center",
     padding: 10
   },
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowOffset: { width: 0, height: 0 },
     shadowRadius: 10,
-    alignSelf: "baseline"
+    alignSelf: 'baseline'
   },
   iconButtonStyle: {
     backgroundColor: theme.primary,

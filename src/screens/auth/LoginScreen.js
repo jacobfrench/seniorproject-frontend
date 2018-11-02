@@ -39,7 +39,7 @@ class LoginScreen extends React.Component {
     return (
       <LinearGradient
         style={styles.linearGradient}
-        colors={[theme.primary, theme.primaryVariant]}
+        colors={[theme.primary, '#2980b9']}
       >
         <View style={styles.header}>
           <Image source={logo2} resizeMode='contain' />
@@ -77,7 +77,7 @@ class LoginScreen extends React.Component {
             <Button
               text='Login'
               onPress={() => this.onLoginPress()}
-              style={styles.signInButton}
+              style={styles.loginButton}
             />
             <Button
               text='Sign Up'
@@ -104,17 +104,17 @@ const styles = StyleSheet.create({
   },
   inputUsername: {
     marginBottom: 20,
-    borderColor: theme.onPrimary
+    borderColor: theme.background
   },
   inputPassword: {
-    borderColor: theme.onPrimary,
+    borderColor: theme.background,
     marginBottom: 20
   },
-  signInButton: {
+  loginButton: {
     backgroundColor: 'transparent',
     borderRadius: 100,
-    borderColor: theme.onPrimary,
-    borderWidth: 2,
+    borderColor: theme.background,
+    borderWidth: StyleSheet.hairlineWidth,
     width: '45%',
     marginRight: 5,
     elevation: 1,
@@ -123,10 +123,11 @@ const styles = StyleSheet.create({
   },
   signUpButton: {
     backgroundColor: theme.secondary,
+    borderColor: theme.background,
+    borderWidth: StyleSheet.hairlineWidth,
     borderRadius: 100,
     width: '45%',
     marginLeft: 5,
-    elevation: 1,
     shadowOpacity: 0.3,
     shadowOffset: { width: 0, height: 2 }
   },
@@ -153,7 +154,8 @@ const styles = StyleSheet.create({
     flex: 2
   },
   forgotPasswordText: {
-    fontSize: 15
+    fontSize: 15,
+    color: 'white'
   },
   forgotPasswordButton: {
     justifyContent: 'center',

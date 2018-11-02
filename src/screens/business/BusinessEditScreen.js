@@ -1,7 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, ScrollView, SafeAreaView, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, View, ScrollView, SafeAreaView, KeyboardAvoidingView, TouchableOpacity, Text } from 'react-native';
 import { store } from 'app/src/redux/store';
-import { Button } from 'app/src/components/common/Button';
 import { Input } from 'react-native-elements';
 import api from 'app/src/api';
 
@@ -36,7 +35,6 @@ class BusinessEditScreen extends React.Component {
 	}
 
 	render() {
-		// const { userInfo } = this.props;
 		return (
 			<SafeAreaView style={styles.container}>
 				<KeyboardAvoidingView>
@@ -110,11 +108,9 @@ class BusinessEditScreen extends React.Component {
 
 						</View>
 
-						<Button
-							text='Save'
-							onPress={this.onSavePress}
-							style={styles.saveButton}
-						/>
+						<TouchableOpacity style={styles.saveButton} onPress={this.onSavePress}>
+							<Text style={styles.buttonText}>Publish</Text>
+						</TouchableOpacity>
 
 					</ScrollView>
 				</KeyboardAvoidingView>
@@ -129,7 +125,7 @@ const styles = StyleSheet.create({
 		flex: 1
 	},
 	scrollView: {
-		backgroundColor: theme.onPrimary,
+		backgroundColor: theme.background,
 		margin: 10,
 		padding: 10
 	},
@@ -143,11 +139,17 @@ const styles = StyleSheet.create({
 		marginBottom: 10
 	},
 	saveButton: {
-		backgroundColor: theme.primaryVariant,
+		backgroundColor: theme.primary,
 		alignItems: 'center',
 		justifyContent: 'center',
 		marginBottom: 20,
-		padding: 5
+		padding: 5,
+		borderRadius: 2
+	},
+	buttonText: {
+		color: 'white',
+		padding: 10,
+		fontSize: 22
 	}
 });
 

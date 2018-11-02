@@ -11,11 +11,10 @@ import {connect} from 'react-redux';
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-
   }
 
   render() {
-    return ( 
+    return (
     <View style = {styles.container}>
       <ScrollView style={styles.body}>
         <Text>Content goes here.</Text>
@@ -40,10 +39,10 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   body: {
-    backgroundColor: theme.onPrimary,
+    backgroundColor: theme.background,
     width: '100%',
   },
-  name:{
+  name: {
     fontSize: 18,
     color: theme.onPrimary,
     paddingTop: 10
