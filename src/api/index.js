@@ -67,46 +67,56 @@ const api = {
   },
 
   postNewBusiness(info, userId) {
-    fetch(url + '/business/post/' + userId, {
-      method: 'POST',
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Authorization": store.getState().authToken
-      },
-      body: JSON.stringify({
-        name: info.name,
-        street: info.street,
-        state: info.state,
-        city: info.city,
-        zip: info.zip,
-        primaryPhone: info.primaryPhone,
-        altPhone: info.altPhone,
-        about: info.about,
-        email: info.email
+    return new Promise((resolve, reject) =>
+      fetch(url + '/business/post/' + userId, {
+        method: 'POST',
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": store.getState().authToken
+        },
+        body: JSON.stringify({
+          name: info.name,
+          street: info.street,
+          state: info.state,
+          city: info.city,
+          zip: info.zip,
+          primaryPhone: info.primaryPhone,
+          altPhone: info.altPhone,
+          about: info.about,
+          email: info.email
+        })
       })
-    })
-      .then(res => alert(res))
-      .catch(err => alert(err));
+        .then((res) => res.json())
+        .then(resJson => {
+          resolve(resJson);
+        })
+    ).catch(err => console.error(err));
 
   },
 
-  postNewMenu(newItem, userId){
-    fetch(url + '/business/post/menu/' + userId, {
-      method: 'POST',
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Authorization": store.getState().authToken
-      },
-      body: JSON.stringify({
-        title: newItem.title,
-        description: newItem.description,
-        imageUrl: newItem.imageUrl
+  postNewMenu(newItem, userId) {
+    return new Promise((resolve, reject) =>
+      fetch(url + '/business/post/menu/' + userId, {
+        method: 'POST',
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": store.getState().authToken
+        },
+        body: JSON.stringify({
+          title: newItem.title,
+          description: newItem.description,
+          imageUrl: newItem.imageUrl
+        })
       })
-    })
-    .then(res => alert(res))
-    .catch(err => alert(err));
+        .then((res) => res.json())
+        .then(resJson => {
+          resolve(resJson);
+        })
+    ).catch(err => {
+      reject(err);
+    });
   },
 
   getBusinessByUserId(ownerId) {
@@ -124,30 +134,30 @@ const api = {
           resolve(responsJson);
         })
     ).catch(err => {
-      
+
       reject(err);
     });
   },
 
-  getMenusByUserId(ownerId){
+  getMenusByUserId(ownerId) {
     return new Promise((resolve, reject) =>
-    fetch(url + '/business/get/menus/' + ownerId, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': store.getState().authToken
-      }
-    })
-      .then(response => response.json())
-      .then(responsJson => {
-        resolve(responsJson);
+      fetch(url + '/business/get/menus/' + ownerId, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': store.getState().authToken
+        }
       })
-  ).catch(err => {
-    
-    reject(err);
-  });
-},
+        .then(response => response.json())
+        .then(responsJson => {
+          resolve(responsJson);
+        })
+    ).catch(err => {
+
+      reject(err);
+    });
+  },
 
 };
 

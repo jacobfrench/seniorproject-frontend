@@ -24,14 +24,16 @@ class BusinessEditScreen extends React.Component {
 	componentWillMount(){
 		let userId = store.getState().user.info.id;
 		api.getBusinessByUserId(userId)
-		.then((data) => {
-			this.setState(data);
-		});
+			.then(res => this.setState(res));
+		
 	}
 
 	onSavePress = () => {
 		let email = store.getState().user.info.username;
-		api.postNewBusiness(this.state, email);
+		api.postNewBusiness(this.state, email)
+		.then(response => {
+			console.log(response)
+		})
 	}
 
 	render() {

@@ -12,8 +12,9 @@ class MenuEditScreen extends React.Component {
 		super(props);
 		this.state = {
 			modalVisible: false,
-			menuItems: [],
+			menus: [],
 			newItem: {
+				id: '',
 				title: '',
 				description: '',
 				imageUrl: ''
@@ -27,37 +28,42 @@ class MenuEditScreen extends React.Component {
 
 	onSavePress = () => {
 		if (this.state.editMode) {
-			console.log("CALL PUT METHOD HERE!!!")
+			console.log("CALL PUT METHOD HERE!!!");
+			console.log(this.state.newItem)
 
 		} else {
 			let userId = store.getState().user.info.id;
-			api.postNewMenu(this.state.newItem, userId);
-			this.setState({ modalVisible: false });
-			this.setState({ lastRefresh: Date(Date.now()).toString() })
+			api.postNewMenu(this.state.newItem, userId)
+				.then(res => {
+					this.state.menus.push(res);
+					this.setState({ menus: this.state.menus });
+
+				});
 		}
 
 		this.setState({ editMode: false });
+		this.setState({ modalVisible: false });
+		this.setState({ lastRefresh: Date(Date.now()).toString() })
+
 	}
 
-	showModal(item) {
-		this.setState({ modalVisible: true });
-		this.setState({ newItem: { ...this.state.newItem, title: item.title } });
-		this.setState({ newItem: { ...this.state.newItem, description: item.description } });
-		this.setState({ newItem: { ...this.state.newItem, imageUrl: item.imageUrl } });
+	onEditPress (item){
+		this.setState({newItem: item})
 		this.setState({ editMode: true });
-
-
+		this.setState({ modalVisible: true });
 	}
 
 	hideModal = () => {
+		this.setState({newItem: {}});
 		this.setState({ modalVisible: false });
+		this.setState({ editMode: false });
 	}
 
 	componentWillMount() {
 		let userId = store.getState().user.info.id;
 		api.getMenusByUserId(userId)
 			.then((data) => {
-				this.setState({ menuItems: data });
+				this.setState({ menus: data });
 			})
 
 	}
@@ -114,7 +120,7 @@ class MenuEditScreen extends React.Component {
 
 				<ScrollView style={styles.scrollView}>
 					{
-						this.state.menuItems.map((item, i) => (
+						this.state.menus.map((item, i) => (
 							<Card
 								key={'_item' + i}
 								title={item.title}
@@ -127,7 +133,7 @@ class MenuEditScreen extends React.Component {
 									/>
 									<Button
 										title='Edit'
-										onPress={(item) => this.showModal(item)}
+										onPress={this.onEditPress.bind(this, item)}
 										buttonStyle={styles.button}
 									/>
 									<Button
