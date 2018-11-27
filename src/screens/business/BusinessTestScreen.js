@@ -5,6 +5,7 @@ import { Avatar, Text, Divider, ButtonGroup } from 'react-native-elements';
 import api from 'app/src/api';
 import { Ionicons } from '@expo/vector-icons';
 
+
 class BusinessTestScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -22,6 +23,11 @@ class BusinessTestScreen extends React.Component {
   }
 
   componentWillMount() {
+    let userId = store.getState().user.info.id;
+		api.getBusinessByUserId(userId)
+			.then(res => {
+        this.setState(res);
+      });
   }
 
   render() {
@@ -62,7 +68,7 @@ class BusinessTestScreen extends React.Component {
           containerStyle={styles.buttonContainer}
         />
 
-        <ScrollView style={{ marginLeft: 10, marginRight: 10 }}>
+        <ScrollView style={{width: '100%', marginLeft: 10, marginRight: 10 }}>
 
           <View style={styles.card}>
             <Text h4 style={{ color: theme.onBackground }}>Contact Information</Text>
@@ -115,7 +121,8 @@ const styles = StyleSheet.create({
   header: {
     width: '100%',
     height: 150,
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    elevation: 5
   },
   headerText: {
     color: 'white',
@@ -133,7 +140,8 @@ const styles = StyleSheet.create({
     borderColor: '#e3e3e3',
     marginTop: 10,
     padding: 10,
-    elevation: 1
+    elevation: 5,
+    width:'100%'
   },
   cardDivider: {
     backgroundColor: '#bdc6cf',

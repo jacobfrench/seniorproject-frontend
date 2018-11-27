@@ -156,8 +156,8 @@ class MenuEditScreen extends React.Component {
 
 
 				<FAB
-					buttonColor={theme.secondary}
-					iconTextColor={theme.onSecondary}
+					buttonColor={theme.primary}
+					iconTextColor={theme.surface}
 					onClickAction={() => this.setState({ modalVisible: true })}
 					visible={true}
 				/>

@@ -1,7 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, ScrollView, SafeAreaView, KeyboardAvoidingView, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, ScrollView, 
+				 SafeAreaView, KeyboardAvoidingView, TouchableOpacity, 
+				 Text, Platform, ToastAndroid 
+				} from 'react-native';
 import { store } from 'app/src/redux/store';
-import { Input } from 'react-native-elements';
+import { Input, FormLabel } from 'react-native-elements';
+import {StatePicker} from 'app/src/components/common';
 import api from 'app/src/api';
 
 class BusinessEditScreen extends React.Component {
@@ -17,7 +21,8 @@ class BusinessEditScreen extends React.Component {
 			zip: '',
 			primaryPhone: '',
 			altPhone: '',
-			email: ''
+			email: '',
+			owner:{"id":store.getState().user.info.id}
 		}
 	}
 
@@ -26,23 +31,25 @@ class BusinessEditScreen extends React.Component {
 		api.getBusinessByUserId(userId)
 			.then(res => {
         this.setState(res);
-        console.log(res);
       });
 	}
 
 	onPublishPress = () => {
     let email = store.getState().user.info.username;
-    if(this.state.id == null){
-    // post new business if business doesn't exist
+    if(this.state.id == ''){
+		// post new business if business doesn't exist
       api.postNewBusiness(this.state, email)
       .then(response => {
         console.log(response);
       })
     } else {
-      // update business if business exists.
+			// update business if business exists.
       api.updateBusiness(this.state)
       .then(response => {
-        console.log(response);
+				console.log(response);
+				if(Platform.OS != 'ios'){
+					ToastAndroid.show('Published.', ToastAndroid.SHORT);
+				}
       })
     }
 		
@@ -78,6 +85,7 @@ class BusinessEditScreen extends React.Component {
 								placeholder={'Primary Phone'}
 								onChangeText={(primaryPhone) => this.setState({ primaryPhone: primaryPhone })}
 								value={this.state.primaryPhone}
+								maxLength={10}
 							/>
 
 							<Input
@@ -85,7 +93,8 @@ class BusinessEditScreen extends React.Component {
 								containerStyle={styles.input}
 								placeholder={'Alt. Phone'}
 								onChangeText={(altPhone) => this.setState({ altPhone: altPhone })}
-								value={this.state.altPhone}								
+								value={this.state.altPhone}
+								maxLength={10}	
 							/>
 
 							<Input
@@ -104,20 +113,35 @@ class BusinessEditScreen extends React.Component {
 								value={this.state.city}								
 							/>
 
-							<Input
-								label={'State'}
-								containerStyle={styles.input}
-								placeholder={'State'}
-								onChangeText={(state) => this.setState({ state: state })}
-								value={this.state.state}
-							/>
+							<View style={styles.pickerView}>
+								<StatePicker 
+									style={styles.picker}
+									selectedValue={this.state.state}
+									onValueChange={(value) => this.setState({state: value})}
+									prompt={'Select State'}
+									mode='dialog'
+								/>
+							</View>
+
 
 							<Input
 								label={'Zip Code'}
 								containerStyle={styles.input}
 								placeholder={'Zip Code'}
 								onChangeText={(zip) => this.setState({ zip: zip })}
-								value={this.state.zip}								
+								value={this.state.zip}
+								maxLength={5}	
+							/>
+
+							<Input
+								label={'About'}
+								containerStyle={styles.input}
+								placeholder={'Tell us about your company.'}
+								onChangeText={(about) => this.setState({ about: about })}
+								value={this.state.about}
+								multiline
+								maxLength={255}
+								numberOfLines={5}
 							/>
 
 						</View>
@@ -141,7 +165,8 @@ const styles = StyleSheet.create({
 	scrollView: {
 		backgroundColor: theme.background,
 		margin: 10,
-		padding: 10
+		padding: 10,
+		borderRadius: 10
 	},
 	inputContainer: {
 		flex: 1,
@@ -150,7 +175,8 @@ const styles = StyleSheet.create({
 		elevation: 1
 	},
 	input: {
-		marginBottom: 10
+		marginBottom: 10,
+		elevation: 5
 	},
 	saveButton: {
 		backgroundColor: theme.primary,
@@ -164,6 +190,27 @@ const styles = StyleSheet.create({
 		color: 'white',
 		padding: 10,
 		fontSize: 22
+	},
+	picker:{
+		marginBottom: 10,
+		width: '100%',
+		padding: 5,
+		height: 50,
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
+	pickerView:{
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: '95%',
+		height: 50,
+		elevation: 5,
+		paddingTop: 5,
+		backgroundColor: 'white',
+		borderRadius: 100,
+		margin: 10
+
 	}
 });
 
