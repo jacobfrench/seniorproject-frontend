@@ -24,16 +24,28 @@ class BusinessEditScreen extends React.Component {
 	componentWillMount(){
 		let userId = store.getState().user.info.id;
 		api.getBusinessByUserId(userId)
-			.then(res => this.setState(res));
-		
+			.then(res => {
+        this.setState(res);
+        console.log(res);
+      });
 	}
 
-	onSavePress = () => {
-		let email = store.getState().user.info.username;
-		api.postNewBusiness(this.state, email)
-		.then(response => {
-			console.log(response)
-		})
+	onPublishPress = () => {
+    let email = store.getState().user.info.username;
+    if(this.state.id == null){
+    // post new business if business doesn't exist
+      api.postNewBusiness(this.state, email)
+      .then(response => {
+        console.log(response);
+      })
+    } else {
+      // update business if business exists.
+      api.updateBusiness(this.state)
+      .then(response => {
+        console.log(response);
+      })
+    }
+		
 	}
 
 	render() {
@@ -110,7 +122,7 @@ class BusinessEditScreen extends React.Component {
 
 						</View>
 
-						<TouchableOpacity style={styles.saveButton} onPress={this.onSavePress}>
+						<TouchableOpacity style={styles.saveButton} onPress={this.onPublishPress}>
 							<Text style={styles.buttonText}>Publish</Text>
 						</TouchableOpacity>
 

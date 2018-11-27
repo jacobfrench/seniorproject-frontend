@@ -75,17 +75,26 @@ const api = {
           "Content-Type": "application/json",
           "Authorization": store.getState().authToken
         },
-        body: JSON.stringify({
-          name: info.name,
-          street: info.street,
-          state: info.state,
-          city: info.city,
-          zip: info.zip,
-          primaryPhone: info.primaryPhone,
-          altPhone: info.altPhone,
-          about: info.about,
-          email: info.email
+        body: JSON.stringify(info)
+      })
+        .then((res) => res.json())
+        .then(resJson => {
+          resolve(resJson);
         })
+    ).catch(err => console.error(err));
+
+  },
+
+  updateBusiness(info) {
+    return new Promise((resolve, reject) =>
+      fetch(url + '/business/update', {
+        method: 'PUT',
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": store.getState().authToken
+        },
+        body: JSON.stringify(info)
       })
         .then((res) => res.json())
         .then(resJson => {
@@ -130,11 +139,10 @@ const api = {
         }
       })
         .then(response => response.json())
-        .then(responsJson => {
-          resolve(responsJson);
+        .then(responseJson => {
+            resolve(responseJson);
         })
     ).catch(err => {
-
       reject(err);
     });
   },

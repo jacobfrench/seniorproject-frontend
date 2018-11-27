@@ -120,6 +120,7 @@ class MenuEditScreen extends React.Component {
 
 				<ScrollView style={styles.scrollView}>
 					{
+            
 						this.state.menus.map((item, i) => (
 							<Card
 								key={'_item' + i}
@@ -147,7 +148,8 @@ class MenuEditScreen extends React.Component {
 								</View>
 
 							</Card>
-						))
+            ))
+            
 					}
 
 				</ScrollView>
