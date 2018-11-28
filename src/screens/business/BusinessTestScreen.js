@@ -10,15 +10,15 @@ class BusinessTestScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: 'Business Name',
-      about: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mi nisi, consequat eget magna sed, aliquam semper urna. Integer condimentum est nec risus rutrum mattis. Sed quis lectus congue, porttitor metus et, facilisis lorem.',
-      street: '4900 University Way',
-      city: 'Bakersfield',
-      state: 'CA',
-      zip: '93301',
-      primaryPhone: '(661) 555-5213',
-      altPhone: '(661) 555-1234',
-      email: 'somecompany@gmail.com'
+      name: '',
+      about: '',
+      street: '',
+      city: '',
+      state: '',
+      zip: '',
+      primaryPhone: '',
+      altPhone: '',
+      email: ''
     }
   }
 
@@ -28,6 +28,10 @@ class BusinessTestScreen extends React.Component {
 			.then(res => {
         this.setState(res);
       });
+  }
+
+  phoneFormat = (phoneNum) => {
+    return '(' + phoneNum.substring(0, 3) + ') ' + phoneNum.substring(3, 6) + '-' + phoneNum.substring(6, 11);
   }
 
   render() {
@@ -78,7 +82,8 @@ class BusinessTestScreen extends React.Component {
                 <Ionicons name='md-create' size={20} color={theme.onBackground} />
               </View>
               <View style={styles.textLabel}>
-                <Text>{this.state.primaryPhone}</Text>
+                <Text>{this.phoneFormat(this.state.primaryPhone)}</Text>
+                <Text>{this.phoneFormat(this.state.altPhone)}</Text>
               </View>
             </View>
             <View style={styles.contactField}>

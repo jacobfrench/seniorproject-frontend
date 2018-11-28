@@ -30,22 +30,26 @@ class BusinessEditScreen extends React.Component {
 		let userId = store.getState().user.info.id;
 		api.getBusinessByUserId(userId)
 			.then(res => {
-        this.setState(res);
+				this.setState(res);
+				
       });
 	}
 
 	onPublishPress = () => {
-    let email = store.getState().user.info.username;
-    if(this.state.id == ''){
+		let email = store.getState().user.info.username;
+		console.log('publish press')
+		console.log(this.state)
+    if(this.state.id === ''){
 		// post new business if business doesn't exist
       api.postNewBusiness(this.state, email)
       .then(response => {
-        console.log(response);
+        ToastAndroid.show('Published.', ToastAndroid.SHORT);
       })
     } else {
 			// update business if business exists.
       api.updateBusiness(this.state)
       .then(response => {
+				console.log('update press')
 				console.log(response);
 				if(Platform.OS != 'ios'){
 					ToastAndroid.show('Published.', ToastAndroid.SHORT);
@@ -85,6 +89,7 @@ class BusinessEditScreen extends React.Component {
 								placeholder={'Primary Phone'}
 								onChangeText={(primaryPhone) => this.setState({ primaryPhone: primaryPhone })}
 								value={this.state.primaryPhone}
+								keyboardType='phone-pad'
 								maxLength={10}
 							/>
 
@@ -94,6 +99,7 @@ class BusinessEditScreen extends React.Component {
 								placeholder={'Alt. Phone'}
 								onChangeText={(altPhone) => this.setState({ altPhone: altPhone })}
 								value={this.state.altPhone}
+								keyboardType='phone-pad'
 								maxLength={10}	
 							/>
 
@@ -131,6 +137,7 @@ class BusinessEditScreen extends React.Component {
 								onChangeText={(zip) => this.setState({ zip: zip })}
 								value={this.state.zip}
 								maxLength={5}	
+								keyboardType='numeric'
 							/>
 
 							<Input
