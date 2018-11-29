@@ -44,7 +44,7 @@ class CustomDrawerContentComponent extends React.Component {
             style={{ width: "100%" }}
           >
             <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
+              style={{ flexDirection: "row", justifyContent: "space-between", margin: 10 }}
             >
               <Avatar
                 style={styles.avatar}
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     flexDirection: "column"
   },
   avatar: {
-    margin: 10,
+    margin: 20,
     width: 80,
     height: 80,
     elevation: 10

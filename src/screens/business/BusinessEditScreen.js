@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, ScrollView, 
 				 SafeAreaView, KeyboardAvoidingView, TouchableOpacity, 
-				 Text, Platform, ToastAndroid 
+				 Text, Platform, ToastAndroid, ActivityIndicator
 				} from 'react-native';
 import { store } from 'app/src/redux/store';
-import { Input, FormLabel } from 'react-native-elements';
+import { FormInput, FormLabel } from 'react-native-elements';
 import {StatePicker} from 'app/src/components/common';
 import api from 'app/src/api';
 
@@ -30,7 +30,10 @@ class BusinessEditScreen extends React.Component {
 		let userId = store.getState().user.info.id;
 		api.getBusinessByUserId(userId)
 			.then(res => {
-				this.setState(res);
+				console.log('from business edit')
+				console.log(res)
+				if(res.id !== '')
+					this.setState(res);
 				
       });
 	}
@@ -43,6 +46,9 @@ class BusinessEditScreen extends React.Component {
 		// post new business if business doesn't exist
       api.postNewBusiness(this.state, email)
       .then(response => {
+				this.setState(response);
+				console.log('response:')
+				console.log(response)
         ToastAndroid.show('Published.', ToastAndroid.SHORT);
       })
     } else {
@@ -52,6 +58,7 @@ class BusinessEditScreen extends React.Component {
 				console.log('update press')
 				console.log(response);
 				if(Platform.OS != 'ios'){
+					this.setState(response)
 					ToastAndroid.show('Published.', ToastAndroid.SHORT);
 				}
       })
@@ -63,27 +70,28 @@ class BusinessEditScreen extends React.Component {
 		return (
 			<SafeAreaView style={styles.container}>
 				<KeyboardAvoidingView>
-					<ScrollView style={styles.scrollView}>
+					<ScrollView contentContainerStyle={styles.scrollView}>
 						<View style={styles.inputContainer}>
 
-							<Input
-								label={'Name'}
+							<FormLabel>Company Name</FormLabel>
+							<FormInput
 								containerStyle={styles.input}
-								placeholder={'Name'}
+								placeholder={'Company Name'}
 								onChangeText={(name) => this.setState({ name: name })}
 								style={styles.inputStyle}
 								value={this.state.name}
 							/>
 
-							<Input
+							<FormLabel>Email</FormLabel>
+							<FormInput
 								label={'Email'}
 								containerStyle={styles.input}
 								placeholder={'Email'}
 								onChangeText={(email) => this.setState({ email: email })}
 								value={this.state.email}
 							/>
-
-							<Input
+							<FormLabel>Primary Phone</FormLabel>
+							<FormInput
 								label={'Primary Phone'}
 								containerStyle={styles.input}
 								placeholder={'Primary Phone'}
@@ -92,8 +100,8 @@ class BusinessEditScreen extends React.Component {
 								keyboardType='phone-pad'
 								maxLength={10}
 							/>
-
-							<Input
+							<FormLabel>Alt. Phone</FormLabel>
+							<FormInput
 								label={'Alt. Phone'}
 								containerStyle={styles.input}
 								placeholder={'Alt. Phone'}
@@ -102,16 +110,16 @@ class BusinessEditScreen extends React.Component {
 								keyboardType='phone-pad'
 								maxLength={10}	
 							/>
-
-							<Input
+							<FormLabel>Street</FormLabel>
+							<FormInput
 								label={'Street'}
 								containerStyle={styles.input}
 								placeholder={'Street'}
 								onChangeText={(street) => this.setState({ street: street })}
 								value={this.state.street}																		
 							/>
-
-							<Input
+							<FormLabel>City</FormLabel>
+							<FormInput
 								label={'City'}
 								containerStyle={styles.input}
 								placeholder={'City'}
@@ -119,6 +127,7 @@ class BusinessEditScreen extends React.Component {
 								value={this.state.city}								
 							/>
 
+							<FormLabel>State</FormLabel>
 							<View style={styles.pickerView}>
 								<StatePicker 
 									style={styles.picker}
@@ -129,8 +138,8 @@ class BusinessEditScreen extends React.Component {
 								/>
 							</View>
 
-
-							<Input
+							<FormLabel>Zip Code</FormLabel>
+							<FormInput
 								label={'Zip Code'}
 								containerStyle={styles.input}
 								placeholder={'Zip Code'}
@@ -140,7 +149,8 @@ class BusinessEditScreen extends React.Component {
 								keyboardType='numeric'
 							/>
 
-							<Input
+							<FormLabel>About Us</FormLabel>
+							<FormInput
 								label={'About'}
 								containerStyle={styles.input}
 								placeholder={'Tell us about your company.'}
@@ -171,27 +181,35 @@ const styles = StyleSheet.create({
 	},
 	scrollView: {
 		backgroundColor: theme.background,
-		margin: 10,
+		margin: 5,
 		padding: 10,
-		borderRadius: 10
+		borderRadius: 10,
+		justifyContent: 'center',
+		alignItems: 'center'
 	},
 	inputContainer: {
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'center',
-		elevation: 1
+		elevation: 5
 	},
 	input: {
-		marginBottom: 10,
-		elevation: 5
+		margin: 5,
+		padding:5,
+		elevation: 5,
+		backgroundColor: theme.background,
+		elevation: 5,
+		borderRadius: 5,
+		width: '95%'
 	},
 	saveButton: {
 		backgroundColor: theme.primary,
 		alignItems: 'center',
 		justifyContent: 'center',
 		marginBottom: 20,
+		marginTop: 10,
 		padding: 5,
-		borderRadius: 2
+		borderRadius: 2,
+		width: '95%'
 	},
 	buttonText: {
 		color: 'white',
@@ -215,7 +233,7 @@ const styles = StyleSheet.create({
 		elevation: 5,
 		paddingTop: 5,
 		backgroundColor: 'white',
-		borderRadius: 100,
+		borderRadius: 5,
 		margin: 10
 
 	}

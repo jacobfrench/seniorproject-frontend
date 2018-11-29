@@ -31,7 +31,8 @@ class BusinessTestScreen extends React.Component {
   }
 
   phoneFormat = (phoneNum) => {
-    return '(' + phoneNum.substring(0, 3) + ') ' + phoneNum.substring(3, 6) + '-' + phoneNum.substring(6, 11);
+    return '(' + phoneNum.substring(0, 3) + ') ' + 
+    phoneNum.substring(3, 6) + '-' + phoneNum.substring(6, 11);
   }
 
   render() {

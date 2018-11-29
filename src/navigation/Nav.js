@@ -16,7 +16,8 @@ import {
 	BusinessMenuScreen,
 	BusinessReviewScreen,
 	BusinessTestScreen,
-	ChatScreen
+	ChatScreen,
+	BusinessOptionsScreen
 } from 'app/src/screens';
 
 import {
@@ -34,7 +35,7 @@ const styles = {
 	},
 	mainHeaderTitle: {
 		color: theme.primary
-	}    
+	}
 };
 
 const AuthNav = createStackNavigator({
@@ -68,7 +69,7 @@ const NearbyStack = createStackNavigator({
 			headerTitleStyle: styles.mainHeaderTitle,
 			headerLeft: (
 				<HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.primary}>
-						<HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
+					<HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
 				</HeaderButtons>
 
 			),
@@ -85,7 +86,7 @@ const FavoritesStack = createStackNavigator({
 			headerTitleStyle: styles.mainHeaderTitle,
 			headerLeft: (
 				<HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.primary}>
-						<HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
+					<HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
 				</HeaderButtons>
 			),
 		})
@@ -101,7 +102,7 @@ const MapStack = createStackNavigator({
 			headerTitleStyle: styles.mainHeaderTitle,
 			headerLeft: (
 				<HeaderButtons IconComponent={Ionicons} iconSize={32} color={theme.primary}>
-						<HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
+					<HeaderButtons.Item title='drawer' iconName='md-menu' onPress={() => navigation.toggleDrawer()} />
 				</HeaderButtons>
 
 			),
@@ -114,208 +115,205 @@ const TabNav = createBottomTabNavigator({
 	Nearby: {
 		screen: NearbyStack,
 		navigationOptions: {
-			tabBarIcon: ({focused, tintColor}) => <Ionicons name='md-home' size={24} color={tintColor}/>
+			tabBarIcon: ({ focused, tintColor }) => <Ionicons name='md-home' size={24} color={tintColor} />
 		}
 	},
 	Favorites: {
 		screen: FavoritesStack,
 		navigationOptions: {
-			tabBarIcon: ({focused, tintColor}) => <Ionicons name='md-star' size={24} color={tintColor}/>
+			tabBarIcon: ({ focused, tintColor }) => <Ionicons name='md-star' size={24} color={tintColor} />
 		}
 	},
 	Map: {
 		screen: MapStack,
 		navigationOptions: {
-			tabBarIcon: ({focused, tintColor}) => <Ionicons name='md-map' size={24} color={tintColor}/>
+			tabBarIcon: ({ focused, tintColor }) => <Ionicons name='md-map' size={24} color={tintColor} />
 		}
 	}
 }, {
-	tabBarOptions: {
-		activeTintColor: theme.primary
-	},
-	initialRouteName: 'Nearby'
-});
+		tabBarOptions: {
+			activeTintColor: theme.primary
+		},
+		initialRouteName: 'Nearby'
+	});
 
 const Home = createStackNavigator({
 	Tabs: TabNav,
 }, {
-	headerMode: 'none'
-});
+		headerMode: 'none'
+	});
 
 //Business edit page navigator ====================================================================================================
-const BusinessEditTabs = createBottomTabNavigator({
-	About: {
-		screen: BusinessEditScreen,
-		navigationOptions: {
-			tabBarIcon: ({focused, tintColor}) => <Ionicons name='md-information-circle' size={24} color={tintColor}/>
-		}
-	},
-	Menu: {
-		screen: MenuEditScreen,
-		navigationOptions: {
-			tabBarIcon: ({focused, tintColor}) => <Ionicons name='md-book' size={24} color={tintColor}/>
-		}
-	},
-	View: {
-		//screen: BusinessBioScreen,
-		screen: BusinessTestScreen,
-		navigationOptions: {
-			tabBarIcon: ({focused, tintColor}) => <Ionicons name='md-eye' size={24} color={tintColor}/>
-		}
-	},
-}, {
-	tabBarOptions: {
-		activeTintColor: theme.primary
-	},
-	initialRouteName: 'About'
-});
-
 const BusinessStack = createStackNavigator({
-	Tabs: BusinessEditTabs
-}, {
-	navigationOptions: ({ navigation }) => ({
-		title: 'Info',
-		headerStyle: styles.mainHeader,
-		headerTitleStyle: styles.mainHeaderTitle,
-		headerLeft: (
-			<HeaderButtons
-				IconComponent={Ionicons} 
-				iconSize={32} 
-				color={theme.primary}
-			>
-					<HeaderButtons.Item 
-						title='drawer' 
-						iconName='md-menu' 
-						onPress={() => navigation.toggleDrawer()} 
+	BusinessOptionsScreen: {
+		screen: BusinessOptionsScreen,
+		navigationOptions: ({ navigation }) => ({
+			title: 'Options',
+			headerStyle: styles.mainHeader,
+			headerTitleStyle: styles.mainHeaderTitle,
+			headerLeft: (
+				<HeaderButtons
+					IconComponent={Ionicons}
+					iconSize={32}
+					color={theme.primary}
+				>
+					<HeaderButtons.Item
+						title='drawer'
+						iconName='md-menu'
+						onPress={() => navigation.toggleDrawer()}
 					/>
-			</HeaderButtons>
-		),
-	})
-});
+				</HeaderButtons>
+			),
+		})
+	}, 
+	EditBusiness: {
+		screen: BusinessEditScreen,
+		navigationOptions: ({ navigation }) => ({
+			title: 'Edit Information',
+			headerStyle: styles.mainHeader,
+			headerTitleStyle: styles.mainHeaderTitle,
+			headerLeft: (
+				<HeaderButtons
+					IconComponent={Ionicons}
+					iconSize={32}
+					color={theme.primary}
+				>
+					<HeaderButtons.Item
+						title='drawer'
+						iconName='md-menu'
+						onPress={() => navigation.toggleDrawer()}
+					/>
+				</HeaderButtons>
+			),
+		})
+	},
+	EditMenus: {
+		screen: MenuEditScreen,
+		navigationOptions: ({ navigation }) => ({
+			title: 'Edit Menus',
+			headerStyle: styles.mainHeader,
+			headerTitleStyle: styles.mainHeaderTitle,
+			headerLeft: (
+				<HeaderButtons
+					IconComponent={Ionicons}
+					iconSize={32}
+					color={theme.primary}
+				>
+					<HeaderButtons.Item
+						title='drawer'
+						iconName='md-menu'
+						onPress={() => navigation.toggleDrawer()}
+					/>
+				</HeaderButtons>
+			),
+		})
+	},
+	PreViewBusiness: {
+		screen: BusinessTestScreen,
+		navigationOptions: ({ navigation }) => ({
+			title: 'Preview',
+			headerStyle: styles.mainHeader,
+			headerTitleStyle: styles.mainHeaderTitle,
+			headerLeft: (
+				<HeaderButtons
+					IconComponent={Ionicons}
+					iconSize={32}
+					color={theme.primary}
+				>
+					<HeaderButtons.Item
+						title='drawer'
+						iconName='md-menu'
+						onPress={() => navigation.toggleDrawer()}
+					/>
+				</HeaderButtons>
+			),
+		})
+	},
 
-//ACTUAL Business page navigator ====================================================================================================
-const BusinessPageTabs = createBottomTabNavigator({
-	About: {
-		screen: BusinessBioScreen
-	},
-	Menu: {
-		screen: BusinessMenuScreen
-	},
-	Reviews: {
-		screen: BusinessReviewScreen
-	}
-}, {
-	tabBarOptions: {
-		activeTintColor: theme.primaryVariant
-	},
-	initialRouteName: 'About'
-});
-
-const BusinessPageStack = createStackNavigator({
-	Tabs: BusinessPageTabs
-}, {
-	navigationOptions: ({ navigation }) => ({
-		title: 'Info',
-		headerStyle: styles.mainHeader,
-		headerTitleStyle: styles.mainHeaderTitle,
-		headerLeft: (
-			<HeaderButtons 
-				IconComponent={Ionicons} 
-				iconSize={32} 
-				color={theme.primary}
-			>
-					<HeaderButtons.Item 
-						title='drawer' 
-						iconName='md-menu' 
-						onPress={() => navigation.toggleDrawer()} 
-						/>
-			</HeaderButtons>
-		),
-	})
-});
+	});
 
 //Messaging Nav
 const MessagingStack = createStackNavigator({
 	ChatScreen: {
 		screen: ChatScreen,
 		navigationOptions: ({ navigation }) => ({
-			title: 'Jacob French',
+			title: 'Messages',
 			headerStyle: styles.mainHeader,
 			headerTitleStyle: styles.mainHeaderTitle,
 			headerLeft: (
-				<HeaderButtons 
-					IconComponent={Ionicons} 
-					iconSize={32} 
+				<HeaderButtons
+					IconComponent={Ionicons}
+					iconSize={32}
 					color={theme.primary}
 				>
-					<HeaderButtons.Item 
-						title='drawer' 
-						iconName='md-menu' 
-						onPress={() => navigation.toggleDrawer()} 
+					<HeaderButtons.Item
+						title='drawer'
+						iconName='md-menu'
+						onPress={() => navigation.toggleDrawer()}
 					/>
 				</HeaderButtons>
 			),
 		})
 	}
 }, {
-	
-})
+
+	})
 
 //Settings Nav======================================================================================================
 const SettingsStack = createStackNavigator({
-	Settings: { 
+	Settings: {
 		screen: SettingsScreen,
 		navigationOptions: ({ navigation }) => ({
 			title: 'Settings',
 			headerStyle: styles.mainHeader,
 			headerTitleStyle: styles.mainHeaderTitle,
 			headerLeft: (
-				<HeaderButtons 
-					IconComponent={Ionicons} 
-					iconSize={32} 
+				<HeaderButtons
+					IconComponent={Ionicons}
+					iconSize={32}
 					color={theme.primary}
 				>
-					<HeaderButtons.Item 
-						title='drawer' 
-						iconName='md-menu' 
-						onPress={() => navigation.toggleDrawer()} 
+					<HeaderButtons.Item
+						title='drawer'
+						iconName='md-menu'
+						onPress={() => navigation.toggleDrawer()}
 					/>
 				</HeaderButtons>
 			),
-	})
+		})
 	}
 });
 
 const MainNav = createDrawerNavigator({
-		Home: { 
-			screen: Home, 
-			navigationOptions: {
-				drawerIcon: (<Ionicons name='md-home' size={24} color={theme.onBackground}/>),
-        tintColor: theme.onBackground,
-			}
-		},
-		Business: {
-			 screen: BusinessStack,
-			 navigationOptions: {
-				drawerIcon: (<Ionicons name='md-briefcase' size={24} color={theme.onBackground}/>),
-				tintColor: theme.onBackground 
-			}
-		},
-		Inbox: {
-			screen: MessagingStack,
-			navigationOptions: {
-				drawerIcon: (<Ionicons name='md-chatboxes' size={24} color={theme.onBackground}/>),
-				tintColor: theme.onBackground 
-			}
-		},
-		Settings: { 
-			screen: SettingsStack, 
-			navigationOptions: {
-				drawerIcon: (<Ionicons name='md-settings' size={24} color={theme.onBackground}/>),
-				activeTintColor: theme.onBackground,
-			}
-		},
+	Home: {
+		screen: Home,
+		navigationOptions: {
+			drawerIcon: (<Ionicons name='md-home' size={24} color={theme.onBackground} />),
+			tintColor: theme.onBackground,
+		}
 	},
+	Business: {
+		screen: BusinessStack,
+		navigationOptions: {
+			drawerIcon: (<Ionicons name='md-briefcase' size={24} color={theme.onBackground} />),
+			tintColor: theme.onBackground
+		}
+	},
+	Inbox: {
+		screen: MessagingStack,
+		navigationOptions: {
+			drawerIcon: (<Ionicons name='md-chatboxes' size={24} color={theme.onBackground} />),
+			tintColor: theme.onBackground
+		}
+	},
+	Settings: {
+		screen: SettingsStack,
+		navigationOptions: {
+			drawerIcon: (<Ionicons name='md-settings' size={24} color={theme.onBackground} />),
+			activeTintColor: theme.onBackground,
+		}
+	},
+},
 	{
 		contentComponent: props => <CustomDrawerContentComponent {...props} />,
 		activeTintColor: theme.primary

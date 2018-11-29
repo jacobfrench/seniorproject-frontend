@@ -28,16 +28,13 @@ class MenuEditScreen extends React.Component {
 			},
 			lastRefresh: Date(Date.now()).toString(),
 			editMode: false
-
-
 		}
 	}
 
 	onSavePress = () => {
 		if (this.state.editMode) {
 			console.log("CALL PUT METHOD HERE!!!");
-			console.log(this.state.newMenu)
-
+			console.log(this.state.newMenu);
 		} else {
 			let userId = store.getState().user.info.id;
 			api.postNewMenu(this.state.newMenu, userId)
