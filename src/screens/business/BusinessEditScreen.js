@@ -190,12 +190,12 @@ const styles = StyleSheet.create({
 	inputContainer: {
 		flex: 1,
 		alignItems: 'center',
-		elevation: 5
+		elevation: 5,
+		padding: 5
 	},
 	input: {
-		margin: 5,
-		padding:5,
-		elevation: 5,
+		padding: 5,
+		elevation: 2,
 		backgroundColor: theme.background,
 		elevation: 5,
 		borderRadius: 5,
@@ -205,8 +205,7 @@ const styles = StyleSheet.create({
 		backgroundColor: theme.primary,
 		alignItems: 'center',
 		justifyContent: 'center',
-		marginBottom: 20,
-		marginTop: 10,
+		margin: 5,
 		padding: 5,
 		borderRadius: 2,
 		width: '95%'

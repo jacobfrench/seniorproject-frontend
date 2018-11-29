@@ -3,7 +3,7 @@ import React from 'react';
 import { Modal, StyleSheet, View, ScrollView, SafeAreaView } from 'react-native';
 import { store } from 'app/src/redux/store';
 import api from 'app/src/api';
-import { Input, Card, Button, Text } from 'react-native-elements'
+import { FormInput, Card, Button, Text } from 'react-native-elements'
 import { Ionicons } from '@expo/vector-icons';
 
 
@@ -90,7 +90,7 @@ class MenuEditScreen extends React.Component {
 					<View style={styles.modalOuter}>
 						<View style={styles.modalInner}>
 							<View style={styles.formContainer}>
-								<Input
+								<FormInput
 									label={'Title'}
 									containerStyle={styles.input}
 									placeholder={'Title'}
@@ -98,7 +98,7 @@ class MenuEditScreen extends React.Component {
 									value={this.state.newMenu.title}
 								/>
 
-								<Input
+								<FormInput
 									label={'Description'}
 									containerStyle={styles.input}
 									placeholder={'Description'}
@@ -106,7 +106,7 @@ class MenuEditScreen extends React.Component {
 									value={this.state.newMenu.description}
 								/>
 
-								<Input
+								<FormInput
 									label={'Image Url'}
 									containerStyle={styles.input}
 									placeholder={'example: http://yourimage.jpg'}
@@ -136,7 +136,7 @@ class MenuEditScreen extends React.Component {
 					<View style={styles.modalOuter}>
 						<View style={styles.modalInner}>
 							<View style={styles.formContainer}>
-								<Input
+								<FormInput
 									label={'Title'}
 									containerStyle={styles.input}
 									placeholder={'Title'}
@@ -144,7 +144,7 @@ class MenuEditScreen extends React.Component {
 									value={this.state.newItem.title}
 								/>
 
-								<Input
+								<FormInput
 									label={'Description'}
 									containerStyle={styles.input}
 									placeholder={'Description'}
@@ -152,7 +152,7 @@ class MenuEditScreen extends React.Component {
 									value={this.state.newItem.description}
 								/>
 
-								<Input
+								<FormInput
 									label={'Image Url'}
 									containerStyle={styles.input}
 									placeholder={'example: http://yourimage.jpg'}
@@ -160,7 +160,7 @@ class MenuEditScreen extends React.Component {
 									value={this.state.newItem.imageUrl}
 								/>
 
-								<Input
+								<FormInput
 									label={'Price'}
 									containerStyle={styles.input}
 									placeholder={'$0.00'}
