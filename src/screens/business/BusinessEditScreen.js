@@ -76,6 +76,7 @@ class BusinessEditScreen extends React.Component {
 							<FormLabel>Company Name</FormLabel>
 							<FormInput
 								containerStyle={styles.input}
+								underlineColorAndroid={'transparent'}
 								placeholder={'Company Name'}
 								onChangeText={(name) => this.setState({ name: name })}
 								style={styles.inputStyle}
@@ -86,6 +87,7 @@ class BusinessEditScreen extends React.Component {
 							<FormInput
 								label={'Email'}
 								containerStyle={styles.input}
+								underlineColorAndroid={'transparent'}
 								placeholder={'Email'}
 								onChangeText={(email) => this.setState({ email: email })}
 								value={this.state.email}
@@ -94,6 +96,7 @@ class BusinessEditScreen extends React.Component {
 							<FormInput
 								label={'Primary Phone'}
 								containerStyle={styles.input}
+								underlineColorAndroid={'transparent'}
 								placeholder={'Primary Phone'}
 								onChangeText={(primaryPhone) => this.setState({ primaryPhone: primaryPhone })}
 								value={this.state.primaryPhone}
@@ -104,6 +107,7 @@ class BusinessEditScreen extends React.Component {
 							<FormInput
 								label={'Alt. Phone'}
 								containerStyle={styles.input}
+								underlineColorAndroid={'transparent'}
 								placeholder={'Alt. Phone'}
 								onChangeText={(altPhone) => this.setState({ altPhone: altPhone })}
 								value={this.state.altPhone}
@@ -114,6 +118,7 @@ class BusinessEditScreen extends React.Component {
 							<FormInput
 								label={'Street'}
 								containerStyle={styles.input}
+								underlineColorAndroid={'transparent'}
 								placeholder={'Street'}
 								onChangeText={(street) => this.setState({ street: street })}
 								value={this.state.street}																		
@@ -122,6 +127,7 @@ class BusinessEditScreen extends React.Component {
 							<FormInput
 								label={'City'}
 								containerStyle={styles.input}
+								underlineColorAndroid={'transparent'}
 								placeholder={'City'}
 								onChangeText={(city) => this.setState({ city: city })}
 								value={this.state.city}								
@@ -132,6 +138,7 @@ class BusinessEditScreen extends React.Component {
 								<StatePicker 
 									style={styles.picker}
 									selectedValue={this.state.state}
+									underlineColorAndroid={'transparent'}
 									onValueChange={(value) => this.setState({state: value})}
 									prompt={'Select State'}
 									mode='dialog'
@@ -142,6 +149,7 @@ class BusinessEditScreen extends React.Component {
 							<FormInput
 								label={'Zip Code'}
 								containerStyle={styles.input}
+								underlineColorAndroid={'transparent'}
 								placeholder={'Zip Code'}
 								onChangeText={(zip) => this.setState({ zip: zip })}
 								value={this.state.zip}
@@ -153,6 +161,7 @@ class BusinessEditScreen extends React.Component {
 							<FormInput
 								label={'About'}
 								containerStyle={styles.input}
+								underlineColorAndroid={'transparent'}
 								placeholder={'Tell us about your company.'}
 								onChangeText={(about) => this.setState({ about: about })}
 								value={this.state.about}
@@ -199,7 +208,6 @@ const styles = StyleSheet.create({
 		backgroundColor: theme.background,
 		elevation: 5,
 		borderRadius: 5,
-		width: '95%'
 	},
 	saveButton: {
 		backgroundColor: theme.primary,

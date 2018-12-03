@@ -12,12 +12,10 @@ import {
 	SettingsScreen,
 	BusinessEditScreen,
 	MenuEditScreen,
-	BusinessBioScreen,
-	BusinessMenuScreen,
-	BusinessReviewScreen,
 	BusinessTestScreen,
 	ChatScreen,
-	BusinessOptionsScreen
+	BusinessOptionsScreen,
+	MenuItemEditScreen
 } from 'app/src/screens';
 
 import {
@@ -227,6 +225,13 @@ const BusinessStack = createStackNavigator({
 					/>
 				</HeaderButtons>
 			),
+		})
+	},
+	EditMenuItems: {
+		screen: MenuItemEditScreen,
+		navigationOptions: ({ navigation }) => ({
+			title: 'Edit Menu Items',
+			headerStyle: styles.mainHeader,
 		})
 	},
 

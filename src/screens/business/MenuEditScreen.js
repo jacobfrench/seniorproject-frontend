@@ -3,13 +3,14 @@ import React from 'react';
 import { Modal, StyleSheet, View, ScrollView, SafeAreaView } from 'react-native';
 import { store } from 'app/src/redux/store';
 import api from 'app/src/api';
-import { FormInput, Card, Button, Text } from 'react-native-elements'
+import { FormInput, Card, Button, Text, List, ListItem } from 'react-native-elements'
 import { Ionicons } from '@expo/vector-icons';
 
 
 class MenuEditScreen extends React.Component {
 	constructor(props) {
 		super(props);
+		console.disableYellowBox = true
 		this.state = {
 			addMenuModalVisible: false,
 			addItemModalVisible: false,
@@ -21,20 +22,27 @@ class MenuEditScreen extends React.Component {
 				imageUrl: ''
 			},
 			newItem: {
-				title:'',
+				title: '',
 				description: '',
 				imageUrl: '',
-				price:''
+				price: ''
 			},
-			lastRefresh: Date(Date.now()).toString(),
 			editMode: false
 		}
 	}
 
-	onSavePress = () => {
+	onAddMenuSavePress = () => {
 		if (this.state.editMode) {
-			console.log("CALL PUT METHOD HERE!!!");
-			console.log(this.state.newMenu);
+			api.updateMenu(this.state.newMenu)
+				.then(res => {
+					for (let i = 0; i < this.state.menus.length; i++) {
+						if (this.state.menus[i].id === res.id) {
+							this.state.menus[i] = res;
+							this.setState({ menus: this.state.menus });
+							break;
+						}
+					}
+				})
 		} else {
 			let userId = store.getState().user.info.id;
 			api.postNewMenu(this.state.newMenu, userId)
@@ -44,25 +52,30 @@ class MenuEditScreen extends React.Component {
 
 				});
 		}
+		this.hideAllModalsAndClearData();
 
-		this.setState({ editMode: false });
-		this.setState({ addMenuModalVisible: false });
-		this.setState({ lastRefresh: Date(Date.now()).toString() })
-		this.setState({newMenu: {}})
+	}
 
+	onAddItemSave() {
+		this.hideAllModalsAndClearData();
 	}
 
 	onEditPress(item) {
-		this.setState({ newMenu: item })
 		this.setState({ editMode: true });
+		this.setState({ newMenu: item })
 		this.setState({ addMenuModalVisible: true });
 	}
 
-	hideAllModals(){
-		this.setState({ newMenu: {} });
+	onDeletePress(itemId) {
+		api.deleteMenu(itemId).then((res) => console.log(res))
+
+	}
+
+	hideAllModalsAndClearData() {
+		this.setState({ newMenu: {} })
 		this.setState({ newItem: {} });
 		this.setState({ addMenuModalVisible: false });
-		this.setState({itemMenuModalVisible: false});
+		this.setState({ addItemModalVisible: false });
 		this.setState({ editMode: false });
 	}
 
@@ -85,11 +98,13 @@ class MenuEditScreen extends React.Component {
 					style={styles.modal}
 					transparent={false}
 					visible={this.state.addMenuModalVisible}
-					onRequestClose={this.hideAllModals.bind(this)}>
+					onRequestClose={this.hideAllModalsAndClearData.bind(this)}
+				>
 
 					<View style={styles.modalOuter}>
 						<View style={styles.modalInner}>
 							<View style={styles.formContainer}>
+								<Text>Edit Menu</Text>
 								<FormInput
 									label={'Title'}
 									containerStyle={styles.input}
@@ -118,7 +133,7 @@ class MenuEditScreen extends React.Component {
 							<Button
 								title='Save'
 								buttonStyle={styles.saveButton}
-								onPress={this.onSavePress}
+								onPress={this.onAddMenuSavePress}
 							/>
 						</View>
 					</View>
@@ -130,8 +145,8 @@ class MenuEditScreen extends React.Component {
 					style={styles.modal}
 					transparent={false}
 					visible={this.state.addItemModalVisible}
-					onRequestClose={this.hideAllModals.bind(this)}>
-
+					onRequestClose={this.hideAllModalsAndClearData.bind(this)}
+				>
 
 					<View style={styles.modalOuter}>
 						<View style={styles.modalInner}>
@@ -172,50 +187,34 @@ class MenuEditScreen extends React.Component {
 							<Button
 								title='Save'
 								buttonStyle={styles.saveButton}
-								onPress={this.onSavePress}
+								onPress={this.onAddItemSave.bind(this)}
 							/>
 						</View>
 					</View>
 
 				</Modal>
 
-
-
-
+				{/* if this.state.menus is empty */}
 				{!isMenusEmpty ? (
 					<ScrollView style={styles.scrollView}>
-						{
-							this.state.menus.map((item, i) => (
-								<Card
-									key={'_item' + i}
-									title={item.title}
-									image={{ uri: item.imageUrl }}>
-									<Text>{item.description}</Text>
-									<View style={styles.controlButtonContainer}>
-										<Button
-											title='View'
-											buttonStyle={styles.button}
-										/>
-										<Button
-											title='Edit'
-											onPress={this.onEditPress.bind(this, item)}
-											buttonStyle={styles.button}
-										/>
-										<Button
-											title='Add'
-											buttonStyle={styles.button}
-											onPress={() => this.setState({addItemModalVisible: true})}
-										/>
-										<Button
-											title='Delete'
-											buttonStyle={styles.button}
-										/>
-									</View>
+						<List containerStyle={{ marginBottom: 20 }}>
+							{
 
-								</Card>
-							))
+								this.state.menus.map((menu, i) => (
+									<ListItem
+										roundAvatar
+										avatar={{ uri: menu.imageUrl }}
+										key={menu.title + i}
+										title={menu.title}
+										subtitle={menu.description}
+										onLongPress={this.onEditPress.bind(this, menu)}
+										onPress={() => this.props.navigation.navigate('EditMenuItems', menu)}
+									>
+									</ListItem>
+								))
 
-						}
+							}
+						</List>
 
 					</ScrollView>
 				) : (
@@ -225,7 +224,6 @@ class MenuEditScreen extends React.Component {
 
 					)
 				}
-
 
 				<FAB
 					buttonColor={theme.primary}
@@ -264,7 +262,8 @@ const styles = StyleSheet.create({
 		alignItems: 'center'
 	},
 	input: {
-		marginBottom: 15
+		marginBottom: 15,
+		elevation: 5
 	},
 	scrollView: {
 		flex: 1,

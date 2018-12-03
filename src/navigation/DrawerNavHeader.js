@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     margin: 20,
     width: 80,
     height: 80,
-    elevation: 10
+    elevation: 10,
   },
   logoutButton: {
     backgroundColor: "transparent",

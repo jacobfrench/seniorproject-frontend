@@ -1,8 +1,8 @@
 import { store } from "app/src/redux/store"; // use store.getState().authToken;
 import { setAuthToken } from "app/src/redux/actions";
 
-// const url = "http://45.33.39.105:8080";
-const url = "http://192.168.1.15:8080";
+const url = "http://45.33.39.105:8080";
+// const url = "http://192.168.1.15:8080";
 
 const api = {
   createNewUser(user) {
@@ -88,7 +88,7 @@ const api = {
   updateBusiness(info) {
     return new Promise((resolve, reject) =>
       fetch(url + '/business/update', {
-        method: 'PATCH',
+        method: 'PUT',
         headers: {
           "Accept": "application/json",
           "Content-Type": "application/json",
@@ -166,6 +166,44 @@ const api = {
       reject(err);
     });
   },
+
+  updateMenu(updatedMenu){
+    return new Promise((resolve, reject) =>
+      fetch(url + '/menu/update', {
+        method: 'PUT',
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": store.getState().authToken
+        },
+        body: JSON.stringify(updatedMenu)
+      })
+        .then((res) => res.json())
+        .then(resJson => {
+          resolve(resJson);
+        })
+    ).catch(err => console.error(err));
+
+  },
+
+  deleteMenu(menuId){
+    return new Promise((resolve, reject) =>
+    fetch(url + '/menu/delete/' + menuId, {
+      method: 'DELETE',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": store.getState().authToken
+      }
+    })
+      .then((res) => res.json())
+      .then(resJson => {
+        resolve(resJson);
+      })
+  ).catch(err => console.error(err));
+
+
+  }
 
 };
 

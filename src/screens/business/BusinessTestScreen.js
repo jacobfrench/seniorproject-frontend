@@ -46,7 +46,7 @@ class BusinessTestScreen extends React.Component {
       <SafeAreaView style={styles.container}>
 
         <ImageBackground
-          source={{ uri: 'http://www.camranhbaync.com/wp-content/uploads/2014/01/main-header.jpg' }}
+          source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRB7dGIgr9UKS67Pp1sA80hmTR_ojUfN4TeW7ENhcqG4_uh91YICg' }}
           style={styles.header}
         >
 
