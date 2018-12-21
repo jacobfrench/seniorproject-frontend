@@ -1,10 +1,11 @@
-import FAB from 'react-native-fab';
+// import FAB from 'react-native-fab';
 import React from 'react';
 import { Modal, StyleSheet, View, ScrollView, SafeAreaView } from 'react-native';
 import { store } from 'app/src/redux/store';
 import api from 'app/src/api';
 import { FormInput, Card, Button, Text, List, ListItem } from 'react-native-elements'
 import { Ionicons } from '@expo/vector-icons';
+import { FAB } from 'react-native-paper';
 
 
 class MenuEditScreen extends React.Component {
@@ -66,8 +67,8 @@ class MenuEditScreen extends React.Component {
 		this.setState({ addMenuModalVisible: true });
 	}
 
-	onDeletePress(itemId) {
-		api.deleteMenu(itemId).then((res) => console.log(res))
+	onDeletePress() {
+		api.deleteMenu(this.state.newMenu.id).then((res) => {console.log(res)})
 
 	}
 
@@ -90,7 +91,7 @@ class MenuEditScreen extends React.Component {
 	}
 
 	render() {
-		var isMenusEmpty = this.state.menus.length < 1;
+		let isMenusEmpty = this.state.menus.length < 1;
 		return (
 			<SafeAreaView style={styles.container}>
 				<Modal
@@ -134,6 +135,12 @@ class MenuEditScreen extends React.Component {
 								title='Save'
 								buttonStyle={styles.saveButton}
 								onPress={this.onAddMenuSavePress}
+							/>
+
+							<Button
+								title='Delete'
+								buttonStyle={styles.saveButton}
+								onPress={this.onDeletePress.bind(this)}
 							/>
 						</View>
 					</View>
@@ -189,6 +196,8 @@ class MenuEditScreen extends React.Component {
 								buttonStyle={styles.saveButton}
 								onPress={this.onAddItemSave.bind(this)}
 							/>
+
+
 						</View>
 					</View>
 
@@ -226,10 +235,11 @@ class MenuEditScreen extends React.Component {
 				}
 
 				<FAB
-					buttonColor={theme.primary}
-					iconTextColor={theme.surface}
-					onClickAction={() => this.setState({ addMenuModalVisible: true })}
-					visible={true}
+					style={styles.fab}
+					large
+					color={'white'}
+					icon='add'
+					onPress={() => this.setState({ addMenuModalVisible: true })}
 				/>
 
 			</SafeAreaView>
@@ -243,6 +253,13 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center'
+	},
+	fab: {
+		position: 'absolute',
+		margin: 16,
+		right: 0,
+		bottom: 0,
+		backgroundColor: theme.primary,
 	},
 	modal: {
 		justifyContent: 'center',

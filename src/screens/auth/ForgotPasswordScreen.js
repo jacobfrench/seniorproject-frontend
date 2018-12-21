@@ -4,9 +4,6 @@ import { LinearGradient } from "expo";
 import { store } from 'app/src/redux/store';
 
 
-
-
-
 const theme = store.getState().settings.theme;
 export default class ForgotPasswordScreen extends React.Component {
 

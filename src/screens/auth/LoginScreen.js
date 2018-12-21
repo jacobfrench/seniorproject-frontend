@@ -1,16 +1,14 @@
 import React from 'react';
-import { StyleSheet, View, Image, KeyboardAvoidingView } from 'react-native';
-import { LinearGradient } from 'expo';
-import IconTextInput from 'app/src/components/common/IconTextInput';
-import { Button } from 'app/src/components/common/Button';
 import api from 'app/src/api';
 import { connect } from 'react-redux';
-import { loginUser, setUserEmail, fetchUserInfoByEmail } from 'app/src/redux/actions';
+import { LinearGradient } from 'expo';
 import { store } from 'app/src/redux/store';
+import { Button } from 'app/src/components/common/Button';
+import IconTextInput from 'app/src/components/common/IconTextInput';
+import { StyleSheet, View, Image, KeyboardAvoidingView } from 'react-native';
+import { loginUser, setUserEmail, fetchUserInfoByEmail } from 'app/src/redux/actions';
 
-
-
-//images
+// images
 const emailIcon = require('app/assets/icons/email.png');
 const keyIcon = require('app/assets/icons/key.png');
 const logo2 = require('app/assets/icons/logo.png');
@@ -22,6 +20,7 @@ class LoginScreen extends React.Component {
       password: ''
     };
   }
+  
   onLoginPress() {
     console.log(this.props);
     api.login(this.props.email, this.state.password)
@@ -178,6 +177,5 @@ export default connect(
     loginUser,
     setUserEmail,
     fetchUserInfoByEmail,
-    
   }
 )(LoginScreen);
