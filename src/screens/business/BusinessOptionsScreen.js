@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, SafeAreaView, Text } from 'react-native';
+import { StyleSheet, ScrollView, SafeAreaView } from 'react-native';
 import { List, ListItem } from 'react-native-elements'
 import { store } from 'app/src/redux/store';
 
@@ -37,21 +37,20 @@ export default class BusinessOptionsScreen extends React.Component {
 
     return (
       <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <List>
-          {
-            list.map((item) => (
-              <ListItem
-              key={item.title}
-              title={item.title}
-              leftIcon={{name: item.icon}}
-              onPress={() => this.props.navigation.navigate(item.screen)}
-              />
-            ))
-          }
+        <ScrollView style={styles.scrollView}>
+          <List>
+            {
+              list.map((item, i) => (
+                <ListItem
+                key={item.title+i}
+                title={item.title}
+                leftIcon={{name: item.icon}}
+                onPress={() => this.props.navigation.navigate(item.screen)}
+                />
+              ))
+            }
           </List>
-          </ScrollView>
-
+        </ScrollView>
       </SafeAreaView>
     );
 
