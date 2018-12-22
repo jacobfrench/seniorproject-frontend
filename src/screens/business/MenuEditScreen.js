@@ -69,6 +69,7 @@ class MenuEditScreen extends React.Component {
 
 	onDeletePress() {
 		api.deleteMenu(this.state.newMenu.id).then((res) => {console.log(res)})
+		this.hideAllModalsAndClearData();
 
 	}
 
