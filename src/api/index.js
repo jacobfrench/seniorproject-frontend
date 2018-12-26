@@ -242,6 +242,25 @@ const api = {
   ).catch(err => console.error(err));
 
 
+  },
+
+  deleteMenuItem(itemId){
+    return new Promise((resolve, reject) =>
+    fetch(url + '/menu/delete/menuitem/' + itemId, {
+      method: 'DELETE',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": store.getState().authToken
+      }
+    })
+      .then((res) => res.json())
+      .then(resJson => {
+        resolve(resJson);
+      })
+  ).catch(err => console.error(err));
+
+
   }
 
 };

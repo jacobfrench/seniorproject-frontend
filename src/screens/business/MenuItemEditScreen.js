@@ -14,7 +14,6 @@ export default class MenuItemEditScreen extends React.Component {
     this.state = {
       menu: {
         items: []
-
       },
       editMode: false,
       modalVisible: false,
@@ -52,14 +51,14 @@ export default class MenuItemEditScreen extends React.Component {
   onSavePress() {
     if (this.state.editMode) {
       api.updateMenuItem(this.state.newItem)
-      .then((res) =>{
-        for(let i = 0; i < this.state.menu.items.length; i++){
-          if (this.state.menu.items[i].id === res.id) {
-            this.state.menu.items[i] = res;
-            this.setState({ menu: this.state.menu });
-            break;
+        .then((res) =>{
+          for(let i = 0; i < this.state.menu.items.length; i++){
+            if (this.state.menu.items[i].id === res.id) {
+              this.state.menu.items[i] = res;
+              this.setState({ menu: this.state.menu });
+              break;
+            }
           }
-        }
       })
 
     } else {
@@ -73,8 +72,16 @@ export default class MenuItemEditScreen extends React.Component {
     this.clearNewItem();
   }
 
-  deleteMenuItem() {
-    console.log('Delete Menu Item.');
+  deleteMenuItem(item) {
+    api.deleteMenuItem(item.id)
+    .then((res) => {
+      for(let i = 0; i < this.state.menu.items.length-1; i++){
+        if(this.state.menu.items.id === item.id){
+          delete this.state.menu.items[i];
+          this.setState({menu: this.state.menu});
+        }
+      }
+    })
   }
 
   clearNewItem(){
@@ -84,7 +91,8 @@ export default class MenuItemEditScreen extends React.Component {
   }
 
   render() {
-    let hasItems = this.state.menu.items.length >= 1;
+    let hasItems = false
+    if(this.state.menu.items != null) hasItems = this.state.menu.items.length >= 1;
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.innerContainer}>
@@ -114,10 +122,16 @@ export default class MenuItemEditScreen extends React.Component {
                   </Card.Content>
 
                   <Card.Actions>
-                    <Button onPress={this.showModal.bind(this, true, item)}>
+                    <Button 
+                      onPress={this.showModal.bind(this, true, item)}
+                      color={theme.primary}
+                      >
                       Edit
                   </Button>
-                    <Button onPress={this.deleteMenuItem.bind(this)}>
+                    <Button 
+                      onPress={this.deleteMenuItem.bind(this, item)}
+                      color={theme.primary}
+                      >
                       Delete
                   </Button>
                   </Card.Actions>
