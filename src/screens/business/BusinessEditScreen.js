@@ -6,6 +6,7 @@ import { StyleSheet, View, ScrollView,
 import { store } from 'app/src/redux/store';
 import { FormInput, FormLabel } from 'react-native-elements';
 import {StatePicker} from 'app/src/components/common';
+import { TextInput } from 'react-native-paper';
 import api from 'app/src/api';
 
 class BusinessEditScreen extends React.Component {
@@ -73,7 +74,7 @@ class BusinessEditScreen extends React.Component {
 					<ScrollView contentContainerStyle={styles.scrollView}>
 						<View style={styles.inputContainer}>
 
-							<FormLabel>Company Name</FormLabel>
+							{/* <FormLabel>Company Name</FormLabel>
 							<FormInput
 								containerStyle={styles.input}
 								underlineColorAndroid={'transparent'}
@@ -81,7 +82,15 @@ class BusinessEditScreen extends React.Component {
 								onChangeText={(name) => this.setState({ name: name })}
 								style={styles.inputStyle}
 								value={this.state.name}
-							/>
+							/> */}
+							<TextInput
+        				label='Name'
+        				value={this.state.name}
+								onChangeText={(name) => this.setState({ name: name })}
+								style={styles.input}
+								mode={'flat'}
+								placeholder={'Name'}
+								/>
 
 							<FormLabel>Email</FormLabel>
 							<FormInput
@@ -199,8 +208,9 @@ const styles = StyleSheet.create({
 	inputContainer: {
 		flex: 1,
 		alignItems: 'center',
+		justifyContent: 'center',
 		elevation: 5,
-		padding: 5
+		padding: 5,
 	},
 	input: {
 		padding: 5,
@@ -208,6 +218,7 @@ const styles = StyleSheet.create({
 		backgroundColor: theme.background,
 		elevation: 5,
 		borderRadius: 5,
+		width: '100%'
 	},
 	saveButton: {
 		backgroundColor: theme.primary,
