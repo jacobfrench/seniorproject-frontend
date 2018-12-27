@@ -1,10 +1,8 @@
 import React from 'react';
 import { View, SafeAreaView, StyleSheet, ScrollView, ImageBackground, Modal } from 'react-native';
-import { Text } from 'react-native-elements';
 import { store } from 'app/src/redux/store';
-import { FAB } from 'react-native-paper';
-import { Button, Card, Title, Paragraph } from 'react-native-paper';
-import { FormInput } from 'react-native-elements';
+import { Text } from 'react-native-elements';
+import { Button, Card, Paragraph, TextInput, FAB, Divider, Title } from 'react-native-paper';
 import api from 'app/src/api';
 
 
@@ -75,11 +73,14 @@ export default class MenuItemEditScreen extends React.Component {
   deleteMenuItem(item) {
     api.deleteMenuItem(item.id)
     .then((res) => {
+      console.log(res)
       for(let i = 0; i < this.state.menu.items.length-1; i++){
         if(this.state.menu.items.id === item.id){
           delete this.state.menu.items[i];
           this.setState({menu: this.state.menu});
         }
+
+       
       }
     })
   }
@@ -105,8 +106,7 @@ export default class MenuItemEditScreen extends React.Component {
             >
               <View style={styles.headerContainer}>
                 <View>
-                  <Text h3 style={styles.headerText}>{this.state.name}</Text>
-                  <Text h4 style={styles.headerText}>{this.state.menu.title}</Text>
+                  <Title style={styles.headerText}>{this.state.menu.title}</Title>
                 </View>
               </View>
             </ImageBackground>
@@ -168,39 +168,49 @@ export default class MenuItemEditScreen extends React.Component {
           <View style={styles.modalOuter}>
             <View style={styles.modalInner}>
               <View style={styles.formContainer}>
-                <Text>{this.state.modeTitle}</Text>
-                <FormInput
-                  label={'Title'}
-                  containerStyle={styles.input}
-                  placeholder={'Title'}
-                  onChangeText={(title) => this.setState({ newItem: { ...this.state.newItem, title: title } })}
-                  value={this.state.newItem.title}
-                />
+								<Title style={{ marginBottom: 10 }}>{this.state.modeTitle}</Title>
 
-                <FormInput
-                  label={'Description'}
-                  containerStyle={styles.input}
-                  placeholder={'Description'}
-                  onChangeText={(desc) => this.setState({ newItem: { ...this.state.newItem, description: desc } })}
-                  value={this.state.newItem.description}
-                />
-                <FormInput
-                  label={'Price'}
-                  containerStyle={styles.input}
-                  placeholder={'0.00'}
+                <TextInput
+								  label='Title'
+								  value={this.state.newItem.title}
+								  onChangeText={(title) => this.setState({ newItem: { ...this.state.newItem, title: title } })}
+								  style={styles.input}
+								  mode={'flat'}
+								  placeholder={'Title'}
+							  />
+                
+                <TextInput
+								  label='Description'
+								  value={this.state.newItem.description}
+								  onChangeText={(desc) => this.setState({ newItem: { ...this.state.newItem, description: desc } })}
+								  style={styles.input}
+                  mode={'flat'}
+                  maxLength={140}
+                  multiline={true}
+								  placeholder={'Description'}
+							  />
+
+                <TextInput
+								  label='Price'
+								  value={this.state.newItem.price}
+								  onChangeText={(price) => this.setState({ newItem: { ...this.state.newItem, price: price } })}
+								  style={styles.input}
+                  mode={'flat'}
                   keyboardType={'number-pad'}
-                  onChangeText={(price) => this.setState({ newItem: { ...this.state.newItem, price: price } })}
-                  value={this.state.newItem.price}
-                />
+								  placeholder={'0.00'}
+							  />
+                
+                <TextInput
+								  label='Image URL'
+								  value={this.state.newItem.imageUrl}
+								  onChangeText={(imageUrl) => this.setState({ newItem: { ...this.state.newItem, imageUrl: imageUrl } })}
+								  style={styles.input}
+                  mode={'flat'}
+								  placeholder={'http://yourimage.jpg'}
+							  />
 
-                <FormInput
-                  label={'Image Url'}
-                  containerStyle={styles.input}
-                  placeholder={'example: http://yourimage.jpg'}
-                  onChangeText={(imageUrl) => this.setState({ newItem: { ...this.state.newItem, imageUrl: imageUrl } })}
-                  value={this.state.newItem.imageUrl}
-                />
               </View>
+              
               <Button
                 mode="contained"
                 onPress={this.onSavePress.bind(this)}
@@ -208,6 +218,14 @@ export default class MenuItemEditScreen extends React.Component {
               >
                 Save
               </Button>
+
+              <Button
+                mode="contained"
+                style={styles.saveButton}
+              >
+                Delete
+              </Button>
+            
             </View>
           </View>
 
@@ -254,6 +272,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     color: 'white',
+    fontSize: 32,
     textShadowOffset: {
       width: 0.5,
       height: 1
@@ -266,12 +285,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 5
   },
-  saveButton: {
-    backgroundColor: theme.primary,
-    padding: 5,
-    marginLeft: 10,
-    marginRight: 10
-  },
+	saveButton: {
+		backgroundColor: theme.primary,
+		alignItems: 'center',
+		justifyContent: 'center',
+		margin: 5,
+		padding: 5,
+		borderRadius: 2,
+		width: '95%'
+	},
   modal: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -289,5 +311,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-
+	input: {
+		elevation: 2,
+		backgroundColor: theme.background,
+		elevation: 5,
+		borderRadius: 5,
+		width: '100%',
+		margin: 5		
+	}
 });

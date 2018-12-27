@@ -1,11 +1,10 @@
 // import FAB from 'react-native-fab';
 import React from 'react';
-import { Modal, StyleSheet, View, ScrollView, SafeAreaView } from 'react-native';
+import { Modal, StyleSheet, View, ScrollView, SafeAreaView, Image, TouchableOpacity } from 'react-native';
 import { store } from 'app/src/redux/store';
 import api from 'app/src/api';
-import { FormInput, Card, Button, Text, List, ListItem } from 'react-native-elements'
-import { Ionicons } from '@expo/vector-icons';
-import { FAB } from 'react-native-paper';
+import { FAB, TextInput, Button, Title, Headline, Paragraph, Divider } from 'react-native-paper';
+// import { List, ListItem } from 'react-native-elements';
 
 
 class MenuEditScreen extends React.Component {
@@ -28,7 +27,8 @@ class MenuEditScreen extends React.Component {
 				imageUrl: '',
 				price: ''
 			},
-			editMode: false
+			editMode: false,
+			modalTitle: 'Add New Menu'
 		}
 	}
 
@@ -57,18 +57,15 @@ class MenuEditScreen extends React.Component {
 
 	}
 
-	onAddItemSave() {
-		this.hideAllModalsAndClearData();
-	}
-
 	onEditPress(item) {
+		this.setState({ modalTitle: 'Edit Menu' })
 		this.setState({ editMode: true });
 		this.setState({ newMenu: item })
 		this.setState({ addMenuModalVisible: true });
 	}
 
 	onDeletePress() {
-		api.deleteMenu(this.state.newMenu.id).then((res) => {console.log(res)})
+		api.deleteMenu(this.state.newMenu.id).then((res) => { console.log(res) })
 		this.hideAllModalsAndClearData();
 
 	}
@@ -106,130 +103,87 @@ class MenuEditScreen extends React.Component {
 					<View style={styles.modalOuter}>
 						<View style={styles.modalInner}>
 							<View style={styles.formContainer}>
-								<Text>Edit Menu</Text>
-								<FormInput
-									label={'Title'}
-									containerStyle={styles.input}
-									placeholder={'Title'}
-									onChangeText={(title) => this.setState({ newMenu: { ...this.state.newMenu, title: title } })}
+								<Title style={{ marginBottom: 10 }}>{this.state.modalTitle}</Title>
+								<TextInput
+									label='Title'
 									value={this.state.newMenu.title}
+									onChangeText={(title) => this.setState({ newMenu: { ...this.state.newMenu, title: title } })}
+									style={styles.input}
+									mode={'flat'}
+									placeholder={'Name'}
 								/>
 
-								<FormInput
-									label={'Description'}
-									containerStyle={styles.input}
-									placeholder={'Description'}
-									onChangeText={(desc) => this.setState({ newMenu: { ...this.state.newMenu, description: desc } })}
+								<TextInput
+									label='Description'
 									value={this.state.newMenu.description}
-								/>
-
-								<FormInput
-									label={'Image Url'}
-									containerStyle={styles.input}
-									placeholder={'example: http://yourimage.jpg'}
-									onChangeText={(imageUrl) => this.setState({ newMenu: { ...this.state.newMenu, imageUrl: imageUrl } })}
-									value={this.state.newMenu.imageUrl}
-								/>
-							</View>
-
-							<Button
-								title='Save'
-								buttonStyle={styles.saveButton}
-								onPress={this.onAddMenuSavePress}
-							/>
-
-							<Button
-								title='Delete'
-								buttonStyle={styles.saveButton}
-								onPress={this.onDeletePress.bind(this)}
-							/>
-						</View>
-					</View>
-
-				</Modal>
-
-				<Modal
-					animationType="fade"
-					style={styles.modal}
-					transparent={false}
-					visible={this.state.addItemModalVisible}
-					onRequestClose={this.hideAllModalsAndClearData.bind(this)}
-				>
-
-					<View style={styles.modalOuter}>
-						<View style={styles.modalInner}>
-							<View style={styles.formContainer}>
-								<FormInput
-									label={'Title'}
-									containerStyle={styles.input}
-									placeholder={'Title'}
-									onChangeText={(title) => this.setState({ newItem: { ...this.state.newItem, title: title } })}
-									value={this.state.newItem.title}
-								/>
-
-								<FormInput
-									label={'Description'}
-									containerStyle={styles.input}
+									onChangeText={(desc) => this.setState({ newMenu: { ...this.state.newMenu, description: desc } })}
+									style={styles.input}
+									mode={'flat'}
+									multiline={true}
 									placeholder={'Description'}
-									onChangeText={(desc) => this.setState({ newItem: { ...this.state.newItem, description: desc } })}
-									value={this.state.newItem.description}
 								/>
 
-								<FormInput
-									label={'Image Url'}
-									containerStyle={styles.input}
-									placeholder={'example: http://yourimage.jpg'}
-									onChangeText={(imageUrl) => this.setState({ newItem: { ...this.state.newItem, imageUrl: imageUrl } })}
-									value={this.state.newItem.imageUrl}
+								<TextInput
+									label='Image Url'
+									value={this.state.newMenu.imageUrl}
+									onChangeText={(imageUrl) => this.setState({ newMenu: { ...this.state.newMenu, imageUrl: imageUrl } })}
+									style={styles.input}
+									mode={'flat'}
+									placeholder={'http://yourimage.jpg'}
 								/>
+								<Button
+									style={styles.saveButton}
+									mode="contained"
+									onPress={this.onAddMenuSavePress}>
+									Save
+  							</Button>
 
-								<FormInput
-									label={'Price'}
-									containerStyle={styles.input}
-									placeholder={'$0.00'}
-									onChangeText={(price) => this.setState({ newItem: { ...this.state.newItem, price: price } })}
-									value={this.state.newItem.price}
-								/>
+								<Button
+									style={styles.saveButton}
+									mode="contained"
+									onPress={this.onDeletePress.bind(this)}>
+									Delete
+  						</Button>
 							</View>
-
-							<Button
-								title='Save'
-								buttonStyle={styles.saveButton}
-								onPress={this.onAddItemSave.bind(this)}
-							/>
-
-
 						</View>
 					</View>
 
 				</Modal>
+
 
 				{/* if this.state.menus is empty */}
 				{!isMenusEmpty ? (
-					<ScrollView style={styles.scrollView}>
-						<List containerStyle={{ marginBottom: 20 }}>
-							{
+					<ScrollView contentContainerStyle={styles.scrollView}>
+						{/* <List containerStyle={{ marginBottom: 20 }}> */}
+						{
 
-								this.state.menus.map((menu, i) => (
-									<ListItem
-										roundAvatar
-										avatar={{ uri: menu.imageUrl }}
-										key={menu.title + i}
-										title={menu.title}
-										subtitle={menu.description}
-										onLongPress={this.onEditPress.bind(this, menu)}
-										onPress={() => this.props.navigation.navigate('EditMenuItems', menu)}
-									>
-									</ListItem>
-								))
+							this.state.menus.map((menu, i) => (
+								<TouchableOpacity 
+									style={styles.listItemContainer} 
+									key={menu.title+i}
+									onLongPress={this.onEditPress.bind(this, menu)}
+								  onPress={() => this.props.navigation.navigate('EditMenuItems', menu)}
+								>
+									<View style={styles.listItemImageContainer}>
+										<Image
+											style={{ flex: 1, borderRadius: 5 }}
+											source={{ uri: menu.imageUrl }}
+										/>
+									</View>
+									<View style={styles.listItemDescriptionContainer}>
+										<Title>{menu.title}</Title>
+										<Divider/>
+										<Paragraph style={theme.onBackground}>{menu.description}</Paragraph>
+									</View>
+								</TouchableOpacity>
+							))
 
-							}
-						</List>
+						}
 
 					</ScrollView>
 				) : (
 						<View style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}>
-							<Text>You Don't Have Any Menus!</Text>
+							<Headline>You Don't Have Any Menus!</Headline>
 						</View>
 
 					)
@@ -253,7 +207,8 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
+		backgroundColor: theme.background
 	},
 	fab: {
 		position: 'absolute',
@@ -280,22 +235,29 @@ const styles = StyleSheet.create({
 		alignItems: 'center'
 	},
 	input: {
-		marginBottom: 15,
-		elevation: 5
+		elevation: 2,
+		backgroundColor: theme.background,
+		elevation: 5,
+		borderRadius: 5,
+		width: '95%',
+		margin: 5
 	},
 	scrollView: {
 		flex: 1,
-		width: '100%'
+		width: '100%',
+
 	},
 	formContainer: {
 		alignItems: 'center'
 	},
 	saveButton: {
 		backgroundColor: theme.primary,
-		elevation: 0,
+		alignItems: 'center',
+		justifyContent: 'center',
+		margin: 5,
 		padding: 5,
-		marginLeft: 10,
-		marginRight: 10
+		borderRadius: 2,
+		width: '95%'
 	},
 	controlButtonContainer: {
 		flex: 1,
@@ -306,6 +268,26 @@ const styles = StyleSheet.create({
 	button: {
 		padding: 5,
 		margin: 5
+	},
+	listItemContainer: {
+		width: '95%',
+		height: 100,
+		borderRadius: 5,
+		flexDirection: 'row',
+		margin: 5,
+		elevation: 5,
+		backgroundColor: theme.background
+	},
+	listItemImageContainer: {
+		backgroundColor: 'blue',
+		borderRadius: 5,
+		flex: 1
+	},
+	listItemDescriptionContainer: {
+		backgroundColor: theme.background,
+		borderRadius: 5,
+		padding: 5,
+		flex: 3.5
 	}
 });
 

@@ -1,12 +1,13 @@
 import React from 'react';
-import { StyleSheet, View, ScrollView, 
-				 SafeAreaView, KeyboardAvoidingView, TouchableOpacity, 
-				 Text, Platform, ToastAndroid, ActivityIndicator
-				} from 'react-native';
+import {
+	StyleSheet, View, ScrollView,
+	SafeAreaView, KeyboardAvoidingView, TouchableOpacity,
+	Text, Platform, ToastAndroid, ActivityIndicator
+} from 'react-native';
 import { store } from 'app/src/redux/store';
 import { FormInput, FormLabel } from 'react-native-elements';
-import {StatePicker} from 'app/src/components/common';
-import { TextInput } from 'react-native-paper';
+import { StatePicker } from 'app/src/components/common';
+import { TextInput, Button } from 'react-native-paper';
 import api from 'app/src/api';
 
 class BusinessEditScreen extends React.Component {
@@ -23,48 +24,48 @@ class BusinessEditScreen extends React.Component {
 			primaryPhone: '',
 			altPhone: '',
 			email: '',
-			owner:{"id":store.getState().user.info.id}
+			owner: { "id": store.getState().user.info.id }
 		}
 	}
 
-	componentWillMount(){
+	componentWillMount() {
 		let userId = store.getState().user.info.id;
 		api.getBusinessByUserId(userId)
 			.then(res => {
 				console.log('from business edit')
 				console.log(res)
-				if(res.id !== '')
+				if (res.id !== '')
 					this.setState(res);
-				
-      });
+
+			});
 	}
 
 	onPublishPress = () => {
 		let email = store.getState().user.info.username;
 		console.log('publish press')
 		console.log(this.state)
-    if(this.state.id === ''){
-		// post new business if business doesn't exist
-      api.postNewBusiness(this.state, email)
-      .then(response => {
-				this.setState(response);
-				console.log('response:')
-				console.log(response)
-        ToastAndroid.show('Published.', ToastAndroid.SHORT);
-      })
-    } else {
-			// update business if business exists.
-      api.updateBusiness(this.state)
-      .then(response => {
-				console.log('update press')
-				console.log(response);
-				if(Platform.OS != 'ios'){
-					this.setState(response)
+		if (this.state.id === '') {
+			// post new business if business doesn't exist
+			api.postNewBusiness(this.state, email)
+				.then(response => {
+					this.setState(response);
+					console.log('response:')
+					console.log(response)
 					ToastAndroid.show('Published.', ToastAndroid.SHORT);
-				}
-      })
-    }
-		
+				})
+		} else {
+			// update business if business exists.
+			api.updateBusiness(this.state)
+				.then(response => {
+					console.log('update press')
+					console.log(response);
+					if (Platform.OS != 'ios') {
+						this.setState(response)
+						ToastAndroid.show('Published.', ToastAndroid.SHORT);
+					}
+				})
+		}
+
 	}
 
 	render() {
@@ -73,117 +74,101 @@ class BusinessEditScreen extends React.Component {
 				<KeyboardAvoidingView>
 					<ScrollView contentContainerStyle={styles.scrollView}>
 						<View style={styles.inputContainer}>
-
-							{/* <FormLabel>Company Name</FormLabel>
-							<FormInput
-								containerStyle={styles.input}
-								underlineColorAndroid={'transparent'}
-								placeholder={'Company Name'}
-								onChangeText={(name) => this.setState({ name: name })}
-								style={styles.inputStyle}
-								value={this.state.name}
-							/> */}
 							<TextInput
-        				label='Name'
-        				value={this.state.name}
+								label='Name'
+								value={this.state.name}
 								onChangeText={(name) => this.setState({ name: name })}
 								style={styles.input}
 								mode={'flat'}
 								placeholder={'Name'}
-								/>
+							/>
 
-							<FormLabel>Email</FormLabel>
-							<FormInput
-								label={'Email'}
-								containerStyle={styles.input}
-								underlineColorAndroid={'transparent'}
-								placeholder={'Email'}
-								onChangeText={(email) => this.setState({ email: email })}
+							<TextInput
+								label='Email'
 								value={this.state.email}
+								onChangeText={(email) => this.setState({ email: email })}
+								style={styles.input}
+								mode={'flat'}
+								placeholder={'Email'}
 							/>
-							<FormLabel>Primary Phone</FormLabel>
-							<FormInput
-								label={'Primary Phone'}
-								containerStyle={styles.input}
-								underlineColorAndroid={'transparent'}
-								placeholder={'Primary Phone'}
-								onChangeText={(primaryPhone) => this.setState({ primaryPhone: primaryPhone })}
+
+							<TextInput
+								label='Primary Phone'
 								value={this.state.primaryPhone}
-								keyboardType='phone-pad'
+								onChangeText={(phone) => this.setState({ primaryPhone: phone })}
+								style={styles.input}
+								mode={'flat'}
+								keyboardType={'phone-pad'}
 								maxLength={10}
+								placeholder={'Primary Phone'}
 							/>
-							<FormLabel>Alt. Phone</FormLabel>
-							<FormInput
-								label={'Alt. Phone'}
-								containerStyle={styles.input}
-								underlineColorAndroid={'transparent'}
-								placeholder={'Alt. Phone'}
-								onChangeText={(altPhone) => this.setState({ altPhone: altPhone })}
+
+							<TextInput
+								label='Alt. Phone'
 								value={this.state.altPhone}
-								keyboardType='phone-pad'
-								maxLength={10}	
+								onChangeText={(altPhone) => this.setState({ altPhone: altPhone })}
+								style={styles.input}
+								mode={'flat'}
+								keyboardType={'phone-pad'}
+								maxLength={10}
+								placeholder={'Alt. Phone'}
 							/>
-							<FormLabel>Street</FormLabel>
-							<FormInput
-								label={'Street'}
-								containerStyle={styles.input}
-								underlineColorAndroid={'transparent'}
-								placeholder={'Street'}
+
+							<TextInput
+								label='Street'
+								value={this.state.street}
 								onChangeText={(street) => this.setState({ street: street })}
-								value={this.state.street}																		
+								style={styles.input}
+								mode={'flat'}
+								placeholder={'Street'}
 							/>
-							<FormLabel>City</FormLabel>
-							<FormInput
-								label={'City'}
-								containerStyle={styles.input}
-								underlineColorAndroid={'transparent'}
-								placeholder={'City'}
+
+							<TextInput
+								label='City'
+								value={this.state.city}
 								onChangeText={(city) => this.setState({ city: city })}
-								value={this.state.city}								
+								style={styles.input}
+								mode={'flat'}
+								placeholder={'City'}
 							/>
 
-							<FormLabel>State</FormLabel>
-							<View style={styles.pickerView}>
-								<StatePicker 
-									style={styles.picker}
-									selectedValue={this.state.state}
-									underlineColorAndroid={'transparent'}
-									onValueChange={(value) => this.setState({state: value})}
-									prompt={'Select State'}
-									mode='dialog'
-								/>
-							</View>
+							<TextInput
+								label='State'
+								value={this.state.state}
+								onChangeText={(state) => this.setState({ state: state })}
+								style={styles.input}
+								mode={'flat'}
+								placeholder={'State'}
+							/>
 
-							<FormLabel>Zip Code</FormLabel>
-							<FormInput
-								label={'Zip Code'}
-								containerStyle={styles.input}
-								underlineColorAndroid={'transparent'}
-								placeholder={'Zip Code'}
-								onChangeText={(zip) => this.setState({ zip: zip })}
+							<TextInput
+								label='Zip Code'
 								value={this.state.zip}
-								maxLength={5}	
-								keyboardType='numeric'
+								onChangeText={(zip) => this.setState({ zip: zip })}
+								style={styles.input}
+								mode={'flat'}
+								keyboardType={'numeric'}
+								placeholder={'Zip Code'}
 							/>
 
-							<FormLabel>About Us</FormLabel>
-							<FormInput
-								label={'About'}
-								containerStyle={styles.input}
-								underlineColorAndroid={'transparent'}
-								placeholder={'Tell us about your company.'}
-								onChangeText={(about) => this.setState({ about: about })}
+							<TextInput
+								label='About Us'
 								value={this.state.about}
-								multiline
-								maxLength={255}
-								numberOfLines={5}
+								onChangeText={(about) => this.setState({ about: about })}
+								style={styles.input}
+								mode={'flat'}
+								multiline={true}
+								placeholder={'About Us'}
 							/>
 
 						</View>
 
-						<TouchableOpacity style={styles.saveButton} onPress={this.onPublishPress}>
-							<Text style={styles.buttonText}>Publish</Text>
-						</TouchableOpacity>
+						<Button 
+							style={styles.saveButton}
+							mode="contained" 
+							onPress={this.onPublishPress}>
+							Publish
+  					</Button>
 
 					</ScrollView>
 				</KeyboardAvoidingView>
@@ -211,14 +196,15 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		elevation: 5,
 		padding: 5,
+		width: '100%'
 	},
 	input: {
-		padding: 5,
 		elevation: 2,
 		backgroundColor: theme.background,
 		elevation: 5,
 		borderRadius: 5,
-		width: '100%'
+		width: '100%',
+		margin: 5
 	},
 	saveButton: {
 		backgroundColor: theme.primary,
@@ -234,7 +220,7 @@ const styles = StyleSheet.create({
 		padding: 10,
 		fontSize: 22
 	},
-	picker:{
+	picker: {
 		marginBottom: 10,
 		width: '100%',
 		padding: 5,
@@ -242,7 +228,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 	},
-	pickerView:{
+	pickerView: {
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'center',
