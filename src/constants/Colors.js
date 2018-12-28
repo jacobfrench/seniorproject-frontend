@@ -18,7 +18,7 @@ module.exports = {
   material:{
     primary: '#3498db',
     primaryVariant: '#ecf0f1',
-    secondary: '#e74c3c',
+    secondary: '#2ecc71',
     secondaryVariant: '#D84315',
     background: '#FAFAFA',
     surface: '#FAFAFA',

@@ -154,9 +154,7 @@ class MenuEditScreen extends React.Component {
 				{/* if this.state.menus is empty */}
 				{!isMenusEmpty ? (
 					<ScrollView contentContainerStyle={styles.scrollView}>
-						{/* <List containerStyle={{ marginBottom: 20 }}> */}
 						{
-
 							this.state.menus.map((menu, i) => (
 								<TouchableOpacity 
 									style={styles.listItemContainer} 

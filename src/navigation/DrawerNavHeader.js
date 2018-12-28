@@ -21,18 +21,43 @@ class CustomDrawerContentComponent extends React.Component {
     this.state = {
       firstName: "",
       lastName: "",
-      online: false
+      online: false,
+      showSwitch: false,
+      userLocation: {
+
+      }
     };
   }
 
-  componentWillMount() { }
+  componentDidMount() {
 
-  switchChange() {
+  }
+
+  componentWillMount() {
+    // show switch in header if user has a
+    // business or is employed by a business.
+    if (this.props.business !== "undefined" || this.props.employedBy !== "undefined")
+      this.setState({ showSwitch: true });
+
+  }
+
+  toggleSwitch() {
     this.setState({ online: (this.state.online) ? false : true });
   }
 
   render() {
     const { userInfo } = this.props;
+    const locationSwitch =
+      <Switch
+        style={{
+          transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],
+          marginRight: 15
+        }}
+        thumbTintColor={theme.background}
+        value={this.state.online}
+        onValueChange={this.toggleSwitch.bind(this)}
+      />;
+
     return (
       <SafeAreaView
         style={styles.container}
@@ -43,27 +68,19 @@ class CustomDrawerContentComponent extends React.Component {
             source={require("app/assets/header.jpg")}
             style={{ width: "100%" }}
           >
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between", margin: 10 }}
-            >
+            <View style={{ flexDirection: "row", justifyContent: "space-between", margin: 10 }}>
+
               <Avatar
                 style={styles.avatar}
                 medium
-                source={{
-                  uri:userInfo.avatarLink
-                }}
-                onPress={() => console.log("Works!")}
+                source={{ uri: userInfo.avatarLink }}
+                onPress={() => console.log("Avatar Works!")}
                 activeOpacity={0.7}
               />
-              <Switch
-                style={{
-                  transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],
-                  marginRight: 15
-                }}
-                thumbTintColor={theme.background}
-                value={this.state.online}
-                onValueChange={this.switchChange.bind(this)}
-              />
+
+              {/* Show switch here if user has a business or is employed. */}
+              {this.state.showSwitch ? locationSwitch : null}
+
             </View>
             <View style={styles.headerTextContainer}>
               <Text style={styles.name}>
