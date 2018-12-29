@@ -57,7 +57,7 @@ class LoginScreen extends React.Component {
               onChangeText={text => this.props.setUserEmail(text)}
               keyboardType='email-address'
               mode={'flat'}
-              underlineColor={theme.primary}
+              underlineColor={'transparent'}
             />
 
           <TextInput
@@ -66,7 +66,7 @@ class LoginScreen extends React.Component {
             style={styles.input}
             onChangeText={(password) => this.setState({ password: password })}
             mode={'flat'}
-            underlineColor={theme.primary}
+            underlineColor={'transparent'}
             secureTextEntry={true}
           />
 
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     height: 55,
     width: '85%',
-    borderColor: 'red'
+    elevation: 5
   },
   loginButton: {
     backgroundColor: '#fff',

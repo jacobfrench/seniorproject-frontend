@@ -6,7 +6,8 @@ import {
   ScrollView,
   TouchableOpacity,
   ImageBackground,
-  Switch
+  Switch,
+  ToastAndroid
 } from "react-native";
 import { DrawerItems, SafeAreaView } from "react-navigation";
 import { store } from "app/src/redux/store";
@@ -14,6 +15,7 @@ import { logoutUser, revokeAuthToken } from "app/src/redux/actions";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { connect } from "react-redux";
 import { Avatar } from "react-native-elements";
+import { Constants, Location, Permissions } from 'expo';
 
 class CustomDrawerContentComponent extends React.Component {
   constructor(props) {
@@ -23,13 +25,30 @@ class CustomDrawerContentComponent extends React.Component {
       lastName: "",
       online: false,
       showSwitch: false,
-      userLocation: {
+      userCoordinates: {
 
       }
     };
   }
 
-  componentDidMount() {
+  componentDidMount() {}
+
+  watchLocation = async() => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if(this.state.online && status === 'granted'){
+      //get location info here
+      Location.watchPositionAsync({
+        enableHighAccuracy: true,
+        distanceInterval: 3,
+      }, NewLocation => {
+        let coords = NewLocation.coords;
+        console.log('NewCoords:');
+        ToastAndroid.show('lat: ' + coords.latitude + 'long: ' + coords.longitude, ToastAndroid.SHORT);
+      })
+
+    } else {
+
+    }
 
   }
 
@@ -43,6 +62,7 @@ class CustomDrawerContentComponent extends React.Component {
 
   toggleSwitch() {
     this.setState({ online: (this.state.online) ? false : true });
+    this.watchLocation();
   }
 
   render() {
