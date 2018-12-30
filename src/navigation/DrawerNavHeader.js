@@ -15,7 +15,11 @@ import { logoutUser, revokeAuthToken } from "app/src/redux/actions";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { connect } from "react-redux";
 import { Avatar } from "react-native-elements";
-import { Constants, Location, Permissions } from 'expo';
+import { Location, Permissions } from 'expo';
+import api from "../api";
+
+
+
 
 class CustomDrawerContentComponent extends React.Component {
   constructor(props) {
@@ -31,26 +35,36 @@ class CustomDrawerContentComponent extends React.Component {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
-  watchLocation = async() => {
+
+
+  watchLocation = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if(this.state.online && status === 'granted'){
-      //get location info here
+    if (this.state.online && status === 'granted') {
+      let { userInfo } = this.props;
+
       Location.watchPositionAsync({
         enableHighAccuracy: true,
-        distanceInterval: 3,
+        distanceInterval: 10,      // in meters
+        // timeInterval: 300000      // 5 mins
       }, NewLocation => {
         let coords = NewLocation.coords;
-        console.log('NewCoords:');
-        ToastAndroid.show('lat: ' + coords.latitude + 'long: ' + coords.longitude, ToastAndroid.SHORT);
+        ToastAndroid.show('lat: ' + coords.latitude + ' long: ' + coords.longitude, ToastAndroid.SHORT);
+        api.updateGeoLocation({
+          latitude: coords.latitude,
+          longitude: coords.longitude,
+          isShownOnMap: true
+        }, userInfo.id);
       })
-
     } else {
+
 
     }
 
   }
+  s
+
 
   componentWillMount() {
     // show switch in header if user has a

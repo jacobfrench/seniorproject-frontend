@@ -1,8 +1,8 @@
 import { store } from "app/src/redux/store"; // use store.getState().authToken;
 import { setAuthToken } from "app/src/redux/actions";
 
-const url = "http://45.33.39.105:8080";
-// const url = "http://192.168.1.15:8080";
+// const url = "http://45.33.39.105:8080";
+const url = "http://192.168.1.15:8080";
 
 const api = {
   createNewUser(user) {
@@ -160,7 +160,7 @@ const api = {
       })
         .then(response => response.json())
         .then(responseJson => {
-            resolve(responseJson);
+          resolve(responseJson);
         })
     ).catch(err => {
       reject(err);
@@ -187,7 +187,7 @@ const api = {
     });
   },
 
-  updateMenu(updatedMenu){
+  updateMenu(updatedMenu) {
     return new Promise((resolve, reject) =>
       fetch(url + '/menu/update', {
         method: 'PUT',
@@ -205,7 +205,7 @@ const api = {
     ).catch(err => console.error(err));
 
   },
-  updateMenuItem(updatedItem){
+  updateMenuItem(updatedItem) {
     return new Promise((resolve, reject) =>
       fetch(url + '/menu/update/item', {
         method: 'PUT',
@@ -225,44 +225,61 @@ const api = {
   },
 
 
-  deleteMenu(menuId){
+  deleteMenu(menuId) {
     return new Promise((resolve, reject) =>
-    fetch(url + '/menu/delete/' + menuId, {
-      method: 'DELETE',
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Authorization": store.getState().authToken
-      }
-    })
-      .then((res) => res.json())
-      .then(resJson => {
-        resolve(resJson);
+      fetch(url + '/menu/delete/' + menuId, {
+        method: 'DELETE',
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": store.getState().authToken
+        }
       })
-  ).catch(err => console.error(err));
+        .then((res) => res.json())
+        .then(resJson => {
+          resolve(resJson);
+        })
+    ).catch(err => console.error(err));
 
 
   },
 
-  deleteMenuItem(itemId){
+  deleteMenuItem(itemId) {
     return new Promise((resolve, reject) =>
-    fetch(url + '/menu/delete/menuitem/' + itemId, {
-      method: 'DELETE',
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Authorization": store.getState().authToken
-      }
-    })
-      .then((res) => res.json())
-      .then(resJson => {
-        resolve(resJson);
+      fetch(url + '/menu/delete/menuitem/' + itemId, {
+        method: 'DELETE',
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": store.getState().authToken
+        }
       })
-  ).catch(err => console.error(err));
+        .then((res) => res.json())
+        .then(resJson => {
+          resolve(resJson);
+        })
+    ).catch(err => console.error(err));
 
 
+  },
+
+  updateGeoLocation(geoLocation, userId) {
+    return new Promise((resolve, reject) =>
+      fetch(url + '/geolocation/update/' + userId, {
+        method: 'PATCH',
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": store.getState().authToken
+        },
+        body: JSON.stringify(geoLocation)
+      })
+        .then((res) => res.json())
+        .then(resJson => {
+          resolve(resJson);
+        })
+    ).catch(err => console.error(err));
   }
-
 };
 
 export default api;
