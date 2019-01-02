@@ -264,9 +264,9 @@ const api = {
   },
 
   updateUserLocation(data) {
-    if(data.isOnline){
+    if (data.isOnline) {
       return new Promise((resolve, reject) =>
-        fetch(url + '/users/update/user/'+data.id+'/lat/'+data.latitude+'/long/'+data.longitude+'/online/'+data.isOnline, {
+        fetch(url + '/users/update/user/' + data.id + '/lat/' + data.latitude + '/long/' + data.longitude + '/online/' + data.isOnline, {
           method: 'PATCH',
           headers: {
             "Accept": "application/json",
@@ -280,7 +280,28 @@ const api = {
           })
       ).catch(err => console.error(err));
     }
-}
+  },
+
+  findBusinessesByDistance(data){
+    console.log(data)
+    return new Promise((resolve, reject) =>
+    fetch(url + '/users/get/dist/lat/'+data.latitude+'/long/'+data.longitude+'/radius/'+data.radius+'/ind/'+data.industry, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': store.getState().authToken
+      }
+    })
+      .then(response => response.json())
+      .then(responsJson => {
+        resolve(responsJson);
+      })
+  ).catch(err => {
+
+    reject(err);
+  });
+  }
 };
 
 export default api;
