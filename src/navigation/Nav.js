@@ -15,7 +15,8 @@ import {
 	BusinessTestScreen,
 	ChatScreen,
 	BusinessOptionsScreen,
-	MenuItemEditScreen
+	MenuItemEditScreen,
+	MapViewScreen
 } from 'app/src/screens';
 
 import {
@@ -93,7 +94,7 @@ const FavoritesStack = createStackNavigator({
 
 const MapStack = createStackNavigator({
 	Map: {
-		screen: HomeScreen,
+		screen: MapViewScreen,
 		navigationOptions: ({ navigation }) => ({
 			title: 'Map',
 			headerStyle: styles.mainHeader,

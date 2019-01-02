@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   ImageBackground,
   Switch,
-  ToastAndroid
+  ToastAndroid,
+  Platform
 } from "react-native";
 import { DrawerItems, SafeAreaView } from "react-navigation";
 import { store } from "app/src/redux/store";
@@ -29,13 +30,11 @@ class CustomDrawerContentComponent extends React.Component {
       lastName: "",
       online: false,
       showSwitch: false,
-      userCoordinates: {
-
-      }
+      userCoordinates: {},
     };
   }
 
-  componentDidMount() { }
+  componentDidMount() {}
 
 
 
@@ -50,12 +49,15 @@ class CustomDrawerContentComponent extends React.Component {
         // timeInterval: 300000      // 5 mins
       }, NewLocation => {
         let coords = NewLocation.coords;
-        ToastAndroid.show('lat: ' + coords.latitude + ' long: ' + coords.longitude, ToastAndroid.SHORT);
-        api.updateGeoLocation({
+        let broadcastingMsg = (this.state.online) ? 'You are online.' : 'You are offline.';
+        if(Platform.OS === 'android')
+          ToastAndroid.show(broadcastingMsg, ToastAndroid.SHORT);
+        api.updateUserLocation({
           latitude: coords.latitude,
           longitude: coords.longitude,
-          isShownOnMap: true
-        }, userInfo.id);
+          id: userInfo.id, 
+          isOnline: this.state.online,
+        })
       })
     } else {
 
@@ -63,7 +65,7 @@ class CustomDrawerContentComponent extends React.Component {
     }
 
   }
-  s
+  
 
 
   componentWillMount() {

@@ -263,23 +263,24 @@ const api = {
 
   },
 
-  updateGeoLocation(geoLocation, userId) {
-    return new Promise((resolve, reject) =>
-      fetch(url + '/geolocation/update/' + userId, {
-        method: 'PATCH',
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-          "Authorization": store.getState().authToken
-        },
-        body: JSON.stringify(geoLocation)
-      })
-        .then((res) => res.json())
-        .then(resJson => {
-          resolve(resJson);
+  updateUserLocation(data) {
+    if(data.isOnline){
+      return new Promise((resolve, reject) =>
+        fetch(url + '/users/update/user/'+data.id+'/lat/'+data.latitude+'/long/'+data.longitude+'/online/'+data.isOnline, {
+          method: 'PATCH',
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": store.getState().authToken
+          },
         })
-    ).catch(err => console.error(err));
-  }
+          .then((res) => res.json())
+          .then(resJson => {
+            resolve(resJson);
+          })
+      ).catch(err => console.error(err));
+    }
+}
 };
 
 export default api;

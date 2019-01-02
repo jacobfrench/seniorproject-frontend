@@ -12,3 +12,4 @@ export BusinessTestScreen from './business/BusinessTestScreen';
 export ChatScreen from './messaging/ChatScreen';
 export BusinessOptionsScreen from './business/BusinessOptionsScreen';
 export MenuItemEditScreen from './business/MenuItemEditScreen';
+export MapViewScreen from './home/MapViewScreen';
