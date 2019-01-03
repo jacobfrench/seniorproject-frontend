@@ -30,7 +30,6 @@ class CustomDrawerContentComponent extends React.Component {
       lastName: "",
       online: false,
       showSwitch: false,
-      userCoordinates: {},
     };
   }
 
@@ -52,16 +51,19 @@ class CustomDrawerContentComponent extends React.Component {
         let broadcastingMsg = (this.state.online) ? 'You are online.' : 'You are offline.';
         if(Platform.OS === 'android')
           ToastAndroid.show(broadcastingMsg, ToastAndroid.SHORT);
-        api.updateUserLocation({
-          latitude: coords.latitude,
-          longitude: coords.longitude,
-          id: userInfo.id, 
-          isOnline: this.state.online,
-        })
+        // only update location if user is online
+        console.log("updating user location.")
+        if(this.state.online){
+          api.updateUserLocation({
+            latitude: coords.latitude,
+            longitude: coords.longitude,
+            id: userInfo.id, 
+            isOnline: this.state.online,
+          })
+
+        }
+        
       })
-    } else {
-
-
     }
 
   }
@@ -78,6 +80,18 @@ class CustomDrawerContentComponent extends React.Component {
 
   toggleSwitch() {
     this.setState({ online: (this.state.online) ? false : true });
+    //if user switches to offline, update database to reflect offline status.
+    if(this.state.online){
+      let { userInfo } = this.props;
+      console.log('going offline')
+      api.updateUserLocation({
+        latitude: 0.0,
+        longitude: 0.0,
+        id: userInfo.id,
+        isOnline: false,
+      })
+
+    }
     this.watchLocation();
   }
 

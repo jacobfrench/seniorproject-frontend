@@ -264,7 +264,6 @@ const api = {
   },
 
   updateUserLocation(data) {
-    if (data.isOnline) {
       return new Promise((resolve, reject) =>
         fetch(url + '/users/update/user/' + data.id + '/lat/' + data.latitude + '/long/' + data.longitude + '/online/' + data.isOnline, {
           method: 'PATCH',
@@ -279,7 +278,6 @@ const api = {
             resolve(resJson);
           })
       ).catch(err => console.error(err));
-    }
   },
 
   findBusinessesByDistance(data){

@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, ActivityIndicator, View } from 'react-native';
-import { FAB, Portal, Text, Modal } from 'react-native-paper';
+import { FAB, Portal, Text, Modal, Button, Headline, Divider, Surface } from 'react-native-paper';
 import { store } from 'app/src/redux/store';
+import { IndustryPicker } from 'app/src/components/common';
 import { connect } from 'react-redux';
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import api from 'app/src/api';
-import { ThemeProvider } from '@callstack/react-theme-provider';
 
 
 class MapViewScreen extends React.Component {
@@ -19,11 +19,12 @@ class MapViewScreen extends React.Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       },
+
       isLoading: true,
       nearbyBusinesses: [],
-      searchRadius: 5, //in miles
-      searchIndustry: 'Technology',
-      searchModalVisble: false
+      searchRadius: 50, //in miles
+      searchIndustry: 'Select Industry...',
+      searchModalVisble: false,
 
     }
   }
@@ -31,14 +32,16 @@ class MapViewScreen extends React.Component {
   componentWillMount() {
     navigator.geolocation.getCurrentPosition((position) => {
       this.setMyLocation(position.coords);
-      this.findNearyby();
     })
+
 
   }
 
   onSearchPress() {
     this.setState({ isLoading: true });
     this.findNearyby();
+    this.setState({ searchModalVisble: false })
+
   }
 
   findNearyby() {
@@ -49,10 +52,10 @@ class MapViewScreen extends React.Component {
       industry: this.state.searchIndustry
     }
     api.findBusinessesByDistance(data).then((res) => {
-      this.setState({ nearbyBusinesses: res });
-      this.setState({ isLoading: false });
-      console.log(res)
-    })
+      this.setState({ nearbyBusinesses: res }, () => {
+        this.setState({ isLoading: false });
+      });
+    });
   }
 
 
@@ -64,6 +67,8 @@ class MapViewScreen extends React.Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       }
+    },() =>{
+      this.setState({isLoading: false})
     })
 
   }
@@ -72,7 +77,10 @@ class MapViewScreen extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         {this.state.isLoading ? (
-          <ActivityIndicator size="large" color={theme.primary} />
+          <View style={{ flex: 1, alignContent: 'center', justifyContent: 'center' }}>
+            <ActivityIndicator size="large" color={theme.primary} />
+            <Text style={{ margin: 5, color: theme.primary }}>Finding Your Location...</Text>
+          </View>
         ) : (
             <MapView
               style={styles.mapView}
@@ -104,13 +112,30 @@ class MapViewScreen extends React.Component {
 
         <Portal.Host>
           <Portal>
-            <Modal 
-            visible={this.state.searchModalVisble} 
-            onDismiss={() => this.setState({ searchModalVisble: false })}
-            style={styles.searchModal}
+            <Modal
+              visible={this.state.searchModalVisble}
+              onDismiss={() => this.setState({ searchModalVisble: false })}
+              style={styles.searchModal}
             >
               <View style={styles.searchModal}>
-                <Text style={styles.searchHeader}>Search Options</Text>
+                <Headline style={styles.headline}>Search</Headline>
+                <Divider style={styles.divider} />
+
+                <IndustryPicker
+                  selectedValue={this.state.searchIndustry}
+                  style={{ height: 50, width: '90%', elevation: 5 }}
+                  onValueChange={(itemValue, itemIndex) => this.setState({ searchIndustry: itemValue })}>
+                </IndustryPicker>
+
+
+                <Divider style={styles.divider} />
+                <Button
+                  style={styles.searchButton}
+                  icon="search" mode="text"
+                  onPress={() => this.onSearchPress()}
+                >
+                  Search
+                </Button>
               </View>
             </Modal>
           </Portal>
@@ -148,7 +173,17 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 5,
     elevation: 5
-    
+  },
+  headline: {
+    margin: 5,
+    padding: 5
+  },
+  searchButton: {
+    margin: 10,
+    width: '100%',
+  },
+  divider: {
+    width: '100%'
   }
 
 });

@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 import { store } from 'app/src/redux/store';
 import { FormInput, FormLabel } from 'react-native-elements';
-import { StatePicker } from 'app/src/components/common';
 import { TextInput, Button } from 'react-native-paper';
 import api from 'app/src/api';
 

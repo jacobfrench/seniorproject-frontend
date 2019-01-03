@@ -9,13 +9,9 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo";
 import { store } from 'app/src/redux/store';
-import IconTextInput from "app/src/components/common/IconTextInput";
-import { Button, IconButton } from "app/src/components/common/Button";
+import { TextInput, Button } from 'react-native-paper';
 import api from "app/src/api";
 
-//images
-const facebookIcon = require("app/assets/icons/facebook-logo.png");
-const googleIcon = require("app/assets/icons/google-plus.png");
 
 export default class SignUpScreen extends React.Component {
   constructor(props) {
@@ -35,7 +31,7 @@ export default class SignUpScreen extends React.Component {
     let passwordsMatch = pass1 != "" && pass2 != "" && pass1 === pass2;
     if (passwordsMatch) {
       api.createNewUser(this.state);
-      if(Platform.OS == 'android')
+      if (Platform.OS == 'android')
         ToastAndroid.show("Signup successful.", ToastAndroid.LONG);
       this.props.navigation.goBack();
     } else {
@@ -43,15 +39,15 @@ export default class SignUpScreen extends React.Component {
     }
   }
 
-  signUpWithFacebook() {}
+  signUpWithFacebook() { }
 
-  signUpWithGoogle() {}
+  signUpWithGoogle() { }
 
   render() {
     return (
       <LinearGradient
         style={styles.linearGradient}
-        colors={[theme.primary, '#2980b9']}
+        colors={['#6200ee', '#6200ee']}
       >
         <KeyboardAvoidingView
           style={styles.inputContainer}
@@ -61,69 +57,73 @@ export default class SignUpScreen extends React.Component {
           <View style={styles.header}>
             <Text style={styles.headerText}>Sign Up</Text>
           </View>
-          <IconTextInput
-            placeholder="Email"
-            style={styles.inputUsername}
+
+          <TextInput
+            label='Email'
+            placeholder='EMail'
+            style={styles.input}
             onChangeText={text => this.setState({ email: text })}
-            keyboardType="email-address"
-            selectionColor={theme.onPrimary}
+            keyboardType='email-address'
+            mode={'flat'}
+            underlineColor={'transparent'}
           />
-          <IconTextInput
-            placeholder="First Name"
-            style={styles.inputUsername}
+          <TextInput
+            label='First Name'
+            placeholder='First Name'
+            style={styles.input}
             onChangeText={text => this.setState({ firstName: text })}
-            keyboardType="email-address"
-            selectionColor={theme.onPrimary}
+            mode={'flat'}
+            underlineColor={'transparent'}
           />
-          <IconTextInput
+          <TextInput
+            label='Last Name'
             placeholder="Last Name"
-            style={styles.inputUsername}
+            style={styles.input}
             onChangeText={text => this.setState({ lastName: text })}
-            keyboardType="email-address"
-            selectionColor={theme.onPrimary}
+            mode={'flat'}
+            underlineColor={'transparent'}
           />
-          <IconTextInput
+          <TextInput
+            label='Password'
             placeholder="Password"
             secureTextEntry
-            style={styles.inputPassword}
+            style={styles.input}
             onChangeText={text => this.setState({ password: text })}
-            selectionColor={theme.onPrimary}
+            mode={'flat'}
+            underlineColor={'transparent'}
           />
-          <IconTextInput
-            placeholder="Confirm Password"
+
+          <TextInput
+            label='Password'
+            placeholder="Password"
             secureTextEntry
-            style={styles.inputPassword}
+            style={styles.input}
             onChangeText={text => this.setState({ confirmPassword: text })}
-            selectionColor={theme.onPrimary}
+            mode={'flat'}
+            underlineColor={'transparent'}
           />
         </KeyboardAvoidingView>
 
         <View style={styles.footer}>
           <View style={styles.buttonContainer}>
             <Button
-              text="Sign Up"
+              mode='contained'
               onPress={() => this.signUp()}
-              style={styles.signUpButton}
-            />
+              style={[styles.signUpButton]}
+            >
+              Sign Up
+            </Button>
           </View>
-          <View style={styles.buttonContainer}>
-            <IconButton
-              icon={facebookIcon}
-              onPress={() => this.signUpWithFacebook()}
-              style={styles.facebookButton}
-            />
-            <IconButton
-              icon={googleIcon}
-              onPress={() => this.signUpWithGoogle()}
-              style={styles.googleButton}
-            />
-          </View>
+
           <Button
             text="Already have an account?"
+            mode='text'
+            color='white'
             onPress={() => this.props.navigation.navigate("Login")}
-            textStyle={styles.forgotPasswordText}
             style={styles.forgotPasswordButton}
-          />
+          >
+            Already have an account?
+          </Button>
         </View>
       </LinearGradient>
     );
@@ -160,12 +160,13 @@ const styles = StyleSheet.create({
   },
   signUpButton: {
     backgroundColor: theme.secondary,
-    borderRadius: 100,
+    borderRadius: 5,
     width: "85%",
-    marginLeft: 5,
-    elevation: 1,
+    margin: 10,
+    elevation: 5,
     shadowOpacity: 0.3,
-    shadowOffset: { width: 0, height: 2 }
+    shadowOffset: { width: 0, height: 2 },
+    padding: 10
   },
   header: {
     flex: 5,
@@ -201,7 +202,6 @@ const styles = StyleSheet.create({
   forgotPasswordButton: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "transparent"
   },
   facebookButton: {
     backgroundColor: 'blue',
@@ -216,5 +216,13 @@ const styles = StyleSheet.create({
     elevation: 1,
     padding: 10,
     borderRadius: 10
+  },
+  input: {
+    marginBottom: 20,
+    borderColor: theme.background,
+    borderRadius: 5,
+    height: 55,
+    width: '85%',
+    elevation: 5
   }
 });

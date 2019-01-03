@@ -6,7 +6,7 @@ import { store } from 'app/src/redux/store';
 import IconTextInput from 'app/src/components/common/IconTextInput';
 import { StyleSheet, View, Image, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { loginUser, setUserEmail, fetchUserInfoByEmail } from 'app/src/redux/actions';
-import { TextInput, Button, Text } from 'react-native-paper';
+import { TextInput, Button, Text, Headline } from 'react-native-paper';
 
 // images
 const emailIcon = require('app/assets/icons/email.png');
@@ -38,10 +38,12 @@ class LoginScreen extends React.Component {
     return (
       <LinearGradient
         style={styles.linearGradient}
-        colors={['#00d2ff', '#3a7bd5']}
+        // colors={['#00d2ff', '#3a7bd5']}
+        colors={['#6200ee', '#6200ee']}
       >
         <View style={styles.header}>
           <Image source={logo2} resizeMode='contain' />
+          <Headline style={{fontFamily: 'sans-serif-condensed', padding:15, color: 'white'}}>Lynx</Headline>
         </View>
 
         <KeyboardAvoidingView

@@ -16,11 +16,11 @@ module.exports = {
   // },
 
   material:{
-    primary: '#3498db',
+    primary: '#6200ee',
     primaryVariant: '#ecf0f1',
     secondary: '#2ecc71',
     secondaryVariant: '#D84315',
-    background: '#FAFAFA',
+    background: 'white',
     surface: '#FAFAFA',
     error: '#C51162',
     onPrimary: '#34495e',
