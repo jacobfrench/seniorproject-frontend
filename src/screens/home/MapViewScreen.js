@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView, ActivityIndicator, View } from 'react-native';
-import { FAB, Portal, Text, Modal, Button, Headline, Divider, Surface } from 'react-native-paper';
+import { StyleSheet, SafeAreaView, ActivityIndicator, View, Slider } from 'react-native';
+import { FAB, Portal, Text, Modal, Button, Headline, Divider } from 'react-native-paper';
 import { store } from 'app/src/redux/store';
 import { IndustryPicker } from 'app/src/components/common';
 import { connect } from 'react-redux';
@@ -22,7 +22,7 @@ class MapViewScreen extends React.Component {
 
       isLoading: true,
       nearbyBusinesses: [],
-      searchRadius: 50, //in miles
+      searchRadius: 1, //in miles 
       searchIndustry: 'Select Industry...',
       searchModalVisble: false,
 
@@ -32,15 +32,13 @@ class MapViewScreen extends React.Component {
   componentWillMount() {
     navigator.geolocation.getCurrentPosition((position) => {
       this.setMyLocation(position.coords);
-    })
-
-
+    });
   }
 
   onSearchPress() {
     this.setState({ isLoading: true });
     this.findNearyby();
-    this.setState({ searchModalVisble: false })
+    this.setState({ searchModalVisble: false });
 
   }
 
@@ -68,7 +66,7 @@ class MapViewScreen extends React.Component {
         longitudeDelta: 0.0421,
       }
     },() =>{
-      this.setState({isLoading: false})
+      this.setState({isLoading: false});
     })
 
   }
@@ -127,20 +125,36 @@ class MapViewScreen extends React.Component {
                   onValueChange={(itemValue, itemIndex) => this.setState({ searchIndustry: itemValue })}>
                 </IndustryPicker>
 
+                <View style={{width: '90%', margin: 10 }}>
+                  <Text style={{color: theme.primary}}>Search Distance</Text>
+                </View>
+
+                <Slider 
+                  style={{width: '90%', padding:10, margin: 10}}
+                  thumbTintColor={theme.primary}
+                  minimumTrackTintColor={theme.primary}
+                  minimumValue={1}
+                  maximumValue={20}
+                  onValueChange={(value) => this.setState({searchRadius: value})}
+                  value={this.state.searchRadius}
+                  step={1}>
+                </Slider>
+
+                <View style={{width: '90%', margin: 10 }}>
+                  <Text>{this.state.searchRadius} Miles.</Text>
+                </View>
 
                 <Divider style={styles.divider} />
                 <Button
                   style={styles.searchButton}
                   icon="search" mode="text"
-                  onPress={() => this.onSearchPress()}
-                >
+                  onPress={() => this.onSearchPress()}>
                   Search
                 </Button>
               </View>
             </Modal>
           </Portal>
         </Portal.Host>
-
       </SafeAreaView>
     );
   }

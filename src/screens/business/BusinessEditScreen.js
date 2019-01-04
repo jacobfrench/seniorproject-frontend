@@ -4,8 +4,8 @@ import {
 	SafeAreaView, KeyboardAvoidingView, TouchableOpacity,
 	Text, Platform, ToastAndroid, ActivityIndicator
 } from 'react-native';
+import { IndustryPicker, StatePicker } from 'app/src/components/common';
 import { store } from 'app/src/redux/store';
-import { FormInput, FormLabel } from 'react-native-elements';
 import { TextInput, Button } from 'react-native-paper';
 import api from 'app/src/api';
 
@@ -23,7 +23,8 @@ class BusinessEditScreen extends React.Component {
 			primaryPhone: '',
 			altPhone: '',
 			email: '',
-			owner: { "id": store.getState().user.info.id }
+			owner: { "id": store.getState().user.info.id },
+			industry: 'Select Industry...'
 		}
 	}
 
@@ -113,6 +114,12 @@ class BusinessEditScreen extends React.Component {
 								placeholder={'Alt. Phone'}
 							/>
 
+							<IndustryPicker
+								selectedValue={this.state.industry}
+								style={{ height: 50, width: '100%', elevation: 5 }}
+								onValueChange={(itemValue, itemIndex) => this.setState({ industry: itemValue })}>
+							</IndustryPicker>
+
 							<TextInput
 								label='Street'
 								value={this.state.street}
@@ -131,14 +138,20 @@ class BusinessEditScreen extends React.Component {
 								placeholder={'City'}
 							/>
 
-							<TextInput
+							{/* <TextInput
 								label='State'
 								value={this.state.state}
 								onChangeText={(state) => this.setState({ state: state })}
 								style={styles.input}
 								mode={'flat'}
 								placeholder={'State'}
-							/>
+							/> */}
+
+							<StatePicker
+								selectedValue={this.state.state}
+								style={{ height: 50, width: '100%', elevation: 5 }}
+								onValueChange={(itemValue, itemIndex) => this.setState({ state: itemValue })}>
+							</StatePicker>
 
 							<TextInput
 								label='Zip Code'
@@ -162,9 +175,9 @@ class BusinessEditScreen extends React.Component {
 
 						</View>
 
-						<Button 
+						<Button
 							style={styles.saveButton}
-							mode="contained" 
+							mode="contained"
 							onPress={this.onPublishPress}>
 							Publish
   					</Button>
