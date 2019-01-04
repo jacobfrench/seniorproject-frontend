@@ -3,14 +3,11 @@ import api from 'app/src/api';
 import { connect } from 'react-redux';
 import { LinearGradient } from 'expo';
 import { store } from 'app/src/redux/store';
-import IconTextInput from 'app/src/components/common/IconTextInput';
 import { StyleSheet, View, Image, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { loginUser, setUserEmail, fetchUserInfoByEmail } from 'app/src/redux/actions';
 import { TextInput, Button, Text, Headline } from 'react-native-paper';
 
 // images
-const emailIcon = require('app/assets/icons/email.png');
-const keyIcon = require('app/assets/icons/key.png');
 const logo2 = require('app/assets/icons/logo.png');
 
 class LoginScreen extends React.Component {

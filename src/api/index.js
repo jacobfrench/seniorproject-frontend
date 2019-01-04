@@ -295,10 +295,7 @@ const api = {
       .then(responsJson => {
         resolve(responsJson);
       })
-  ).catch(err => {
-
-    reject(err);
-  });
+  ).catch(err => {reject(err)});
   }
 };
 

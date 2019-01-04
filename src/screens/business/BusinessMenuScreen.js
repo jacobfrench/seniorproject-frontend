@@ -1,8 +1,5 @@
 import React from 'react';
 import { SafeAreaView, ScrollView, Text } from 'react-native';
-import { store } from 'app/src/redux/store';
-import { Card } from 'react-native-elements';
-import api from 'app/src/api';
 
 class BusinessMenuScreen extends React.Component {
 	constructor(props) {

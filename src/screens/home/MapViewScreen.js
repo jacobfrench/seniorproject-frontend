@@ -8,6 +8,7 @@ import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import api from 'app/src/api';
 
+const markerImg = require('app/assets/icons/map-marker.png');
 
 class MapViewScreen extends React.Component {
   constructor(props) {
@@ -91,6 +92,8 @@ class MapViewScreen extends React.Component {
                 this.state.nearbyBusinesses.map((user, i) => (
                   <Marker
                     key={'pin_' + i}
+                    // pinColor={theme.primary}
+                    image={markerImg}
                     coordinate={{ latitude: user.latitude, longitude: user.longitude }}
                     title={user.business.name}
                   />
@@ -130,7 +133,7 @@ class MapViewScreen extends React.Component {
                 </View>
 
                 <Slider 
-                  style={{width: '90%', padding:10, margin: 10}}
+                  style={styles.slider}
                   thumbTintColor={theme.primary}
                   minimumTrackTintColor={theme.primary}
                   minimumValue={1}
@@ -186,7 +189,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     margin: 10,
     borderRadius: 5,
-    elevation: 5
+    elevation: 5,
+    padding: 10
   },
   headline: {
     margin: 5,
@@ -198,7 +202,13 @@ const styles = StyleSheet.create({
   },
   divider: {
     width: '100%'
+  },
+  slider: {
+    width: '100%', 
+    padding:10, 
+    margin: 10
   }
+  
 
 });
 

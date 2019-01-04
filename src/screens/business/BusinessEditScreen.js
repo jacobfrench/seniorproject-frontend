@@ -1,8 +1,8 @@
 import React from 'react';
 import {
 	StyleSheet, View, ScrollView,
-	SafeAreaView, KeyboardAvoidingView, TouchableOpacity,
-	Text, Platform, ToastAndroid, ActivityIndicator
+	SafeAreaView, KeyboardAvoidingView,
+	Platform, ToastAndroid
 } from 'react-native';
 import { IndustryPicker, StatePicker } from 'app/src/components/common';
 import { store } from 'app/src/redux/store';
@@ -115,6 +115,7 @@ class BusinessEditScreen extends React.Component {
 							/>
 
 							<IndustryPicker
+								prompt={"Select Industry"}
 								selectedValue={this.state.industry}
 								style={{ height: 50, width: '100%', elevation: 5 }}
 								onValueChange={(itemValue, itemIndex) => this.setState({ industry: itemValue })}>
@@ -138,16 +139,8 @@ class BusinessEditScreen extends React.Component {
 								placeholder={'City'}
 							/>
 
-							{/* <TextInput
-								label='State'
-								value={this.state.state}
-								onChangeText={(state) => this.setState({ state: state })}
-								style={styles.input}
-								mode={'flat'}
-								placeholder={'State'}
-							/> */}
-
 							<StatePicker
+								prompt={"Select State"}
 								selectedValue={this.state.state}
 								style={{ height: 50, width: '100%', elevation: 5 }}
 								onValueChange={(itemValue, itemIndex) => this.setState({ state: itemValue })}>
