@@ -17,10 +17,10 @@ module.exports = {
   //   selected: 'rgba(0, 0, 0, 0.1)'
   // }
   material:{
-    primary: 'red',
-    primaryVariant: 'red',
-    secondary: 'red',
-    secondaryVariant: 'red',
+    primary: '#6200ee',
+    primaryVariant: 'white',
+    secondary: 'white',
+    secondaryVariant: 'white',
     background: 'white',
     surface: '#FAFAFA',
     error: '#C51162',

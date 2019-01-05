@@ -33,7 +33,8 @@ class LoginScreen extends React.Component {
   }
 
   render() {
-    // const {colors} = this.props.theme;
+    console.log('from login')
+    console.log(this.props)
     return (
       <LinearGradient
         style={styles.linearGradient}
@@ -85,14 +86,14 @@ class LoginScreen extends React.Component {
             <Button 
               mode="contained" 
               dark={false}
-              style={styles.loginButton}
+              style={[styles.loginButton, {backgroundColor: 'white'}]}
               onPress={this.onLoginPress}>
               Login
             </Button>
 
             <Button 
               mode="contained" 
-              style={styles.signUpButton}
+              style={[styles.signUpButton, {backgroundColor: '#2ecc71'}]}
               onPress={() => this.props.navigation.navigate('SignUp')}>
               Sign Up
             </Button>
@@ -103,7 +104,6 @@ class LoginScreen extends React.Component {
   }
 }
 
-const theme = store.getState().settings.theme;
 const styles = StyleSheet.create({
   container: {
     flex: 1
@@ -122,7 +122,6 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   loginButton: {
-    backgroundColor: '#fff',
     width: '45%',
     marginRight: 5,
     elevation: 1,
@@ -131,7 +130,6 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   signUpButton: {
-    backgroundColor: theme.primary,
     width: '45%',
     marginLeft: 5,
     shadowOpacity: 0.3,

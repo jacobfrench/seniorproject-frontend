@@ -2,7 +2,6 @@ import React from "react";
 import { AuthNav, MainNav } from "app/src/navigation/Nav";
 import { connect } from "react-redux";
 import { loginUser, fetchUserInfoByEmail } from "app/src/redux/actions";
-import {Provider as PaperProvider} from 'react-native-paper';
 
 class Index extends React.Component {
   constructor(props) {
@@ -22,11 +21,11 @@ class Index extends React.Component {
   }
 
   render() {
+    console.log('from index:')
+    console.log(this.props)
     return (
       // if JWT is present, load main stack else load auth stack.
-      <View style={{flex: 1}}>
-        {this.props.loggedIn ? <MainNav /> : <AuthNav />}
-      </View>
+      this.props.loggedIn ? <MainNav /> : <AuthNav />
     );
   }
 }

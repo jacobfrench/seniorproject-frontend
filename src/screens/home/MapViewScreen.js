@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, ActivityIndicator, View, Slider } from 'react-native';
-import { FAB, Portal, Text, Modal, Button, Headline, Divider } from 'react-native-paper';
+import { FAB, Portal, Text, Modal, Button, Headline, Divider, Surface, Title } from 'react-native-paper';
 import { store } from 'app/src/redux/store';
 import { IndustryPicker } from 'app/src/components/common';
 import { connect } from 'react-redux';
 import MapView from 'react-native-maps';
-import { Marker } from 'react-native-maps';
+import { Marker, Callout } from 'react-native-maps';
 import api from 'app/src/api';
 
 const markerImg = require('app/assets/icons/map-marker.png');
@@ -15,8 +15,8 @@ class MapViewScreen extends React.Component {
     super(props);
     this.state = {
       myLocation: {
-        latitude: 35.355239,
-        longitude: -119.05878,
+        latitude: 0,
+        longitude: 0,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       },
@@ -81,6 +81,7 @@ class MapViewScreen extends React.Component {
             <Text style={{ margin: 5, color: theme.primary }}>Finding Your Location...</Text>
           </View>
         ) : (
+
             <MapView
               style={styles.mapView}
               initialRegion={this.state.myLocation}
@@ -92,17 +93,22 @@ class MapViewScreen extends React.Component {
                 this.state.nearbyBusinesses.map((user, i) => (
                   <Marker
                     key={'pin_' + i}
-                    // pinColor={theme.primary}
                     image={markerImg}
                     coordinate={{ latitude: user.latitude, longitude: user.longitude }}
-                    title={user.business.name}
-                  />
+                  >
+                    <Callout onPress={() => console.log(user)}>
+                      <Surface style={{ padding: 5, elevation: 5 }}>
+                        <Title>{user.business.name}</Title>
+                        <Text>{user.firstName} {user.lastName}</Text>
+                      </Surface>
+                    </Callout>
+                  </Marker>
                 ))
               }
+
             </MapView>
-
-
           )}
+          
         <FAB
           style={styles.fab}
           large
@@ -194,16 +200,16 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 0,
     bottom: 0,
-    backgroundColor: theme.primary,
+    backgroundColor: theme.primary
   },
   searchModal: {
-    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
     margin: 10,
     borderRadius: 5,
     elevation: 5,
-    padding: 10
+    padding: 10,
+    backgroundColor: 'white'
   },
   headline: {
     margin: 5,
@@ -211,6 +217,9 @@ const styles = StyleSheet.create({
   },
   searchButton: {
     margin: 15,
+  },
+  searchButton: {
+    margin: 5,
   },
   divider: {
     width: '100%'

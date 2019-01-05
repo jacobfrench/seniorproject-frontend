@@ -1,15 +1,14 @@
 import React from "react";
 import {
   StyleSheet,
-  Text,
   View,
   KeyboardAvoidingView,
   ToastAndroid,
-  Platform
+  Platform,
+  SafeAreaView
 } from "react-native";
 import { LinearGradient } from "expo";
-import { store } from 'app/src/redux/store';
-import { TextInput, Button } from 'react-native-paper';
+import { TextInput, Button, Headline } from 'react-native-paper';
 import api from "app/src/api";
 
 
@@ -45,6 +44,7 @@ export default class SignUpScreen extends React.Component {
 
   render() {
     return (
+      <SafeAreaView styles={{flex: 1}}>
       <LinearGradient
         style={styles.linearGradient}
         colors={['#6200ee', '#6200ee']}
@@ -55,7 +55,7 @@ export default class SignUpScreen extends React.Component {
           enabled
         >
           <View style={styles.header}>
-            <Text style={styles.headerText}>Sign Up</Text>
+            <Headline style={[styles.headerText, {color: 'white'}]}>Sign Up</Headline>
           </View>
 
           <TextInput
@@ -109,7 +109,7 @@ export default class SignUpScreen extends React.Component {
             <Button
               mode='contained'
               onPress={() => this.signUp()}
-              style={[styles.signUpButton]}
+              style={[styles.signUpButton, {backgroundColor: '#2ecc71'}]}
             >
               Sign Up
             </Button>
@@ -120,17 +120,18 @@ export default class SignUpScreen extends React.Component {
             mode='text'
             color='white'
             onPress={() => this.props.navigation.navigate("Login")}
-            style={styles.forgotPasswordButton}
+            style={[styles.forgotPasswordButton]}
           >
             Already have an account?
           </Button>
         </View>
       </LinearGradient>
+      </SafeAreaView>
     );
   }
 }
 
-const theme = store.getState().settings.theme;
+// const theme = store.getState().settings.theme;
 const styles = StyleSheet.create({
   container: {
     flex: 1
@@ -143,23 +144,19 @@ const styles = StyleSheet.create({
   },
   inputUsername: {
     marginBottom: 20,
-    borderColor: theme.background
   },
   inputPassword: {
-    borderColor: theme.background,
     marginBottom: 20
   },
   signInButton: {
     padding: 15,
     backgroundColor: "transparent",
     borderRadius: 100,
-    borderColor: theme.secondary,
     borderWidth: 1,
     width: "45%",
     marginRight: 5,
   },
   signUpButton: {
-    backgroundColor: theme.secondary,
     borderRadius: 5,
     width: "85%",
     margin: 10,
@@ -175,7 +172,6 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 32,
-    color: theme.background,
     marginTop: 25,
     marginBottom: 35
   },
@@ -219,7 +215,6 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 20,
-    borderColor: theme.background,
     borderRadius: 5,
     height: 55,
     width: '85%',
