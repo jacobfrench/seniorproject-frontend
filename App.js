@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 import { AppLoading } from 'expo';
 import { store, persistor } from 'app/src/redux/store';
+import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 import Index from 'app/src';
 
 // redux store 
@@ -10,9 +11,13 @@ import Index from 'app/src';
 // 2nd argument is initial state
 // 3rd argument is middleware (store enhancers)
 
+
+
 export default class App extends React.Component {
+  
 
   render() {
+    
     return (
       <Provider store={store}>
         <PersistGate loading={<AppLoading />} persistor={persistor}>

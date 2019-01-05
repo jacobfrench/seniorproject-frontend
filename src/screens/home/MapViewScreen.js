@@ -66,8 +66,8 @@ class MapViewScreen extends React.Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       }
-    },() =>{
-      this.setState({isLoading: false});
+    }, () => {
+      this.setState({ isLoading: false });
     })
 
   }
@@ -128,32 +128,45 @@ class MapViewScreen extends React.Component {
                   onValueChange={(itemValue, itemIndex) => this.setState({ searchIndustry: itemValue })}>
                 </IndustryPicker>
 
-                <View style={{width: '90%', margin: 10 }}>
-                  <Text style={{color: theme.primary}}>Search Distance</Text>
+                <View style={{ width: '90%', margin: 10 }}>
+                  <Text style={{ color: theme.primary }}>Search Distance</Text>
                 </View>
 
-                <Slider 
+                <Slider
                   style={styles.slider}
                   thumbTintColor={theme.primary}
                   minimumTrackTintColor={theme.primary}
                   minimumValue={1}
                   maximumValue={20}
-                  onValueChange={(value) => this.setState({searchRadius: value})}
+                  onValueChange={(value) => this.setState({ searchRadius: value })}
                   value={this.state.searchRadius}
                   step={1}>
                 </Slider>
 
-                <View style={{width: '90%', margin: 10 }}>
+                <View style={{ width: '90%', margin: 10 }}>
                   <Text>{this.state.searchRadius} Miles.</Text>
                 </View>
 
                 <Divider style={styles.divider} />
-                <Button
-                  style={styles.searchButton}
-                  icon="search" mode="text"
-                  onPress={() => this.onSearchPress()}>
-                  Search
+                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                  <Button
+                    style={styles.searchButton}
+                    icon="close"
+                    mode="text"
+                    onPress={() => this.setState({ searchModalVisble: false })}>
+                    Cancel
+                  </Button>
+
+                  <Button
+                    style={styles.searchButton}
+                    icon="search"
+                    mode="text"
+                    onPress={() => this.onSearchPress()}>
+                    Search
                 </Button>
+                </View>
+
+
               </View>
             </Modal>
           </Portal>
@@ -197,18 +210,17 @@ const styles = StyleSheet.create({
     padding: 5
   },
   searchButton: {
-    margin: 10,
-    width: '100%',
+    margin: 15,
   },
   divider: {
     width: '100%'
   },
   slider: {
-    width: '100%', 
-    padding:10, 
+    width: '100%',
+    padding: 10,
     margin: 10
   }
-  
+
 
 });
 

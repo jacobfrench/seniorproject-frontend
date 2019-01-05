@@ -1,25 +1,26 @@
+
+
 module.exports = {
   // material:{
-  //   primary: '#2980b9',
-  //   primaryVariant: '#3498db',
-  //   secondary: '#e74c3c',
+  //   primary: '#6200ee',
+  //   primaryVariant: '#ecf0f1',
+  //   secondary: '#2ecc71',
   //   secondaryVariant: '#D84315',
-  //   background: '#FAFAFA',
+  //   background: 'white',
   //   surface: '#FAFAFA',
   //   error: '#C51162',
-  //   onPrimary: '#FAFAFA',
+  //   onPrimary: '#34495e',
   //   onSecondary: '#FAFAFA',
   //   onBackground: '#34495e',
   //   onSurface: '#263238',
   //   onError: '#FAFAFA',
-  //   selected: 'rgba(0, 0, 0, 0.03)'
-  // },
-
+  //   selected: 'rgba(0, 0, 0, 0.1)'
+  // }
   material:{
-    primary: '#6200ee',
-    primaryVariant: '#ecf0f1',
-    secondary: '#2ecc71',
-    secondaryVariant: '#D84315',
+    primary: 'red',
+    primaryVariant: 'red',
+    secondary: 'red',
+    secondaryVariant: 'red',
     background: 'white',
     surface: '#FAFAFA',
     error: '#C51162',

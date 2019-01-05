@@ -16,6 +16,7 @@ class LoginScreen extends React.Component {
     this.state = {
       password: ''
     };
+
   }
 
   onLoginPress = () => {
@@ -32,6 +33,7 @@ class LoginScreen extends React.Component {
   }
 
   render() {
+    // const {colors} = this.props.theme;
     return (
       <LinearGradient
         style={styles.linearGradient}
@@ -114,7 +116,6 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 20,
-    borderColor: theme.background,
     borderRadius: 5,
     height: 55,
     width: '85%',
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   signUpButton: {
-    backgroundColor: theme.secondary,
+    backgroundColor: theme.primary,
     width: '45%',
     marginLeft: 5,
     shadowOpacity: 0.3,

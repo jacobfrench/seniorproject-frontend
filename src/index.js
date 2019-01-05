@@ -24,9 +24,9 @@ class Index extends React.Component {
   render() {
     return (
       // if JWT is present, load main stack else load auth stack.
-      <PaperProvider>
+      <View style={{flex: 1}}>
         {this.props.loggedIn ? <MainNav /> : <AuthNav />}
-      </PaperProvider>
+      </View>
     );
   }
 }
