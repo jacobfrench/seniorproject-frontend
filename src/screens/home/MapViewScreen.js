@@ -172,7 +172,6 @@ class MapViewScreen extends React.Component {
                 </Button>
                 </View>
 
-
               </View>
             </Modal>
           </Portal>
