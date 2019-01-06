@@ -38,7 +38,7 @@ export const logoutUser = () => {
     };
 }
 
-//AuthTokenReducer actions
+// AuthTokenReducer actions
 export const setAuthToken = (jwt) => {
     return {
         type: SET_AUTH_TOKEN,

@@ -52,7 +52,6 @@ class CustomDrawerContentComponent extends React.Component {
         if(Platform.OS === 'android')
           ToastAndroid.show(broadcastingMsg, ToastAndroid.SHORT);
         // only update location if user is online
-        console.log("updating user location.")
         if(this.state.online){
           api.updateUserLocation({
             latitude: coords.latitude,
@@ -83,7 +82,6 @@ class CustomDrawerContentComponent extends React.Component {
     //if user switches to offline, update database to reflect offline status.
     if(this.state.online){
       let { userInfo } = this.props;
-      console.log('going offline')
       api.updateUserLocation({
         latitude: 0.0,
         longitude: 0.0,
@@ -164,8 +162,16 @@ class CustomDrawerContentComponent extends React.Component {
   }
 
   signOut() {
-    this.props.revokeAuthToken();
-    this.props.logoutUser();
+    let { userInfo } = this.props;
+    api.updateUserLocation({
+      latitude: 0,
+      longitude: 0,
+      id: userInfo.id, 
+      isOnline: false,
+    }).then(() =>{
+      this.props.logoutUser();
+      this.props.revokeAuthToken();
+    })
   }
 }
 
