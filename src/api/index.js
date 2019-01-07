@@ -1,8 +1,8 @@
 import { store } from "app/src/redux/store"; // use store.getState().authToken;
 import { setAuthToken } from "app/src/redux/actions";
 
-const url = "http://45.33.39.105:8080";
-// const url = "http://192.168.1.15:8080";
+// const url = "http://45.33.39.105:8080";
+const url = "http://192.168.1.15:8080";
 
 const api = {
   createNewUser(user) {
