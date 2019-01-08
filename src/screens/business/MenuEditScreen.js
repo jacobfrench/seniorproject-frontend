@@ -4,7 +4,6 @@ import { Modal, StyleSheet, View, ScrollView, SafeAreaView, Image, TouchableOpac
 import { store } from 'app/src/redux/store';
 import api from 'app/src/api';
 import { FAB, TextInput, Button, Title, Headline, Paragraph, Divider } from 'react-native-paper';
-// import { List, ListItem } from 'react-native-elements';
 
 
 class MenuEditScreen extends React.Component {
@@ -236,7 +235,7 @@ const styles = StyleSheet.create({
 		elevation: 2,
 		backgroundColor: theme.background,
 		elevation: 5,
-		borderRadius: 5,
+		borderRadius: 2,
 		width: '95%',
 		margin: 5
 	},

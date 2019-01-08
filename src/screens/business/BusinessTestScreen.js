@@ -21,7 +21,7 @@ import api from 'app/src/api';
 import IconRow from 'app/src/components/business/IconRow';
 import ImageRow from 'app/src/components/business/ImageRow';
 
-class BusinessTestScreen extends React.Component {
+export default class BusinessTestScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,7 +54,7 @@ class BusinessTestScreen extends React.Component {
       <SafeAreaView style={styles.container}>
         <ScrollView>
           <ImageBackground
-            source={{uri: 'https://indycarpetcleaning.com/wp-content/uploads/2013/12/steam-carpet-cleaning-services-1-1500x630.jpg'}}
+            source={{ uri: 'https://indycarpetcleaning.com/wp-content/uploads/2013/12/steam-carpet-cleaning-services-1-1500x630.jpg' }}
             style={styles.header}
           >
             <View
@@ -70,7 +70,7 @@ class BusinessTestScreen extends React.Component {
               <Title style={styles.title}>{this.state.name}</Title>
             </View>
           </ImageBackground>
-          <View style={{paddingLeft: 10, paddingRight: 10}}>
+          <View style={{ paddingLeft: 10, paddingRight: 10 }}>
             <View
               style={{
                 marginBottom: 10,
@@ -80,16 +80,16 @@ class BusinessTestScreen extends React.Component {
               }}
             >
               <Chip
-                icon={({size, color}) => (
+                icon={({ size, color }) => (
                   <Ionicons name="ios-text" size={size} color={color} />
                 )}
-                onPress={() => console.log('Pressed')}
-                style={{marginRight: 10}}
+                onPress={() => console.log(this.state)}
+                style={{ marginRight: 10 }}
               >
                 Message
               </Chip>
               <Chip
-                icon={({size, color}) => (
+                icon={({ size, color }) => (
                   <Ionicons name="ios-heart" size={size} color={color} />
                 )}
                 onPress={() => console.log('Pressed')}
@@ -99,28 +99,28 @@ class BusinessTestScreen extends React.Component {
             </View>
             <View style={styles.profilePicture}>
               <Image
-                source={{uri: 'https://freedesignfile.com/upload/2017/10/Square-arrow-business-logo-vector.jpg'}}
+                source={{ uri: 'https://freedesignfile.com/upload/2017/10/Square-arrow-business-logo-vector.jpg' }}
                 style={styles.picture}
               />
             </View>
-            <Card style={styles.card}>
-              <Card.Content>
-                <Title>About Us</Title>
-                <Divider style={styles.divider} />
-                <Paragraph>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis convallis, lacus eu porta varius, augue libero auctor mi, ut varius justo enim non nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</Paragraph>
-              </Card.Content>
-            </Card>
             <Card style={styles.card}>
               <Card.Content>
                 <Title>Contact Us</Title>
                 <Divider style={styles.divider} />
                 <View>
                   <IconRow icon="ios-call" text={this.phoneFormat(this.state.primaryPhone)} />
-                  <IconRow text={this.phoneFormat(this.state.altPhone)} style={{marginBottom: 5}} />
+                  <IconRow text={this.phoneFormat(this.state.altPhone)} style={{ marginBottom: 5 }} />
                   <IconRow icon="ios-pin" text={this.state.street} />
                   <IconRow text={this.state.city + ', ' + this.state.state} />
                   <IconRow text={this.state.zip} />
                 </View>
+              </Card.Content>
+            </Card>
+            <Card style={styles.card}>
+              <Card.Content>
+                <Title>About Us</Title>
+                <Divider style={styles.divider} />
+                <Paragraph>{this.state.about}</Paragraph>
               </Card.Content>
             </Card>
             <Card style={[styles.card, styles.lastCard]}>
@@ -128,7 +128,7 @@ class BusinessTestScreen extends React.Component {
                 <Title>Menus</Title>
                 <Divider style={styles.divider} />
                 <ImageRow
-                  imageSource={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_iIlxplLsLPk0_kEgmdTvQ31yqILr3YoT7ADx4PDykSmQ62FU'}}
+                  imageSource={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_iIlxplLsLPk0_kEgmdTvQ31yqILr3YoT7ADx4PDykSmQ62FU' }}
                   text="Services"
                 />
               </Card.Content>
@@ -144,15 +144,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    backgroundColor: 'white',
+    backgroundColor: '#fafafa'
   },
   header: {
     alignItems: 'flex-end',
     aspectRatio: 16 / 9,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    padding: 5,
-    resizeMode: 'cover',
+    padding: 5
   },
   title: {
     color: 'white',
@@ -180,14 +179,13 @@ const styles = StyleSheet.create({
     height: 100,
     justifyContent: 'center',
     marginTop: -50,
-    width: 100,
+    width: 100
   },
   picture: {
     alignSelf: 'center',
     borderRadius: 90,
     height: 90,
-    width: 90,
-    resizeMode: 'cover'
+    width: 90
   },
   status: {
     backgroundColor: 'green',

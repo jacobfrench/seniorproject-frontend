@@ -26,7 +26,7 @@ export default class BusinessOptionsScreen extends React.Component {
       {
         title: 'Preview Page',
         icon: 'pageview',
-        screen: 'PreViewBusiness'
+        screen: 'PreviewBusiness'
       },
       {
         title: 'Add Employee',

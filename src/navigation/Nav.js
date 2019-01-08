@@ -208,7 +208,7 @@ const BusinessStack = createStackNavigator({
 			),
 		})
 	},
-	PreViewBusiness: {
+	PreviewBusiness: {
 		screen: BusinessTestScreen,
 		navigationOptions: ({ navigation }) => ({
 			title: 'Preview',
