@@ -15,7 +15,9 @@ import {
 	BusinessTestScreen,
 	ChatScreen,
 	BusinessOptionsScreen,
-	MenuItemEditScreen
+	MenuItemEditScreen,
+  MapViewScreen,
+  NearbyScreen
 } from 'app/src/screens';
 
 import {
@@ -60,7 +62,7 @@ const AuthNav = createStackNavigator({
 //BottomTabNavigator Screens
 const NearbyStack = createStackNavigator({
 	Nearby: {
-		screen: HomeScreen,
+		screen: NearbyScreen,
 		navigationOptions: ({ navigation }) => ({
 			title: 'Nearby',
 			headerStyle: styles.mainHeader,
@@ -93,7 +95,7 @@ const FavoritesStack = createStackNavigator({
 
 const MapStack = createStackNavigator({
 	Map: {
-		screen: HomeScreen,
+		screen: MapViewScreen,
 		navigationOptions: ({ navigation }) => ({
 			title: 'Map',
 			headerStyle: styles.mainHeader,

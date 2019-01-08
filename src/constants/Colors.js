@@ -1,26 +1,27 @@
+
+
 module.exports = {
   // material:{
-  //   primary: '#2980b9',
-  //   primaryVariant: '#3498db',
-  //   secondary: '#e74c3c',
+  //   primary: '#6200ee',
+  //   primaryVariant: '#ecf0f1',
+  //   secondary: '#2ecc71',
   //   secondaryVariant: '#D84315',
-  //   background: '#FAFAFA',
+  //   background: 'white',
   //   surface: '#FAFAFA',
   //   error: '#C51162',
-  //   onPrimary: '#FAFAFA',
+  //   onPrimary: '#34495e',
   //   onSecondary: '#FAFAFA',
   //   onBackground: '#34495e',
   //   onSurface: '#263238',
   //   onError: '#FAFAFA',
-  //   selected: 'rgba(0, 0, 0, 0.03)'
-  // },
-
+  //   selected: 'rgba(0, 0, 0, 0.1)'
+  // }
   material:{
-    primary: '#3498db',
-    primaryVariant: '#ecf0f1',
-    secondary: '#e74c3c',
-    secondaryVariant: '#D84315',
-    background: '#FAFAFA',
+    primary: '#6200ee',
+    primaryVariant: 'white',
+    secondary: 'white',
+    secondaryVariant: 'white',
+    background: 'white',
     surface: '#FAFAFA',
     error: '#C51162',
     onPrimary: '#34495e',

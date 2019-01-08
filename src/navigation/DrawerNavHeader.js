@@ -6,7 +6,9 @@ import {
   ScrollView,
   TouchableOpacity,
   ImageBackground,
-  Switch
+  Switch,
+  ToastAndroid,
+  Platform
 } from "react-native";
 import { DrawerItems, SafeAreaView } from "react-navigation";
 import { store } from "app/src/redux/store";
@@ -14,6 +16,11 @@ import { logoutUser, revokeAuthToken } from "app/src/redux/actions";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { connect } from "react-redux";
 import { Avatar } from "react-native-elements";
+import { Location, Permissions } from 'expo';
+import api from "../api";
+
+
+
 
 class CustomDrawerContentComponent extends React.Component {
   constructor(props) {
@@ -21,18 +28,84 @@ class CustomDrawerContentComponent extends React.Component {
     this.state = {
       firstName: "",
       lastName: "",
-      online: false
+      online: false,
+      showSwitch: false,
     };
   }
 
-  componentWillMount() { }
+  componentDidMount() {}
 
-  switchChange() {
+
+
+  watchLocation = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (this.state.online && status === 'granted') {
+      let { userInfo } = this.props;
+
+      Location.watchPositionAsync({
+        enableHighAccuracy: true,
+        distanceInterval: 10,      // in meters
+        // timeInterval: 300000      // 5 mins
+      }, NewLocation => {
+        let coords = NewLocation.coords;
+        let broadcastingMsg = (this.state.online) ? 'You are online.' : 'You are offline.';
+        if(Platform.OS === 'android')
+          ToastAndroid.show(broadcastingMsg, ToastAndroid.SHORT);
+        // only update location if user is online
+        if(this.state.online){
+          api.updateUserLocation({
+            latitude: coords.latitude,
+            longitude: coords.longitude,
+            id: userInfo.id, 
+            isOnline: this.state.online,
+          })
+
+        }
+        
+      })
+    }
+
+  }
+  
+
+
+  componentWillMount() {
+    // show switch in header if user has a
+    // business or is employed by a business.
+    if (this.props.business !== "undefined" || this.props.employedBy !== "undefined")
+      this.setState({ showSwitch: true });
+
+  }
+
+  toggleSwitch() {
     this.setState({ online: (this.state.online) ? false : true });
+    //if user switches to offline, update database to reflect offline status.
+    if(this.state.online){
+      let { userInfo } = this.props;
+      api.updateUserLocation({
+        latitude: 0.0,
+        longitude: 0.0,
+        id: userInfo.id,
+        isOnline: false,
+      })
+
+    }
+    this.watchLocation();
   }
 
   render() {
     const { userInfo } = this.props;
+    const locationSwitch =
+      <Switch
+        style={{
+          transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],
+          marginRight: 15
+        }}
+        thumbTintColor={theme.background}
+        value={this.state.online}
+        onValueChange={this.toggleSwitch.bind(this)}
+      />;
+
     return (
       <SafeAreaView
         style={styles.container}
@@ -43,27 +116,19 @@ class CustomDrawerContentComponent extends React.Component {
             source={require("app/assets/header.jpg")}
             style={{ width: "100%" }}
           >
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between", margin: 10 }}
-            >
+            <View style={{ flexDirection: "row", justifyContent: "space-between", margin: 10 }}>
+
               <Avatar
                 style={styles.avatar}
                 medium
-                source={{
-                  uri:userInfo.avatarLink
-                }}
-                onPress={() => console.log("Works!")}
+                source={{ uri: userInfo.avatarLink }}
+                onPress={() => console.log("Avatar Works!")}
                 activeOpacity={0.7}
               />
-              <Switch
-                style={{
-                  transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],
-                  marginRight: 15
-                }}
-                thumbTintColor={theme.background}
-                value={this.state.online}
-                onValueChange={this.switchChange.bind(this)}
-              />
+
+              {/* Show switch here if user has a business or is employed. */}
+              {this.state.showSwitch ? locationSwitch : null}
+
             </View>
             <View style={styles.headerTextContainer}>
               <Text style={styles.name}>
@@ -97,8 +162,16 @@ class CustomDrawerContentComponent extends React.Component {
   }
 
   signOut() {
-    this.props.revokeAuthToken();
-    this.props.logoutUser();
+    let { userInfo } = this.props;
+    api.updateUserLocation({
+      latitude: 0,
+      longitude: 0,
+      id: userInfo.id, 
+      isOnline: false,
+    }).then(() =>{
+      this.props.logoutUser();
+      this.props.revokeAuthToken();
+    })
   }
 }
 

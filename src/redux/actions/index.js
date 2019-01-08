@@ -38,7 +38,7 @@ export const logoutUser = () => {
     };
 }
 
-//AuthTokenReducer actions
+// AuthTokenReducer actions
 export const setAuthToken = (jwt) => {
     return {
         type: SET_AUTH_TOKEN,
@@ -65,8 +65,8 @@ export const fetchUserInfoByEmail = (email) => {
         dispatch({ type: FETCH_USER_INFO_START });
         api.fetchUserInfoByEmail(email)
             .then((data) => {
-                console.log('From fetchUserInffoByEmail: ');
-                console.log(data);
+                // console.log('From fetchUserInffoByEmail: ');
+                // console.log(data);
                 if (!data.error) {
                     dispatch({ type: FETCH_USER_INFO_SUCCESS, payload: data });
                 } else {
