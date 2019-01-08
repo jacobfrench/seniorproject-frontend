@@ -1,12 +1,27 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, View, ImageBackground, StyleSheet } from 'react-native';
-import { store } from 'app/src/redux/store';
-import { Avatar, Text, Divider, ButtonGroup } from 'react-native-elements';
-import api from 'app/src/api';
+import {
+  Image,
+  ImageBackground,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import {
+  Card,
+  Chip,
+  Divider,
+  Title,
+  Paragraph
+} from 'react-native-paper';
 
+import { store } from 'app/src/redux/store';
+import api from 'app/src/api';
+import IconRow from 'app/src/components/business/IconRow';
+import ImageRow from 'app/src/components/business/ImageRow';
 
-class BusinessTestScreen extends React.Component {
+class BusinessProfileScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,183 +39,175 @@ class BusinessTestScreen extends React.Component {
 
   componentWillMount() {
     let userId = store.getState().user.info.id;
-		api.getBusinessByUserId(userId)
-			.then(res => {
+    api.getBusinessByUserId(userId)
+      .then(res => {
         this.setState(res);
       });
   }
 
   phoneFormat = (phoneNum) => {
-    return '(' + phoneNum.substring(0, 3) + ') ' + 
-    phoneNum.substring(3, 6) + '-' + phoneNum.substring(6, 11);
+    return '(' + phoneNum.substring(0, 3) + ') ' + phoneNum.substring(3, 6) + '-' + phoneNum.substring(6, 11);
   }
 
   render() {
-    const buttons = [
-      <Ionicons name='md-heart' size={28} color={theme.onBackground} />,
-      <Ionicons name='md-paper-plane' size={28} color={theme.onBackground} />,
-      <Ionicons name='md-create' size={28} color={theme.onBackground} />
-    ];
-    const { selectedIndex } = this.state;
     return (
       <SafeAreaView style={styles.container}>
-
-        <ImageBackground
-          source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRB7dGIgr9UKS67Pp1sA80hmTR_ojUfN4TeW7ENhcqG4_uh91YICg' }}
-          style={styles.header}
-        >
-
-          <View style={styles.headerContainer}>
-            <View style={styles.avatarContainer}>
-              <Avatar
-                medium
-                source={{ uri: 'https://cdn2.unrealengine.com/Epic+Games+Node%2Fxlarge_whitetext_blackback_epiclogo_504x512_1529964470588-503x512-ac795e81c54b27aaa2e196456dd307bfe4ca3ca4.jpg' }}
-                containerStyle={styles.avatar}
-                onPress={() => console.log("Works!")}
+        <ScrollView>
+          <ImageBackground
+            source={{uri: 'https://indycarpetcleaning.com/wp-content/uploads/2013/12/steam-carpet-cleaning-services-1-1500x630.jpg'}}
+            style={styles.header}
+          >
+            <View
+              style={{
+                width: '100%',
+                paddingRight: 115,
+                flexDirection: 'row',
+                justifyContent: 'flex-end',
+                alignItems: 'center'
+              }}
+            >
+              <View style={styles.status}></View>
+              <Title style={styles.title}>{this.state.name}</Title>
+            </View>
+          </ImageBackground>
+          <View style={{paddingLeft: 10, paddingRight: 10}}>
+            <View
+              style={{
+                marginBottom: 10,
+                justifyContent: 'flex-start',
+                marginTop: 10,
+                flexDirection: 'row'
+              }}
+            >
+              <Chip
+                icon={({size, color}) => (
+                  <Ionicons name="ios-text" size={size} color={color} />
+                )}
+                onPress={() => console.log('Pressed')}
+                style={{marginRight: 10}}
+              >
+                Message
+              </Chip>
+              <Chip
+                icon={({size, color}) => (
+                  <Ionicons name="ios-heart" size={size} color={color} />
+                )}
+                onPress={() => console.log('Pressed')}
+              >
+                Favorite
+              </Chip>
+            </View>
+            <View style={styles.profilePicture}>
+              <Image
+                source={{uri: 'https://freedesignfile.com/upload/2017/10/Square-arrow-business-logo-vector.jpg'}}
+                style={styles.picture}
               />
             </View>
-            <View>
-              <Text h3 style={styles.headerText}>{this.state.name}</Text>
-              <Text h4 style={styles.headerText}>Subtext</Text>
-            </View>
+            <Card style={styles.card}>
+              <Card.Content>
+                <Title>About Us</Title>
+                <Divider style={styles.divider} />
+                <Paragraph>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis convallis, lacus eu porta varius, augue libero auctor mi, ut varius justo enim non nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</Paragraph>
+              </Card.Content>
+            </Card>
+            <Card style={styles.card}>
+              <Card.Content>
+                <Title>Contact Us</Title>
+                <Divider style={styles.divider} />
+                <View>
+                  <IconRow icon="ios-call" text={this.phoneFormat(this.state.primaryPhone)} />
+                  <IconRow text={this.phoneFormat(this.state.altPhone)} style={{marginBottom: 5}} />
+                  <IconRow icon="ios-pin" text={this.state.street} />
+                  <IconRow text={this.state.city + ', ' + this.state.state} />
+                  <IconRow text={this.state.zip} />
+                </View>
+              </Card.Content>
+            </Card>
+            <Card style={[styles.card, styles.lastCard]}>
+              <Card.Content>
+                <Title>Menus</Title>
+                <Divider style={styles.divider} />
+                <ImageRow
+                  imageSource={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_iIlxplLsLPk0_kEgmdTvQ31yqILr3YoT7ADx4PDykSmQ62FU'}}
+                  text="Services"
+                />
+              </Card.Content>
+            </Card>
           </View>
-        </ImageBackground>
-
-        <ButtonGroup
-          onPress={() => console.log("pressed")}
-          selectedIndex={selectedIndex}
-          buttons={buttons}
-          containerStyle={styles.buttonContainer}
-        />
-
-        <ScrollView style={{width: '100%', marginLeft: 10, marginRight: 10 }}>
-
-          <View style={styles.card}>
-            <Text h4 style={{ color: theme.onBackground }}>Contact Information</Text>
-            <Divider style={styles.cardDivider} />
-            <View style={styles.contactField}>
-              <View style={styles.iconLabel}>
-                <Ionicons name='md-create' size={20} color={theme.onBackground} />
-              </View>
-              <View style={styles.textLabel}>
-                <Text>{this.phoneFormat(this.state.primaryPhone)}</Text>
-                <Text>{this.phoneFormat(this.state.altPhone)}</Text>
-              </View>
-            </View>
-            <View style={styles.contactField}>
-              <View style={styles.iconLabel}>
-                <Ionicons name='md-mail' size={20} color={theme.onBackground} />
-              </View>
-              <View style={styles.textLabel}>
-                <Text>{this.state.email}</Text>
-              </View>
-            </View>
-            <View style={styles.contactField}>
-              <View style={styles.iconLabel}>
-                <Ionicons name='md-home' size={20} color={theme.onBackground} />
-              </View>
-              <View style={styles.longTextLabel}>
-                <Text>{this.state.street}</Text>
-                <Text>{this.state.city}, {this.state.state} {this.state.zip}</Text>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.card}>
-            <Text h4 style={{ color: theme.onBackground }}>About Us</Text>
-            <Divider style={styles.cardDivider} />
-            <Text>{this.state.about}</Text>
-          </View>
-
         </ScrollView>
       </SafeAreaView>
     );
   }
 }
 
-const theme = store.getState().settings.theme;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center'
+    justifyContent: 'flex-start',
+    backgroundColor: 'white',
   },
   header: {
-    width: '100%',
-    height: 150,
-    justifyContent: 'flex-end',
-    elevation: 5
+    alignItems: 'flex-end',
+    aspectRatio: 16 / 9,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    padding: 5,
+    resizeMode: 'cover',
   },
-  headerText: {
+  title: {
     color: 'white',
-    textShadowOffset: {
-      width: 0.5,
-      height: 1
-    },
-    textShadowColor: '#000000',
-    textShadowRadius: 5
+    fontSize: 24,
+    fontWeight: 'bold',
+    elevation: 10,
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    textAlign: 'right',
+    marginLeft: 10
+  },
+  profilePicture: {
+    right: 10,
+    position: 'absolute',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 100,
+    elevation: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    height: 100,
+    justifyContent: 'center',
+    marginTop: -50,
+    width: 100,
+  },
+  picture: {
+    alignSelf: 'center',
+    borderRadius: 90,
+    height: 90,
+    width: 90,
+    resizeMode: 'cover'
+  },
+  status: {
+    backgroundColor: 'green',
+    borderRadius: 5,
+    height: 10,
+    width: 10,
+    elevation: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.5,
+    shadowRadius: 3
   },
   card: {
-    backgroundColor: '#fafafa',
-    borderRadius: 3,
-    borderWidth: 1,
-    borderColor: '#e3e3e3',
-    marginTop: 10,
-    padding: 10,
-    elevation: 5,
-    width:'100%'
+    marginTop: 10
   },
-  cardDivider: {
-    backgroundColor: '#bdc6cf',
-    height: 1,
-    marginTop: 5,
+  lastCard: {
     marginBottom: 10
   },
-  iconLabel: {
-    flex: 0.1,
-    width: 20,
-    height: 20,
-    marginRight: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textLabel: {
-    flex: 0.9,
-    height: 20,
-    justifyContent: 'center'
-  },
-  longTextLabel: {
-    flex: 0.9,
-    height: 40,
-    justifyContent: 'center'
-  },
-  contactField: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    marginBottom: 5
-  },
-  headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    margin: 5
-  },
-  avatarContainer: {
-    height: 80,
-    width: 80,
-    elevation: 15,
-    marginRight: 5,
-  },
-  buttonContainer: {
-    backgroundColor: theme.background,
-    marginTop: 10,
-    marginBottom: 0,
-    borderRadius: 3,
-    elevation: 1
-  },
-  avatar: {
-    height: 80,
-    width: 80,
-    elevation: 15
+  divider: {
+    marginBottom: 5,
+    marginTop: 5
   }
 });
-
-export default BusinessTestScreen;
