@@ -39,7 +39,6 @@ export default class NearbyScreen extends React.Component {
               </ScrollView>
             </Surface>
 
-
           </Surface>
         </ScrollView>
       </SafeAreaView>
