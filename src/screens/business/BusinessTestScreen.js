@@ -21,7 +21,7 @@ import api from 'app/src/api';
 import IconRow from 'app/src/components/business/IconRow';
 import ImageRow from 'app/src/components/business/ImageRow';
 
-class BusinessProfileScreen extends React.Component {
+class BusinessTestScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
