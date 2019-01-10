@@ -18,7 +18,8 @@ import {
     FETCH_BUSINESS_INFO_SUCCESS,
     FETCH_BUSINESS_INFO_FAILURE,
     //UserReducer types
-    CHANGE_THEME
+    CHANGE_THEME,
+    SET_BUSINESS_SWITCH
 } from './types';
 
 import api from 'app/src/api';
@@ -68,6 +69,17 @@ export const fetchUserInfoByEmail = (email) => {
                 // console.log('From fetchUserInffoByEmail: ');
                 // console.log(data);
                 if (!data.error) {
+                    if (data.business){
+                        dispatch({
+                            type: SET_BUSINESS_SWITCH,
+                            payload: true
+                        })
+                      } else {
+                        dispatch({
+                            type: SET_BUSINESS_SWITCH,
+                            payload: false
+                        })
+                      }
                     dispatch({ type: FETCH_USER_INFO_SUCCESS, payload: data });
                 } else {
                     dispatch({ type: FETCH_USER_INFO_FAILURE, payload: data })
@@ -81,5 +93,12 @@ export const fetchUserInfoByEmail = (email) => {
 export const changeTheme = () => {
     return {
         type: CHANGE_THEME
+    }
+}
+
+export const setBusinessSwitch = (value) => {
+    return {
+        type: SET_BUSINESS_SWITCH, 
+        payload: value
     }
 }

@@ -2,7 +2,6 @@ import React from 'react';
 import api from 'app/src/api';
 import { connect } from 'react-redux';
 import { LinearGradient } from 'expo';
-import { store } from 'app/src/redux/store';
 import { StyleSheet, View, Image, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { loginUser, setUserEmail, fetchUserInfoByEmail } from 'app/src/redux/actions';
 import { TextInput, Button, Text, Headline } from 'react-native-paper';
@@ -20,7 +19,6 @@ class LoginScreen extends React.Component {
   }
 
   onLoginPress = () => {
-    console.log(this.props);
     api.login(this.props.email, this.state.password)
       .then(() => this.authenticate());
   }
@@ -38,12 +36,11 @@ class LoginScreen extends React.Component {
     return (
       <LinearGradient
         style={styles.linearGradient}
-        // colors={['#00d2ff', '#3a7bd5']}
         colors={['#6200ee', '#6200ee']}
       >
         <View style={styles.header}>
           <Image source={logo2} resizeMode='contain' />
-          <Headline style={{fontFamily: 'sans-serif-condensed', padding:15, color: 'white'}}>Lynx</Headline>
+          <Headline style={{padding:15, color: 'white'}}>Lynx</Headline>
         </View>
 
         <KeyboardAvoidingView

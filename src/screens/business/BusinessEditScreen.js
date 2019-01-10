@@ -49,17 +49,14 @@ class BusinessEditScreen extends React.Component {
 			api.postNewBusiness(this.state, email)
 				.then(response => {
 					this.setState(response);
-					console.log('response:')
-					console.log(response)
-					ToastAndroid.show('Published.', ToastAndroid.SHORT);
+					if (Platform.OS !== 'ios')
+						ToastAndroid.show('Published.', ToastAndroid.SHORT);
 				})
 		} else {
 			// update business if business exists.
 			api.updateBusiness(this.state)
 				.then(response => {
-					console.log('update press')
-					console.log(response);
-					if (Platform.OS != 'ios') {
+					if (Platform.OS !== 'ios') {
 						this.setState(response)
 						ToastAndroid.show('Published.', ToastAndroid.SHORT);
 					}

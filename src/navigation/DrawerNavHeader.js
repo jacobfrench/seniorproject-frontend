@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { DrawerItems, SafeAreaView } from "react-navigation";
 import { store } from "app/src/redux/store";
-import { logoutUser, revokeAuthToken } from "app/src/redux/actions";
+import { logoutUser, revokeAuthToken, setBusinessSwitch } from "app/src/redux/actions";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { connect } from "react-redux";
 import { Avatar } from "react-native-elements";
@@ -29,13 +29,8 @@ class CustomDrawerContentComponent extends React.Component {
       firstName: "",
       lastName: "",
       online: false,
-      showSwitch: false,
     };
   }
-
-  componentDidMount() {}
-
-
 
   watchLocation = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -72,8 +67,11 @@ class CustomDrawerContentComponent extends React.Component {
   componentWillMount() {
     // show switch in header if user has a
     // business or is employed by a business.
-    if (this.props.business !== "undefined" || this.props.employedBy !== "undefined")
-      this.setState({ showSwitch: true });
+    // if (this.props.userInfo.business){
+    //   this.props.setBusinessSwitch(true);
+    // } else {
+    //   this.props.setBusinessSwitch(false);
+    // }
 
   }
 
@@ -127,7 +125,7 @@ class CustomDrawerContentComponent extends React.Component {
               />
 
               {/* Show switch here if user has a business or is employed. */}
-              {this.state.showSwitch ? locationSwitch : null}
+              {this.props.showSwitch ? locationSwitch : null}
 
             </View>
             <View style={styles.headerTextContainer}>
@@ -243,7 +241,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     loggedIn: state.auth.loggedIn,
-    userInfo: state.user.info
+    userInfo: state.user.info,
+    showSwitch: state.settings.showSwitch
   };
 };
 
@@ -251,6 +250,7 @@ export default connect(
   mapStateToProps,
   {
     logoutUser,
-    revokeAuthToken
+    revokeAuthToken,
+    setBusinessSwitch
   }
 )(CustomDrawerContentComponent);

@@ -16,3 +16,4 @@ export const FETCH_USER_INFO_FAILURE = 'fetch_user_info_failure';
 
 //SettingsReducer types
 export const CHANGE_THEME = 'change_theme';
+export const SET_BUSINESS_SWITCH = 'set_business_switch'
