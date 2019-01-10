@@ -2,7 +2,6 @@ import React from 'react';
 import { SafeAreaView, ScrollView, View, StyleSheet, ImageBackground } from 'react-native';
 import { store } from 'app/src/redux/store';
 import { Divider, Avatar, Text, ButtonGroup } from 'react-native-elements';
-import api from 'app/src/api';
 import { Ionicons } from '@expo/vector-icons';
 
 class BusinessBioScreen extends React.Component {
@@ -54,7 +53,7 @@ class BusinessBioScreen extends React.Component {
 				</ImageBackground>
 
 				<ButtonGroup
-					onPress={() => console.log("pressed")}
+					onPress={() => console.log(selectedIndex)}
 					selectedIndex={selectedIndex}
 					buttons={buttons}
 					containerStyle={{ height: 50 }}

@@ -1,18 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, Image, KeyboardAvoidingView } from 'react-native';
-import { LinearGradient } from 'expo';
-import IconTextInput from 'app/src/components/common/IconTextInput';
-import { Button } from 'app/src/components/common/Button';
 import api from 'app/src/api';
 import { connect } from 'react-redux';
+import { LinearGradient } from 'expo';
+import { StyleSheet, View, Image, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { loginUser, setUserEmail, fetchUserInfoByEmail } from 'app/src/redux/actions';
-import { store } from 'app/src/redux/store';
+import { TextInput, Button, Text, Headline } from 'react-native-paper';
 
-
-
-//images
-const emailIcon = require('app/assets/icons/email.png');
-const keyIcon = require('app/assets/icons/key.png');
+// images
 const logo2 = require('app/assets/icons/logo.png');
 
 class LoginScreen extends React.Component {
@@ -21,11 +15,12 @@ class LoginScreen extends React.Component {
     this.state = {
       password: ''
     };
+
   }
-  onLoginPress() {
-    console.log(this.props);
+
+  onLoginPress = () => {
     api.login(this.props.email, this.state.password)
-       .then(() => this.authenticate());
+      .then(() => this.authenticate());
   }
 
   authenticate() {
@@ -36,13 +31,16 @@ class LoginScreen extends React.Component {
   }
 
   render() {
+    console.log('from login')
+    console.log(this.props)
     return (
       <LinearGradient
         style={styles.linearGradient}
-        colors={[theme.primary, theme.primaryVariant]}
+        colors={['#6200ee', '#6200ee']}
       >
         <View style={styles.header}>
           <Image source={logo2} resizeMode='contain' />
+          <Headline style={{padding:15, color: 'white'}}>Lynx</Headline>
         </View>
 
         <KeyboardAvoidingView
@@ -50,40 +48,52 @@ class LoginScreen extends React.Component {
           behavior='padding'
           enabled
         >
-          <IconTextInput
-            src={emailIcon}
-            placeholder='E-mail'
-            style={styles.inputUsername}
-            onChangeText={text => this.props.setUserEmail(text)}
-            keyboardType='email-address'
-          />
-          <IconTextInput
-            src={keyIcon}
+
+            <TextInput
+              label='E-mail'
+              placeholder='E-Mail'
+              style={styles.input}
+              onChangeText={text => this.props.setUserEmail(text)}
+              keyboardType='email-address'
+              mode={'flat'}
+              underlineColor={'transparent'}
+            />
+
+          <TextInput
+            label='Password'
             placeholder='Password'
-            secureTextEntry
-            style={styles.inputPassword}
-            onChangeText={text => this.setState({ password: text })}
+            style={styles.input}
+            onChangeText={(password) => this.setState({ password: password })}
+            mode={'flat'}
+            underlineColor={'transparent'}
+            secureTextEntry={true}
           />
-          <Button
+
+          <TouchableOpacity
             text='Forgot your password?'
             onPress={() => this.props.navigation.navigate('ForgotPassword')}
-            textStyle={styles.forgotPasswordText}
             style={styles.forgotPasswordButton}
-          />
+          >
+            <Text style={styles.forgotPasswordText}>Forgot Your Password?</Text>
+          </TouchableOpacity>
         </KeyboardAvoidingView>
 
         <View style={styles.footer}>
           <View style={styles.buttonContainer}>
-            <Button
-              text='Login'
-              onPress={() => this.onLoginPress()}
-              style={styles.signInButton}
-            />
-            <Button
-              text='Sign Up'
-              onPress={() => this.props.navigation.navigate('SignUp')}
-              style={styles.signUpButton}
-            />
+            <Button 
+              mode="contained" 
+              dark={false}
+              style={[styles.loginButton, {backgroundColor: 'white'}]}
+              onPress={this.onLoginPress}>
+              Login
+            </Button>
+
+            <Button 
+              mode="contained" 
+              style={[styles.signUpButton, {backgroundColor: '#2ecc71'}]}
+              onPress={() => this.props.navigation.navigate('SignUp')}>
+              Sign Up
+            </Button>
           </View>
         </View>
       </LinearGradient>
@@ -91,7 +101,6 @@ class LoginScreen extends React.Component {
   }
 }
 
-const theme = store.getState().settings.theme;
 const styles = StyleSheet.create({
   container: {
     flex: 1
@@ -102,33 +111,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  inputUsername: {
+  input: {
     marginBottom: 20,
-    borderColor: theme.onPrimary
+    borderRadius: 5,
+    height: 55,
+    width: '85%',
+    elevation: 5
   },
-  inputPassword: {
-    borderColor: theme.onPrimary,
-    marginBottom: 20
-  },
-  signInButton: {
-    backgroundColor: 'transparent',
-    borderRadius: 100,
-    borderColor: theme.onPrimary,
-    borderWidth: 2,
+  loginButton: {
     width: '45%',
     marginRight: 5,
     elevation: 1,
     shadowOpacity: 0.3,
-    shadowOffset: { width: 0, height: 2 }
+    shadowOffset: { width: 0, height: 2 },
+    padding: 5,
   },
   signUpButton: {
-    backgroundColor: theme.secondary,
-    borderRadius: 100,
     width: '45%',
     marginLeft: 5,
-    elevation: 1,
     shadowOpacity: 0.3,
-    shadowOffset: { width: 0, height: 2 }
+    shadowOffset: { width: 0, height: 2 },
+    padding: 5
   },
   header: {
     flex: 5,
@@ -153,7 +156,8 @@ const styles = StyleSheet.create({
     flex: 2
   },
   forgotPasswordText: {
-    fontSize: 15
+    fontSize: 15,
+    color: 'white'
   },
   forgotPasswordButton: {
     justifyContent: 'center',
@@ -176,6 +180,5 @@ export default connect(
     loginUser,
     setUserEmail,
     fetchUserInfoByEmail,
-    
   }
 )(LoginScreen);

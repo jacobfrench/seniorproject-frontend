@@ -1,112 +1,197 @@
-import FAB from 'react-native-fab';
+// import FAB from 'react-native-fab';
 import React from 'react';
-import { Modal, StyleSheet, View, ScrollView, SafeAreaView } from 'react-native';
+import { Modal, StyleSheet, View, ScrollView, SafeAreaView, Image, TouchableOpacity } from 'react-native';
 import { store } from 'app/src/redux/store';
-import { Input, Card, Button, Text } from 'react-native-elements'
+import api from 'app/src/api';
+import { FAB, TextInput, Button, Title, Headline, Paragraph, Divider } from 'react-native-paper';
+
 
 class MenuEditScreen extends React.Component {
 	constructor(props) {
 		super(props);
+		console.disableYellowBox = true
 		this.state = {
-			modalVisible: false,
-			menuItems: [{
-				title: 'Combination Pizza',
-				desc: 'Cheese, pepperoni, olives...',
-				price: '15.00'
-			}],
-
-			title: '',
-			desc: '',
-			price: ''
+			addMenuModalVisible: false,
+			addItemModalVisible: false,
+			menus: [],
+			newMenu: {
+				id: '',
+				title: '',
+				description: '',
+				imageUrl: ''
+			},
+			newItem: {
+				title: '',
+				description: '',
+				imageUrl: '',
+				price: ''
+			},
+			editMode: false,
+			modalTitle: 'Add New Menu'
 		}
 	}
 
-	onSavePress = () => {
-		//do stuff here
-		item = []
-		item = {
-			title: this.state.title,
-			desc: this.state.desc,
-			price: this.state.price
-		};
+	onAddMenuSavePress = () => {
+		if (this.state.editMode) {
+			api.updateMenu(this.state.newMenu)
+				.then(res => {
+					for (let i = 0; i < this.state.menus.length; i++) {
+						if (this.state.menus[i].id === res.id) {
+							this.state.menus[i] = res;
+							this.setState({ menus: this.state.menus });
+							break;
+						}
+					}
+				})
+		} else {
+			let userId = store.getState().user.info.id;
+			api.postNewMenu(this.state.newMenu, userId)
+				.then(res => {
+					this.state.menus.push(res);
+					this.setState({ menus: this.state.menus });
 
-		this.state.menuItems.push(item);
-		this.setState({ modalVisible: false });
+				});
+		}
+		this.hideAllModalsAndClearData();
+
+	}
+
+	onEditPress(item) {
+		this.setState({ modalTitle: 'Edit Menu' })
+		this.setState({ editMode: true });
+		this.setState({ newMenu: item })
+		this.setState({ addMenuModalVisible: true });
+	}
+
+	onDeletePress() {
+		api.deleteMenu(this.state.newMenu.id).then((res) => { console.log(res) })
+		this.hideAllModalsAndClearData();
+
+	}
+
+	hideAllModalsAndClearData() {
+		this.setState({ newMenu: {} })
+		this.setState({ newItem: {} });
+		this.setState({ addMenuModalVisible: false });
+		this.setState({ addItemModalVisible: false });
+		this.setState({ editMode: false });
 	}
 
 	componentWillMount() {
+		let userId = store.getState().user.info.id;
+		api.getMenusByUserId(userId)
+			.then((data) => {
+				if (Array.isArray(data))
+					this.setState({ menus: data });
+			})
 
 	}
 
 	render() {
+		let isMenusEmpty = this.state.menus.length < 1;
 		return (
 			<SafeAreaView style={styles.container}>
-
 				<Modal
 					animationType="fade"
 					style={styles.modal}
 					transparent={false}
-					visible={this.state.modalVisible}
-					onRequestClose={() => {
-						this.setState({ modalVisible: false })
-					}}>
+					visible={this.state.addMenuModalVisible}
+					onRequestClose={this.hideAllModalsAndClearData.bind(this)}
+				>
 
 					<View style={styles.modalOuter}>
 						<View style={styles.modalInner}>
 							<View style={styles.formContainer}>
-								<Input
-									label={'Title'}
-									containerStyle={styles.input}
-									placeholder={'Title'}
-									onChangeText={(title) => this.setState({ title: title })}
+								<Title style={{ marginBottom: 10 }}>{this.state.modalTitle}</Title>
+								<TextInput
+									label='Title'
+									value={this.state.newMenu.title}
+									onChangeText={(title) => this.setState({ newMenu: { ...this.state.newMenu, title: title } })}
+									style={styles.input}
+									mode={'flat'}
+									placeholder={'Name'}
 								/>
 
-								<Input
-									label={'Description'}
-									containerStyle={styles.input}
+								<TextInput
+									label='Description'
+									value={this.state.newMenu.description}
+									onChangeText={(desc) => this.setState({ newMenu: { ...this.state.newMenu, description: desc } })}
+									style={styles.input}
+									mode={'flat'}
+									multiline={true}
 									placeholder={'Description'}
-									onChangeText={(desc) => this.setState({ desc: desc })}
 								/>
 
-								<Input
-									label={'Price'}
-									containerStyle={styles.input}
-									placeholder={'Price'}
-									onChangeText={(price) => this.setState({ price: price })}
+								<TextInput
+									label='Image Url'
+									value={this.state.newMenu.imageUrl}
+									onChangeText={(imageUrl) => this.setState({ newMenu: { ...this.state.newMenu, imageUrl: imageUrl } })}
+									style={styles.input}
+									mode={'flat'}
+									placeholder={'http://yourimage.jpg'}
 								/>
+								<Button
+									style={styles.saveButton}
+									mode="contained"
+									onPress={this.onAddMenuSavePress}>
+									Save
+  							</Button>
+
+								<Button
+									style={styles.saveButton}
+									mode="contained"
+									onPress={this.onDeletePress.bind(this)}>
+									Delete
+  						</Button>
 							</View>
-
-							<Button
-								title='Save'
-								buttonStyle={styles.saveButton}
-								onPress={this.onSavePress}
-							/>
 						</View>
 					</View>
 
 				</Modal>
 
-				<ScrollView style={styles.scrollView}>
-					{
-						this.state.menuItems.map((item, i) => (
-							<Card
-								key={'_item'+i}
-								title={item.title}
-								image={{ uri: ('https://qph.fs.quoracdn.net/main-qimg-c83dbd658e39bdb824bc720ea2cd54a2') }}>
-								<Text>{item.desc}</Text>
-								<Text>${item.price}</Text>
-							</Card>
-						))
-					}
 
-				</ScrollView>
+				{/* if this.state.menus is empty */}
+				{!isMenusEmpty ? (
+					<ScrollView contentContainerStyle={styles.scrollView}>
+						{
+							this.state.menus.map((menu, i) => (
+								<TouchableOpacity 
+									style={styles.listItemContainer} 
+									key={menu.title+i}
+									onLongPress={this.onEditPress.bind(this, menu)}
+								  onPress={() => this.props.navigation.navigate('EditMenuItems', menu)}
+								>
+									<View style={styles.listItemImageContainer}>
+										<Image
+											style={{ flex: 1, borderRadius: 5 }}
+											source={{ uri: menu.imageUrl }}
+										/>
+									</View>
+									<View style={styles.listItemDescriptionContainer}>
+										<Title>{menu.title}</Title>
+										<Divider/>
+										<Paragraph style={theme.onBackground}>{menu.description}</Paragraph>
+									</View>
+								</TouchableOpacity>
+							))
 
+						}
+
+					</ScrollView>
+				) : (
+						<View style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}>
+							<Headline>You Don't Have Any Menus!</Headline>
+						</View>
+
+					)
+				}
 
 				<FAB
-					buttonColor={theme.secondary}
-					iconTextColor={theme.onSecondary}
-					onClickAction={() => this.setState({ modalVisible: true })}
-					visible={true}
+					style={styles.fab}
+					large
+					color={'white'}
+					icon='add'
+					onPress={() => this.setState({ addMenuModalVisible: true })}
 				/>
 
 			</SafeAreaView>
@@ -119,7 +204,15 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
+		backgroundColor: theme.background
+	},
+	fab: {
+		position: 'absolute',
+		margin: 16,
+		right: 0,
+		bottom: 0,
+		backgroundColor: theme.primary,
 	},
 	modal: {
 		justifyContent: 'center',
@@ -139,21 +232,60 @@ const styles = StyleSheet.create({
 		alignItems: 'center'
 	},
 	input: {
-		marginBottom: 15
+		elevation: 2,
+		backgroundColor: theme.background,
+		elevation: 5,
+		borderRadius: 2,
+		width: '95%',
+		margin: 5
 	},
 	scrollView: {
 		flex: 1,
-		width:'100%'
+		width: '100%',
+
 	},
 	formContainer: {
 		alignItems: 'center'
 	},
-	saveButton: { 
-		backgroundColor: theme.primaryVariant, 
-		elevation: 0, 
-		padding: 5, 
-		marginLeft: 10, 
-		marginRight: 10 }
+	saveButton: {
+		backgroundColor: theme.primary,
+		alignItems: 'center',
+		justifyContent: 'center',
+		margin: 5,
+		padding: 5,
+		borderRadius: 2,
+		width: '95%'
+	},
+	controlButtonContainer: {
+		flex: 1,
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	button: {
+		padding: 5,
+		margin: 5
+	},
+	listItemContainer: {
+		width: '95%',
+		height: 100,
+		borderRadius: 5,
+		flexDirection: 'row',
+		margin: 5,
+		elevation: 5,
+		backgroundColor: theme.background
+	},
+	listItemImageContainer: {
+		backgroundColor: 'blue',
+		borderRadius: 5,
+		flex: 1
+	},
+	listItemDescriptionContainer: {
+		backgroundColor: theme.background,
+		borderRadius: 5,
+		padding: 5,
+		flex: 3.5
+	}
 });
 
 const mapStateToProps = state => {

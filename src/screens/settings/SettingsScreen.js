@@ -46,12 +46,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   body: {
-    backgroundColor: theme.onPrimary,
+    backgroundColor: theme.background,
     width: '100%',
   },
   name:{
     fontSize: 18,
-    color: theme.onPrimary,
+    color: theme.onBackground,
     paddingTop: 10
   }
 });

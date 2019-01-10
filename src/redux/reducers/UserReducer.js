@@ -1,5 +1,6 @@
 import {
     SET_USER_EMAIL,
+    SET_USER_BUSINESS_ID,
     FETCH_USER_INFO_START,
     FETCH_USER_INFO_SUCCESS,
     FETCH_USER_INFO_FAILURE
@@ -10,21 +11,21 @@ const INITIAL_STATE = {
         username: '',
         firstName: '',
         lastName: '',
+        avatarLink: '',
     },
     isLoading: false
 };
 
 export default (state = INITIAL_STATE, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case SET_USER_EMAIL:
-            return {...state, info: {...state.info, username: action.payload}}
+            return { ...state, info: { ...state.info, username: action.payload } }
         case FETCH_USER_INFO_START:
-             return {...state, isLoading: true}
+            return { ...state, isLoading: true }
         case FETCH_USER_INFO_SUCCESS:
-            return {...state, info: action.payload, isLoading: false}
+            return { ...state, info: action.payload, isLoading: false }
         case FETCH_USER_INFO_FAILURE:
-            alert(action.payload);
-            return {...state, isLoading: false}
+            return { ...state, isLoading: false }
         default:
             return state;
     }

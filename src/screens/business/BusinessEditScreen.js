@@ -1,14 +1,19 @@
 import React from 'react';
-import { StyleSheet, View, ScrollView, SafeAreaView, KeyboardAvoidingView } from 'react-native';
+import {
+	StyleSheet, View, ScrollView,
+	SafeAreaView, KeyboardAvoidingView,
+	Platform, ToastAndroid
+} from 'react-native';
+import { IndustryPicker, StatePicker } from 'app/src/components/common';
 import { store } from 'app/src/redux/store';
-import { Button } from 'app/src/components/common/Button';
-import { Input } from 'react-native-elements';
+import { TextInput, Button } from 'react-native-paper';
 import api from 'app/src/api';
 
 class BusinessEditScreen extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			id: '',
 			name: '',
 			about: '',
 			street: '',
@@ -17,85 +22,155 @@ class BusinessEditScreen extends React.Component {
 			zip: '',
 			primaryPhone: '',
 			altPhone: '',
-			email: ''
+			email: '',
+			owner: { "id": store.getState().user.info.id },
+			industry: 'Select Industry...'
 		}
 	}
 
-	onSavePress = () => {
-		api.postNewBusiness(this.state);
+	componentWillMount() {
+		let userId = store.getState().user.info.id;
+		api.getBusinessByUserId(userId)
+			.then(res => {
+				console.log('from business edit')
+				console.log(res)
+				if (res.id !== '')
+					this.setState(res);
+
+			});
+	}
+
+	onPublishPress = () => {
+		let email = store.getState().user.info.username;
+		console.log('publish press')
+		console.log(this.state)
+		if (this.state.id === '') {
+			// post new business if business doesn't exist
+			api.postNewBusiness(this.state, email)
+				.then(response => {
+					this.setState(response);
+					if (Platform.OS !== 'ios')
+						ToastAndroid.show('Published.', ToastAndroid.SHORT);
+				})
+		} else {
+			// update business if business exists.
+			api.updateBusiness(this.state)
+				.then(response => {
+					if (Platform.OS !== 'ios') {
+						this.setState(response)
+						ToastAndroid.show('Published.', ToastAndroid.SHORT);
+					}
+				})
+		}
+
 	}
 
 	render() {
 		return (
 			<SafeAreaView style={styles.container}>
 				<KeyboardAvoidingView>
-					<ScrollView style={styles.scrollView}>
+					<ScrollView contentContainerStyle={styles.scrollView}>
 						<View style={styles.inputContainer}>
-
-							<Input
-								label={'Name'}
-								containerStyle={styles.input}
-								placeholder={'Name'}
+							<TextInput
+								label='Name'
+								value={this.state.name}
 								onChangeText={(name) => this.setState({ name: name })}
-								style={styles.inputStyle}
+								style={styles.input}
+								mode={'flat'}
+								placeholder={'Name'}
 							/>
 
-							<Input
-								label={'Email'}
-								containerStyle={styles.input}
-								placeholder={'Email'}
+							<TextInput
+								label='Email'
+								value={this.state.email}
 								onChangeText={(email) => this.setState({ email: email })}
+								style={styles.input}
+								mode={'flat'}
+								placeholder={'Email'}
 							/>
 
-							<Input
-								label={'Primary Phone'}
-								containerStyle={styles.input}
+							<TextInput
+								label='Primary Phone'
+								value={this.state.primaryPhone}
+								onChangeText={(phone) => this.setState({ primaryPhone: phone })}
+								style={styles.input}
+								mode={'flat'}
+								keyboardType={'phone-pad'}
+								maxLength={10}
 								placeholder={'Primary Phone'}
-								onChangeText={(primaryPhone) => this.setState({ primaryPhone: primaryPhone })}
 							/>
 
-							<Input
-								label={'Alt. Phone'}
-								containerStyle={styles.input}
-								placeholder={'Alt. Phone'}
+							<TextInput
+								label='Alt. Phone'
+								value={this.state.altPhone}
 								onChangeText={(altPhone) => this.setState({ altPhone: altPhone })}
+								style={styles.input}
+								mode={'flat'}
+								keyboardType={'phone-pad'}
+								maxLength={10}
+								placeholder={'Alt. Phone'}
 							/>
 
-							<Input
-								label={'Street'}
-								containerStyle={styles.input}
-								placeholder={'Street'}
+							<IndustryPicker
+								prompt={"Select Industry"}
+								selectedValue={this.state.industry}
+								style={{ height: 50, width: '100%', elevation: 5 }}
+								onValueChange={(itemValue, itemIndex) => this.setState({ industry: itemValue })}>
+							</IndustryPicker>
+
+							<TextInput
+								label='Street'
+								value={this.state.street}
 								onChangeText={(street) => this.setState({ street: street })}
+								style={styles.input}
+								mode={'flat'}
+								placeholder={'Street'}
 							/>
 
-							<Input
-								label={'City'}
-								containerStyle={styles.input}
-								placeholder={'City'}
+							<TextInput
+								label='City'
+								value={this.state.city}
 								onChangeText={(city) => this.setState({ city: city })}
+								style={styles.input}
+								mode={'flat'}
+								placeholder={'City'}
 							/>
 
-							<Input
-								label={'State'}
-								containerStyle={styles.input}
-								placeholder={'State'}
-								onChangeText={(_state) => this.setState({ state: _state })}
-							/>
+							<StatePicker
+								prompt={"Select State"}
+								selectedValue={this.state.state}
+								style={{ height: 50, width: '100%', elevation: 5 }}
+								onValueChange={(itemValue, itemIndex) => this.setState({ state: itemValue })}>
+							</StatePicker>
 
-							<Input
-								label={'Zip Code'}
-								containerStyle={styles.input}
-								placeholder={'Zip Code'}
+							<TextInput
+								label='Zip Code'
+								value={this.state.zip}
 								onChangeText={(zip) => this.setState({ zip: zip })}
+								style={styles.input}
+								mode={'flat'}
+								keyboardType={'numeric'}
+								placeholder={'Zip Code'}
+							/>
+
+							<TextInput
+								label='About Us'
+								value={this.state.about}
+								onChangeText={(about) => this.setState({ about: about })}
+								style={styles.input}
+								mode={'flat'}
+								multiline={true}
+								placeholder={'About Us'}
 							/>
 
 						</View>
 
 						<Button
-							text='Save'
-							onPress={this.onSavePress}
 							style={styles.saveButton}
-						/>
+							mode="contained"
+							onPress={this.onPublishPress}>
+							Publish
+  					</Button>
 
 					</ScrollView>
 				</KeyboardAvoidingView>
@@ -110,25 +185,63 @@ const styles = StyleSheet.create({
 		flex: 1
 	},
 	scrollView: {
-		backgroundColor: theme.onPrimary,
-		margin: 10,
-		padding: 10
+		backgroundColor: theme.background,
+		margin: 5,
+		padding: 10,
+		borderRadius: 10,
+		justifyContent: 'center',
+		alignItems: 'center'
 	},
 	inputContainer: {
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-		elevation: 1
+		elevation: 5,
+		padding: 5,
+		width: '100%'
 	},
 	input: {
-		marginBottom: 10
+		elevation: 2,
+		backgroundColor: theme.background,
+		elevation: 5,
+		borderRadius: 5,
+		width: '100%',
+		margin: 5
 	},
 	saveButton: {
-		backgroundColor: theme.primaryVariant,
+		backgroundColor: theme.primary,
 		alignItems: 'center',
 		justifyContent: 'center',
-		marginBottom: 20,
-		padding: 5
+		margin: 5,
+		padding: 5,
+		borderRadius: 2,
+		width: '95%'
+	},
+	buttonText: {
+		color: 'white',
+		padding: 10,
+		fontSize: 22
+	},
+	picker: {
+		marginBottom: 10,
+		width: '100%',
+		padding: 5,
+		height: 50,
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
+	pickerView: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: '95%',
+		height: 50,
+		elevation: 5,
+		paddingTop: 5,
+		backgroundColor: 'white',
+		borderRadius: 5,
+		margin: 10
+
 	}
 });
 
