@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, SafeAreaView } from 'react-native';
 import { List, ListItem } from 'react-native-elements'
-import { store } from 'app/src/redux/store';
 
 export default class BusinessOptionsScreen extends React.Component {
   constructor(props) {
@@ -57,7 +56,6 @@ export default class BusinessOptionsScreen extends React.Component {
   }
 }
 
-const theme = store.getState().settings.theme;
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider as StoreProvider } from 'react-redux';
 import { Platform } from 'react-native';
 import { PersistGate } from 'redux-persist/integration/react'
 import { AppLoading } from 'expo';
@@ -42,13 +42,13 @@ export default class App extends React.Component {
   render() {
     
     return (
-      <Provider store={store}>
+      <StoreProvider store={store}>
         <PersistGate loading={<AppLoading />} persistor={persistor}>
           <PaperProvider theme={theme}>
             <Index/>
           </PaperProvider>
         </PersistGate>
-      </Provider>
+      </StoreProvider>
     );
   }
 }
