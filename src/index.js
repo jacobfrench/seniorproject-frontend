@@ -21,8 +21,6 @@ class Index extends React.Component {
   }
 
   render() {
-    console.log('from index:')
-    console.log(this.props)
     return (
       // if JWT is present, load main stack else load auth stack.
       this.props.loggedIn ? <MainNav /> : <AuthNav />

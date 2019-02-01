@@ -84,7 +84,9 @@ class LoginScreen extends React.Component {
               mode="contained" 
               dark={false}
               style={[styles.loginButton, {backgroundColor: 'white'}]}
-              onPress={this.onLoginPress}>
+              onPress={this.onLoginPress}
+              loading={this.props.isLoggingIn}
+              >
               Login
             </Button>
 
@@ -170,7 +172,8 @@ const mapStateToProps = state => {
   return {
     loggedIn: state.auth.loggedIn,
     authToken: state.authToken,
-    email: state.user.info.username
+    email: state.user.info.username,
+    isLoggingIn: state.user.isLoading
   };
 };
 
