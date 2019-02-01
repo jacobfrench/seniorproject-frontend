@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView, ActivityIndicator, View, Slider } from 'react-native';
+import { StyleSheet, SafeAreaView, ActivityIndicator, View, Slider, Image} from 'react-native';
 import { FAB, Portal, Text, Modal, Button, Headline, Divider, Surface, Title } from 'react-native-paper';
 import { store } from 'app/src/redux/store';
+import SVG from 'react-native-svg';
 import { IndustryPicker } from 'app/src/components/common';
 import { connect } from 'react-redux';
 import MapView from 'react-native-maps';
@@ -205,7 +206,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     margin: 10,
-    borderRadius: 5,
+    borderRadius: 2,
     elevation: 5,
     padding: 10,
     backgroundColor: 'white'
