@@ -9,11 +9,17 @@ import {
     REVOKE_AUTH_TOKEN,
     //UserReducer types
     SET_USER_EMAIL,
-	FETCH_USER_INFO_START,
-	FETCH_USER_INFO_SUCCESS,
+    FETCH_USER_INFO_START,
+    FETCH_USER_INFO_SUCCESS,
     FETCH_USER_INFO_FAILURE,
+    //BusinessReducer types
+    SET_BUSINESS_EMAIL,
+    FETCH_BUSINESS_INFO_START,
+    FETCH_BUSINESS_INFO_SUCCESS,
+    FETCH_BUSINESS_INFO_FAILURE,
     //UserReducer types
-    CHANGE_THEME
+    CHANGE_THEME,
+    SET_BUSINESS_SWITCH
 } from './types';
 
 import api from 'app/src/api';
@@ -33,7 +39,7 @@ export const logoutUser = () => {
     };
 }
 
-//AuthTokenReducer actions
+// AuthTokenReducer actions
 export const setAuthToken = (jwt) => {
     return {
         type: SET_AUTH_TOKEN,
@@ -57,24 +63,42 @@ export const setUserEmail = (email) => {
 
 export const fetchUserInfoByEmail = (email) => {
     return (dispatch) => {
-        dispatch({type: FETCH_USER_INFO_START});
+        dispatch({ type: FETCH_USER_INFO_START });
         api.fetchUserInfoByEmail(email)
-					.then((data) => {
-						console.log('From fetchUserInffoByEmail: ');
-                        console.log(data);
-                        if(!data.error) {
-						    dispatch({type: FETCH_USER_INFO_SUCCESS, payload: data});
-                        } else {
-                            dispatch({type: FETCH_USER_INFO_FAILURE, payload: data})
-                        }
-					})
-					.catch((err) => dispatch({type: FETCH_USER_INFO_FAILURE, payload: err}));
-    }        
+            .then((data) => {
+                // console.log('From fetchUserInffoByEmail: ');
+                // console.log(data);
+                if (!data.error) {
+                    if (data.business){
+                        dispatch({
+                            type: SET_BUSINESS_SWITCH,
+                            payload: true
+                        })
+                      } else {
+                        dispatch({
+                            type: SET_BUSINESS_SWITCH,
+                            payload: false
+                        })
+                      }
+                    dispatch({ type: FETCH_USER_INFO_SUCCESS, payload: data });
+                } else {
+                    dispatch({ type: FETCH_USER_INFO_FAILURE, payload: data })
+                }
+            })
+            .catch((err) => dispatch({ type: FETCH_USER_INFO_FAILURE, payload: err }));
+    }
 }
 
 //SettingsReducer actions
 export const changeTheme = () => {
     return {
         type: CHANGE_THEME
+    }
+}
+
+export const setBusinessSwitch = (value) => {
+    return {
+        type: SET_BUSINESS_SWITCH, 
+        payload: value
     }
 }
