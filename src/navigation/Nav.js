@@ -17,7 +17,8 @@ import {
 	BusinessOptionsScreen,
 	MenuItemEditScreen,
   MapViewScreen,
-  NearbyScreen
+	NearbyScreen,
+	ConversationScreen,
 } from 'app/src/screens';
 
 import {
@@ -241,6 +242,27 @@ const BusinessStack = createStackNavigator({
 
 //Messaging Nav
 const MessagingStack = createStackNavigator({
+	ConversationScreen: {
+		screen: ConversationScreen,
+		navigationOptions: ({ navigation }) => ({
+			title: 'Conversations',
+			headerStyle: styles.mainHeader,
+			headerTitleStyle: styles.mainHeaderTitle,
+			headerLeft: (
+				<HeaderButtons
+					IconComponent={Ionicons}
+					iconSize={32}
+					color={theme.primary}
+				>
+					<HeaderButtons.Item
+						title='drawer'
+						iconName='md-menu'
+						onPress={() => navigation.toggleDrawer()}
+					/>
+				</HeaderButtons>
+			),
+		})
+	},
 	ChatScreen: {
 		screen: ChatScreen,
 		navigationOptions: ({ navigation }) => ({
@@ -261,7 +283,7 @@ const MessagingStack = createStackNavigator({
 				</HeaderButtons>
 			),
 		})
-	}
+	},
 }, {
 
 	})

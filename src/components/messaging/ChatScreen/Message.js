@@ -26,11 +26,12 @@ class Message extends Component {
 const styles = StyleSheet.create({
   container: {
     margin: 10,
-    borderRadius: 10,
+    borderRadius: 2,
     shadowOffset: {width: 0, height: 2},
     shadowRadius: 5,
     shadowOpacity: 0.2,
-    maxWidth: '66%'
+    maxWidth: '66%',
+    elevation: 2,
   },
   senderContainer: {
     alignSelf: 'flex-end', 
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   senderMessageText: {
-    color: theme.onPrimary
+    color: 'white'
   }, 
   receiverMessageText: {
   }

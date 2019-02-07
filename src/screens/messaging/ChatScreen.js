@@ -66,7 +66,7 @@ export default class ChatScreen extends Component {
                     style={styles.container}
                     behavior="padding"
                     enabled
-                    keyboardVerticalOffset={64}
+                    keyboardVerticalOffset={80}
                 >
                     <MessageList
                         messages={this.state.messages}
