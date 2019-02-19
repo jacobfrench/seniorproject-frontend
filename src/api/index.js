@@ -281,7 +281,6 @@ const api = {
   },
 
   findBusinessesByDistance(data){
-    console.log(data)
     return new Promise((resolve, reject) =>
     fetch(url + '/users/get/dist/lat/'+data.latitude+'/long/'+data.longitude+'/radius/'+data.radius+'/ind/'+data.industry, {
       method: 'GET',
