@@ -5,7 +5,7 @@ import { Surface } from 'react-native-paper';
 const IndustryPicker = (props) => {
 	return (
 
-			// <Surface style={{ height: 50, width: '100%', elevation: 5, borderRadius: 5, margin: 10 }}>
+			<Surface style={{ height: 50, width: '100%', elevation: 5, borderRadius: 2, margin: 10 }}>
 				<Picker {...props}>
 					{/* All picker values must be lower case */}
 					<Picker.Item label="Select Industry..." value="" />
@@ -21,7 +21,7 @@ const IndustryPicker = (props) => {
 					<Picker.Item label="Real Estate" value="realestate" />
 					<Picker.Item label="Pool" value="pool" />										
 				</Picker>
-			// </Surface>
+			</Surface>
 	);
 };
 
