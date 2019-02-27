@@ -5,10 +5,7 @@ import { store } from 'app/src/redux/store';
 import { Ionicons } from '@expo/vector-icons';
 
 import {
-	LoginScreen,
-	SignUpScreen,
 	HomeScreen,
-	ForgotPasswordScreen,
 	SettingsScreen,
 	BusinessEditScreen,
 	MenuEditScreen,
@@ -19,6 +16,13 @@ import {
   MapViewScreen,
   NearbyScreen
 } from 'app/src/screens';
+
+// Auth Stack
+import {
+	ForgotPasswordScreen,
+	LoginScreen,
+	SignUpScreen
+} from 'app/src/screens/auth'
 
 import {
 	createStackNavigator,
