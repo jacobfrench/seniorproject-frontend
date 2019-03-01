@@ -1,5 +1,6 @@
 import React from 'react';
 import { SafeAreaView, ScrollView, Text } from 'react-native';
+import { Surface } from 'react-native-paper';
 
 class BusinessMenuScreen extends React.Component {
 	constructor(props) {
@@ -19,9 +20,9 @@ class BusinessMenuScreen extends React.Component {
 	render() {
 		return (
 			<SafeAreaView>
-				<ScrollView>
+				<Surface>
 					<Text>Menu Screen</Text>
-				</ScrollView>
+				</Surface>
 			</SafeAreaView>
 		);
 	}

@@ -1,6 +1,8 @@
 import React from 'react';
-import { StyleSheet, ScrollView, SafeAreaView } from 'react-native';
-import { List, ListItem } from 'react-native-elements'
+import { View, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
+import { Card, Text } from 'react-native-paper';
+import { Ionicons } from '@expo/vector-icons';
+import { CardButton } from 'app/src/components/business';
 
 export default class BusinessOptionsScreen extends React.Component {
   constructor(props) {
@@ -36,20 +38,59 @@ export default class BusinessOptionsScreen extends React.Component {
 
     return (
       <SafeAreaView style={styles.container}>
-        <ScrollView style={styles.scrollView}>
-          <List>
-            {
-              list.map((item, i) => (
-                <ListItem
-                key={item.title+i}
-                title={item.title}
-                leftIcon={{name: item.icon}}
-                onPress={() => this.props.navigation.navigate(item.screen)}
-                />
-              ))
-            }
-          </List>
-        </ScrollView>
+      {
+        list.map((item, i) => (
+          <CardButton
+            key={item.title + i}
+            label={item.title}
+            icon={item.icon}
+            onPress={() => this.props.navigation.navigate(item.screen)}
+          />
+        ))
+      }
+      {/*
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => this.props.navigation.navigate('EditBusiness')}
+        >
+          <Ionicons
+              name="md-information-circle"
+              size={30}
+              color={'black'}
+          />
+          <Text style={{marginTop: 6}}>Edit Information</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => this.props.navigation.navigate('EditMenus')}
+        >
+          <Ionicons
+            name="md-list-box"
+            size={30}
+            color={'black'}
+          />
+          <Text style={{marginTop: 6}}>Edit Menus</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => this.props.navigation.navigate('PreviewBusiness')}
+        >
+          <Ionicons
+            name="md-phone-portrait"
+            size={30}
+            color={'black'}
+          />
+          <Text style={{marginTop: 6}}>Preview Page</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+          <Ionicons
+            name="md-person-add"
+            size={30}
+            color={'black'}
+          />
+          <Text style={{marginTop: 6}}>Add Employee</Text>
+        </TouchableOpacity>
+      */}
       </SafeAreaView>
     );
 
@@ -58,13 +99,21 @@ export default class BusinessOptionsScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#fafafa',
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 6,
+    flexWrap: 'wrap'
   },
-  scrollView: {
-    flex: 1,
-    width: '100%'
+  button: {
+    backgroundColor: 'white',
+    elevation: 2,
+    borderRadius: 5,
+    marginTop: 6,
+    height: '35%',
+    flexBasis: '49%',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
-
 });

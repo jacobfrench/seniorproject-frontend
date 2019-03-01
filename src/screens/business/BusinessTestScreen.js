@@ -88,6 +88,7 @@ export default class BusinessTestScreen extends React.Component {
               >
                 Message
               </Chip>
+              {/*
               <Chip
                 icon={({ size, color }) => (
                   <Ionicons name="ios-heart" size={size} color={color} />
@@ -95,6 +96,15 @@ export default class BusinessTestScreen extends React.Component {
                 onPress={() => console.log('Pressed')}
               >
                 Favorite
+              </Chip>
+              */}
+              <Chip
+                icon={({ size, color }) => (
+                  <Ionicons name="ios-menu" size={size} color={color} />
+                )}
+                onPress={() => console.log('Pressed')} //go to menu screen
+              >
+                Menus
               </Chip>
             </View>
             <View style={styles.profilePicture}>
@@ -116,13 +126,14 @@ export default class BusinessTestScreen extends React.Component {
                 </View>
               </Card.Content>
             </Card>
-            <Card style={styles.card}>
+            <Card style={[styles.card, styles.lastCard]}>
               <Card.Content>
                 <Title>About Us</Title>
                 <Divider style={styles.divider} />
                 <Paragraph>{this.state.about}</Paragraph>
               </Card.Content>
             </Card>
+            {/*
             <Card style={[styles.card, styles.lastCard]}>
               <Card.Content>
                 <Title>Menus</Title>
@@ -133,6 +144,7 @@ export default class BusinessTestScreen extends React.Component {
                 />
               </Card.Content>
             </Card>
+            */}
           </View>
         </ScrollView>
       </SafeAreaView>
