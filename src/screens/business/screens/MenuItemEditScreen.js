@@ -1,9 +1,8 @@
 import React from 'react';
 import { View, SafeAreaView, StyleSheet, ScrollView, ImageBackground, Modal } from 'react-native';
 import { store } from 'app/src/redux/store';
-import { Text } from 'react-native-elements';
-import { Button, Card, Paragraph, TextInput, FAB, Title } from 'react-native-paper';
-import api from 'app/src/api';
+import { Button, Card, Paragraph, TextInput, FAB, Title, Text } from 'react-native-paper';
+import api from '../api';
 
 
 export default class MenuItemEditScreen extends React.Component {

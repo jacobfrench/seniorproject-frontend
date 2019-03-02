@@ -7,12 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import {
 	HomeScreen,
 	SettingsScreen,
-	BusinessEditScreen,
-	MenuEditScreen,
-	BusinessTestScreen,
 	ChatScreen,
-	BusinessOptionsScreen,
-	MenuItemEditScreen,
   MapViewScreen,
   NearbyScreen
 } from 'app/src/screens';
@@ -22,7 +17,15 @@ import {
 	ForgotPasswordScreen,
 	LoginScreen,
 	SignUpScreen
-} from 'app/src/screens/auth'
+} from 'app/src/screens/auth';
+
+import {
+	BusinessEditScreen,
+	MenuEditScreen,
+	BusinessTestScreen,
+	BusinessOptionsScreen,
+	MenuItemEditScreen,
+} from 'app/src/screens/business';
 
 import {
 	createStackNavigator,
@@ -110,6 +113,12 @@ const MapStack = createStackNavigator({
 				</HeaderButtons>
 
 			),
+		})
+	},
+	BusinessView: {
+		screen: BusinessTestScreen,
+		navigationOptions: ({ navigation }) => ({
+			header: null
 		})
 	}
 });
@@ -215,22 +224,7 @@ const BusinessStack = createStackNavigator({
 	PreviewBusiness: {
 		screen: BusinessTestScreen,
 		navigationOptions: ({ navigation }) => ({
-			title: 'Preview',
-			headerStyle: styles.mainHeader,
-			headerTitleStyle: styles.mainHeaderTitle,
-			headerLeft: (
-				<HeaderButtons
-					IconComponent={Ionicons}
-					iconSize={32}
-					color={theme.primary}
-				>
-					<HeaderButtons.Item
-						title='drawer'
-						iconName='md-menu'
-						onPress={() => navigation.toggleDrawer()}
-					/>
-				</HeaderButtons>
-			),
+			header: null
 		})
 	},
 	EditMenuItems: {

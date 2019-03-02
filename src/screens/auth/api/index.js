@@ -18,14 +18,21 @@ const api = {
     axios.post('/users/sign-up', user);
   },
 
-  login(email, password){
+  login(email, password) {
     return new Promise((resolve, reject) =>
-      axios.post("/login", {
+      fetch(url + "/login", {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
           username: email,
           password: password
         })
+      })
         .then(res => {
-          if (res.data.ok) {
+          if (res.ok) {
             let jwtToken = res.headers.map.authorization[0];
             store.dispatch(setAuthToken(jwtToken));
           } else {

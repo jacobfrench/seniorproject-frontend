@@ -5,23 +5,24 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  View
+  View,
+  Platform
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import {
   Card,
-  Chip,
   Divider,
   Title,
-  Paragraph
+  Paragraph,
+  withTheme,
+  Button
 } from 'react-native-paper';
-
 import { store } from 'app/src/redux/store';
-import api from 'app/src/api';
-import IconRow from 'app/src/components/business/IconRow';
-import ImageRow from 'app/src/components/business/ImageRow';
+import api from '../api';
+import { IconRow, ImageRow, MenuRow } from '../components';
+import { Constants } from 'expo';
 
-export default class BusinessTestScreen extends React.Component {
+ class BusinessTestScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,16 +34,29 @@ export default class BusinessTestScreen extends React.Component {
       zip: '',
       primaryPhone: '',
       altPhone: '',
-      email: ''
+      email: '',
+      menus: []
     }
   }
 
   componentWillMount() {
-    let userId = store.getState().user.info.id;
-    api.getBusinessByUserId(userId)
-      .then(res => {
-        this.setState(res);
-      });
+    const {businessId} = this.props.navigation.state.params;
+
+
+    if(!businessId) {
+      let userId = store.getState().user.info.id;
+      api.getBusinessByUserId(userId)
+        .then(res => {
+          this.setState(res);
+        });
+    } else {
+      api.getBusinessById(businessId)
+        .then(res =>{
+          this.setState(res);
+        })
+      
+    }
+
   }
 
   phoneFormat = (phoneNum) => {
@@ -50,26 +64,29 @@ export default class BusinessTestScreen extends React.Component {
   }
 
   render() {
+    const {colors} = this.props.theme;
+    console.log('from businesstestscreen')
+    console.log(this.state)
     return (
       <SafeAreaView style={styles.container}>
-        <ScrollView>
-          <ImageBackground
-            source={{ uri: 'https://indycarpetcleaning.com/wp-content/uploads/2013/12/steam-carpet-cleaning-services-1-1500x630.jpg' }}
-            style={styles.header}
-          >
-            <View
-              style={{
-                width: '100%',
-                paddingRight: 115,
-                flexDirection: 'row',
-                justifyContent: 'flex-end',
-                alignItems: 'center'
-              }}
+        <ScrollView style={{paddingTop: Platform.OS === 'android' ? Constants.statusBarHeight : 0}}>
+            <ImageBackground
+              source={{ uri: 'https://indycarpetcleaning.com/wp-content/uploads/2013/12/steam-carpet-cleaning-services-1-1500x630.jpg' }}
+              style={styles.header}
             >
-              <View style={styles.status}></View>
-              <Title style={styles.title}>{this.state.name}</Title>
-            </View>
-          </ImageBackground>
+              <View
+                style={{
+                  width: '100%',
+                  paddingRight: 115,
+                  flexDirection: 'row',
+                  justifyContent: 'flex-end',
+                  alignItems: 'center'
+                }}
+              >
+                <View style={styles.status}></View>
+                <Title style={styles.title}>{this.state.name}</Title>
+              </View>
+            </ImageBackground>
           <View style={{ paddingLeft: 10, paddingRight: 10 }}>
             <View
               style={{
@@ -79,23 +96,23 @@ export default class BusinessTestScreen extends React.Component {
                 flexDirection: 'row'
               }}
             >
-              <Chip
-                icon={({ size, color }) => (
-                  <Ionicons name="ios-text" size={size} color={color} />
-                )}
-                onPress={() => console.log(this.state)}
-                style={{ marginRight: 10 }}
+
+              <Button
+                mode={'text'}
+                icon={'message'}
+                uppercase={false}
               >
                 Message
-              </Chip>
-              <Chip
-                icon={({ size, color }) => (
-                  <Ionicons name="ios-heart" size={size} color={color} />
-                )}
-                onPress={() => console.log('Pressed')}
+              </Button>
+
+              <Button
+                mode={'text'}
+                icon={'favorite'}
+                uppercase={false}
               >
                 Favorite
-              </Chip>
+              </Button>
+   
             </View>
             <View style={styles.profilePicture}>
               <Image
@@ -125,12 +142,20 @@ export default class BusinessTestScreen extends React.Component {
             </Card>
             <Card style={[styles.card, styles.lastCard]}>
               <Card.Content>
-                <Title>Menus</Title>
+                <Title>Menu</Title>
                 <Divider style={styles.divider} />
-                <ImageRow
-                  imageSource={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_iIlxplLsLPk0_kEgmdTvQ31yqILr3YoT7ADx4PDykSmQ62FU' }}
-                  text="Services"
-                />
+         
+            {
+							this.state.menus.map((menu, i) => (
+								<MenuRow
+									key={menu.title + i}
+									imageUrl={menu.imageUrl}
+									title={menu.title}
+									description={menu.description}
+								/>
+							))
+
+						}
               </Card.Content>
             </Card>
           </View>
@@ -202,10 +227,12 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   lastCard: {
-    marginBottom: 10
+    paddingBottom: 10
   },
   divider: {
     marginBottom: 5,
     marginTop: 5
   }
 });
+
+export default withTheme(BusinessTestScreen);

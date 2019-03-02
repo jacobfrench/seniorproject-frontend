@@ -1,5 +1,5 @@
 import React from 'react';
-import api from 'app/src/api';
+import api from '../api';
 import { connect } from 'react-redux';
 import { LinearGradient } from 'expo';
 import { StyleSheet, View, Image, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
@@ -19,6 +19,7 @@ class LoginScreen extends React.Component {
   }
 
   onLoginPress = () => {
+    
     api.login(this.props.email, this.state.password)
       .then(() => this.authenticate());
       
