@@ -7,7 +7,7 @@ import {
 import { IndustryPicker, StatePicker } from 'app/src/components/common';
 import { store } from 'app/src/redux/store';
 import { TextInput, Button } from 'react-native-paper';
-import api from 'app/src/api';
+import api from '../api';
 
 class BusinessEditScreen extends React.Component {
 	constructor(props) {
@@ -32,8 +32,6 @@ class BusinessEditScreen extends React.Component {
 		let userId = store.getState().user.info.id;
 		api.getBusinessByUserId(userId)
 			.then(res => {
-				console.log('from business edit')
-				console.log(res)
 				if (res.id !== '')
 					this.setState(res);
 

@@ -2,8 +2,9 @@
 import React from 'react';
 import { Modal, StyleSheet, View, ScrollView, SafeAreaView, Image, TouchableOpacity } from 'react-native';
 import { store } from 'app/src/redux/store';
-import api from 'app/src/api';
+import api from '../api';
 import { FAB, TextInput, Button, Title, Headline, Paragraph, Divider } from 'react-native-paper';
+import { MenuRow } from '../components';
 
 
 class MenuEditScreen extends React.Component {
@@ -155,27 +156,19 @@ class MenuEditScreen extends React.Component {
 					<ScrollView contentContainerStyle={styles.scrollView}>
 						{
 							this.state.menus.map((menu, i) => (
-								<TouchableOpacity 
-									style={styles.listItemContainer} 
-									key={menu.title+i}
+								<MenuRow
+									key={menu.title + i}
 									onLongPress={this.onEditPress.bind(this, menu)}
-								  onPress={() => this.props.navigation.navigate('EditMenuItems', menu)}
-								>
-									<View style={styles.listItemImageContainer}>
-										<Image
-											style={{ flex: 1, borderRadius: 5 }}
-											source={{ uri: menu.imageUrl }}
-										/>
-									</View>
-									<View style={styles.listItemDescriptionContainer}>
-										<Title>{menu.title}</Title>
-										<Divider/>
-										<Paragraph style={theme.onBackground}>{menu.description}</Paragraph>
-									</View>
-								</TouchableOpacity>
+									onPress={() => this.props.navigation.navigate('EditMenuItems', menu)}
+									imageUrl={menu.imageUrl}
+									title={menu.title}
+									description={menu.description}
+								/>
 							))
 
 						}
+
+
 
 					</ScrollView>
 				) : (
@@ -265,26 +258,6 @@ const styles = StyleSheet.create({
 	button: {
 		padding: 5,
 		margin: 5
-	},
-	listItemContainer: {
-		width: '95%',
-		height: 100,
-		borderRadius: 5,
-		flexDirection: 'row',
-		margin: 5,
-		elevation: 5,
-		backgroundColor: theme.background
-	},
-	listItemImageContainer: {
-		backgroundColor: 'blue',
-		borderRadius: 5,
-		flex: 1
-	},
-	listItemDescriptionContainer: {
-		backgroundColor: theme.background,
-		borderRadius: 5,
-		padding: 5,
-		flex: 3.5
 	}
 });
 

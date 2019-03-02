@@ -96,8 +96,12 @@ class MapViewScreen extends React.Component {
                     key={'pin_' + i}
                     image={markerImg}
                     coordinate={{ latitude: user.latitude, longitude: user.longitude }}
+
                   >
-                    <Callout onPress={() => console.log(user)}>
+                    <Callout 
+                      onPress={() => this.props.navigation.navigate('BusinessView', {relativeBusiness: false, businessId: user.business.id})}
+
+                    >
                       <Surface style={{ padding: 5, elevation: 5 }}>
                         <Title>{user.business.name}</Title>
                         <Text>{user.firstName} {user.lastName}</Text>
