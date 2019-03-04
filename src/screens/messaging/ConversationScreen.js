@@ -8,6 +8,7 @@ import {
     Text 
 } from 'react-native';
 import { List } from 'react-native-paper';
+import Conversation from 'app/src/components/messaging/Conversation';
 import uuidv4 from 'uuid/v4';
 import MessageList from 'app/src/components/messaging/ChatScreen/MessageList';
 import MessageListFooter from 'app/src/components/messaging/ChatScreen/MessageListFooter';
@@ -39,7 +40,13 @@ export default class ChatScreen extends Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <List.Item
+                <Conversation
+                    name='jacob French'
+                    message='MESSAGE.'
+                    date='03/04/19'
+                    time='11:02 AM'
+                />
+                {/* <List.Item
                     title='Kuljit Singh'
                     description='Makes sense.'
                     left={props => <List.Icon {...props} 
@@ -69,7 +76,7 @@ export default class ChatScreen extends Component {
                     }
                     onPress={()=> this.props.navigation.navigate('ChatScreen')}
                     style={{backgroundColor: 'white', borderRadius:2}}
-                />
+                /> */}
             </SafeAreaView>
         );
     }
