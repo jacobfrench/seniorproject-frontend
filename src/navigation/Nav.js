@@ -6,7 +6,6 @@ import { Ionicons } from '@expo/vector-icons';
 
 import {
 	SettingsScreen,
-	ChatScreen,
   MapViewScreen,
   NearbyScreen,
   FavoritesScreen
@@ -26,9 +25,8 @@ import {
 	BusinessTestScreen,
 	BusinessOptionsScreen,
 	MenuItemEditScreen,
-  MapViewScreen,
-	NearbyScreen,
-} from 'app/src/screens';
+
+} from 'app/src/screens/business';
 
 // Messaging Stack
 import {
