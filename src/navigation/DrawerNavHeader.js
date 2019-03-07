@@ -119,7 +119,7 @@ class CustomDrawerContentComponent extends React.Component {
               <Avatar
                 style={styles.avatar}
                 medium
-                source={{ uri: userInfo.avatarLink }}
+                source={userInfo.avatarLink ? { uri: userInfo.avatarLink } : {}}
                 onPress={() => console.log("Avatar Works!")}
                 activeOpacity={0.7}
               />
