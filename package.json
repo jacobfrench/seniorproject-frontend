@@ -11,6 +11,7 @@
     "react-native-indicators": "^0.13.0",
     "react-native-maps": "^0.22.1",
     "react-native-paper": "^2.4.0",
+    "react-native-picker-select": "^6.0.0",
     "react-native-svg": "^9.1.1",
     "react-navigation": "^2.6.2",
     "react-navigation-header-buttons": "^1.2.1",

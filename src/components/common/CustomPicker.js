@@ -1,12 +1,37 @@
 import React from 'react';
-import { Picker } from 'react-native';
+import { Picker, Platform, Text, PickerIOS } from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
 import { Surface } from 'react-native-paper';
 
-const IndustryPicker = (props) => {
-	return (
+const industryChoices = [
+	{ label: "Cannabis", value: "cannabis" },
+	{ label: "I.T.", value: "computer" },
+	{ label: "Food", value: "food" },
+	{ label: "Pest Control", value: "pest" },
+	{ label: "Carpet Cleaners", value: "carpetcleaning" },
+	{ label: "Plumber", value: "plumber" },
+	{ label: "HVAC", value: "hvac" },
+	{ label: "Landscaper", value: "landscaper" },
+	{ label: "Pet Groomers", value: "animal" },
+	{ label: "Real Estate", value: "realestate" },
+	{ label: "Pool", value: "pool" }
+]
 
+const IndustryPicker = (props) => {
+
+	const _renderPicker = () => {
+		if (Platform.OS === 'android') {
+			return _renderAndroid();
+		} else if (Platform.OS === 'ios') {
+			return _renderIOS();
+		}
+	}
+
+	const _renderAndroid = () => {
+		return (
 			<Surface style={{ height: 50, width: '100%', elevation: 5, borderRadius: 2, margin: 10 }}>
 				<Picker {...props}>
+					{/* TODO: Use industryChoices variable with loop to render Picker.Items */}
 					{/* All picker values must be lower case */}
 					<Picker.Item label="Select Industry..." value="" />
 					<Picker.Item label="Cannabis" value="cannabis" />
@@ -19,9 +44,30 @@ const IndustryPicker = (props) => {
 					<Picker.Item label="Landscaper" value="landscaper" />
 					<Picker.Item label="Pet Groomers" value="animal" />
 					<Picker.Item label="Real Estate" value="realestate" />
-					<Picker.Item label="Pool" value="pool" />										
+					<Picker.Item label="Pool" value="pool" />
 				</Picker>
 			</Surface>
+		)
+	}
+
+	const _renderIOS = () => {
+		return (
+			<Surface style={{ height: 50, width: '100%', elevation: 5, borderRadius: 2, margin: 10 }}>
+				<RNPickerSelect
+					style={{inputIOS: {
+						height: '100%',
+						paddingLeft: 10,
+					}}}
+					placeholder={{ label: 'Select Industry...', value:""}}
+					onValueChange={props.onValueChange}
+					items={industryChoices}
+				/>
+			</Surface>
+		)
+	}
+
+	return (
+		_renderPicker()
 	);
 };
 
