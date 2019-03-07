@@ -38,7 +38,6 @@ import {
 	createStackNavigator,
 	createDrawerNavigator,
 	createBottomTabNavigator,
-	createMaterialTopTabNavigator
 } from 'react-navigation';
 
 const theme = store.getState().settings.theme;
