@@ -31,8 +31,6 @@ class LoginScreen extends React.Component {
   }
 
   render() {
-    console.log('from login')
-    console.log(this.props)
     return (
       <LinearGradient
         style={styles.linearGradient}
