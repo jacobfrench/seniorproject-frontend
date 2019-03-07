@@ -9,7 +9,8 @@ import {
 	SettingsScreen,
 	ChatScreen,
   MapViewScreen,
-  NearbyScreen
+  NearbyScreen,
+  FavoritesScreen
 } from 'app/src/screens';
 
 // Auth Stack
@@ -86,7 +87,7 @@ const NearbyStack = createStackNavigator({
 
 const FavoritesStack = createStackNavigator({
 	Favorites: {
-		screen: HomeScreen,
+		screen: FavoritesScreen,
 		navigationOptions: ({ navigation }) => ({
 			title: 'Favorites',
 			headerStyle: styles.mainHeader,

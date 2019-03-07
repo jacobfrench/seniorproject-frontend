@@ -7,7 +7,6 @@ const MenuRow = (props) => {
   return (
     <TouchableOpacity 
         style={[styles.listItemContainer, props.style]}
-        key={props.key}
         onLongPress={props.onLongPress}
         onPress={props.onPress}
     >

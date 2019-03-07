@@ -164,6 +164,42 @@ const api = {
 
   },
 
+  createFavorite(username, businessId){
+    return new Promise((resolve, reject) =>
+      fetch(url + '/users/favorite/'+username+'/'+businessId, {
+        method: 'PATCH',
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": store.getState().authToken
+        }
+      })
+        .then((res) => res.json())
+        .then(resJson => {
+          resolve(resJson);
+        })
+    ).catch(err => console.error(err));
+  },
+
+  getFavorites(username){
+    return new Promise((resolve, reject) =>
+      fetch(url + '/users/favorites/' + username, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': store.getState().authToken
+        }
+      })
+        .then(response => response.json())
+        .then(responseJson => {
+          resolve(responseJson);
+        })
+    ).catch(err => {
+      reject(err);
+    });
+  },
+
 
   deleteMenu(menuId) {
     return new Promise((resolve, reject) =>
@@ -221,6 +257,8 @@ const api = {
       reject(err);
     });
   },
+
+
 
 }
 

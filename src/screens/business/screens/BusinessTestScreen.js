@@ -8,7 +8,6 @@ import {
   View,
   Platform
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import {
   Card,
   Divider,
@@ -19,13 +18,14 @@ import {
 } from 'react-native-paper';
 import { store } from 'app/src/redux/store';
 import api from '../api';
-import { IconRow, ImageRow, MenuRow } from '../components';
+import { IconRow, MenuRow } from '../components';
 import { Constants } from 'expo';
 
  class BusinessTestScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: '',
       name: '',
       about: '',
       street: '',
@@ -42,7 +42,6 @@ import { Constants } from 'expo';
   componentWillMount() {
     const {businessId} = this.props.navigation.state.params;
 
-
     if(!businessId) {
       let userId = store.getState().user.info.id;
       api.getBusinessByUserId(userId)
@@ -57,6 +56,12 @@ import { Constants } from 'expo';
       
     }
 
+  }
+
+  onFavoritePress = () =>{
+    let username = store.getState().user.info.username;
+    api.createFavorite(username, this.state.id)
+    .then((res) => console.log(res));
   }
 
   phoneFormat = (phoneNum) => {
@@ -109,6 +114,7 @@ import { Constants } from 'expo';
                 mode={'text'}
                 icon={'favorite'}
                 uppercase={false}
+                onPress={this.onFavoritePress}
               >
                 Favorite
               </Button>
