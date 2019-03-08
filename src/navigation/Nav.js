@@ -5,11 +5,10 @@ import { store } from 'app/src/redux/store';
 import { Ionicons } from '@expo/vector-icons';
 
 import {
-	HomeScreen,
 	SettingsScreen,
-	ChatScreen,
   MapViewScreen,
-  NearbyScreen
+  NearbyScreen,
+  FavoritesScreen
 } from 'app/src/screens';
 
 // Auth Stack
@@ -19,19 +18,26 @@ import {
 	SignUpScreen
 } from 'app/src/screens/auth';
 
+// Business Stack
 import {
 	BusinessEditScreen,
 	MenuEditScreen,
 	BusinessTestScreen,
 	BusinessOptionsScreen,
 	MenuItemEditScreen,
+
 } from 'app/src/screens/business';
+
+// Messaging Stack
+import {
+  ConversationScreen,
+  ChatScreen,
+} from 'app/src/screens/messaging'
 
 import {
 	createStackNavigator,
 	createDrawerNavigator,
 	createBottomTabNavigator,
-	createMaterialTopTabNavigator
 } from 'react-navigation';
 
 const theme = store.getState().settings.theme;
@@ -86,7 +92,7 @@ const NearbyStack = createStackNavigator({
 
 const FavoritesStack = createStackNavigator({
 	Favorites: {
-		screen: HomeScreen,
+		screen: FavoritesScreen,
 		navigationOptions: ({ navigation }) => ({
 			title: 'Favorites',
 			headerStyle: styles.mainHeader,
@@ -239,6 +245,27 @@ const BusinessStack = createStackNavigator({
 
 //Messaging Nav
 const MessagingStack = createStackNavigator({
+	ConversationScreen: {
+		screen: ConversationScreen,
+		navigationOptions: ({ navigation }) => ({
+			title: 'Conversations',
+			headerStyle: styles.mainHeader,
+			headerTitleStyle: styles.mainHeaderTitle,
+			headerLeft: (
+				<HeaderButtons
+					IconComponent={Ionicons}
+					iconSize={32}
+					color={theme.primary}
+				>
+					<HeaderButtons.Item
+						title='drawer'
+						iconName='md-menu'
+						onPress={() => navigation.toggleDrawer()}
+					/>
+				</HeaderButtons>
+			),
+		})
+	},
 	ChatScreen: {
 		screen: ChatScreen,
 		navigationOptions: ({ navigation }) => ({
@@ -259,7 +286,7 @@ const MessagingStack = createStackNavigator({
 				</HeaderButtons>
 			),
 		})
-	}
+	},
 }, {
 
 	})

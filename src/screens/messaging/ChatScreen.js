@@ -4,6 +4,7 @@ import uuidv4 from 'uuid/v4';
 import MessageList from 'app/src/components/messaging/ChatScreen/MessageList';
 import MessageListFooter from 'app/src/components/messaging/ChatScreen/MessageListFooter';
 import messages from './dummyData/messages';
+import { Header } from 'react-navigation';
 
 const currentUserId = 0;
 const receiverId = 1;
@@ -66,7 +67,7 @@ export default class ChatScreen extends Component {
                     style={styles.container}
                     behavior="padding"
                     enabled
-                    keyboardVerticalOffset={64}
+                    keyboardVerticalOffset={Header.HEIGHT + 24}
                 >
                     <MessageList
                         messages={this.state.messages}

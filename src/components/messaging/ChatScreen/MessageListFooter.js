@@ -17,6 +17,7 @@ class MessageListFooter extends Component {
           onChangeText={this.props._handleUserInput}
           value={this.props.messageInputText}
           placeholder="Type a Message"
+          underlineColorAndroid='rgba(0,0,0,0)'
           // placeholderTextColor={theme.onBackground}
           multiline
         />

@@ -19,7 +19,7 @@ export default class MenuItemEditScreen extends React.Component {
         id:'',
         title: '',
         description: '',
-        price: '',
+        price: 0,
         imageUrl: ''
       }
 
@@ -33,6 +33,7 @@ export default class MenuItemEditScreen extends React.Component {
   }
 
   showModal(editOption, item) {
+    console.log(this.state)
     this.setState({ editMode: editOption })
     if (editOption) {
       this.setState({ modeTitle: 'Edit Item' })
@@ -191,7 +192,7 @@ export default class MenuItemEditScreen extends React.Component {
 
                 <TextInput
 								  label='Price'
-								  value={this.state.newItem.price}
+								  value={String(this.state.newItem.price)}
 								  onChangeText={(price) => this.setState({ newItem: { ...this.state.newItem, price: price } })}
 								  style={styles.input}
                   mode={'flat'}
