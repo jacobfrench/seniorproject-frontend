@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo";
 import { TextInput, Button, Headline } from 'react-native-paper';
-import api from "app/src/api";
+import api from "../api";
 
 
 export default class SignUpScreen extends React.Component {
